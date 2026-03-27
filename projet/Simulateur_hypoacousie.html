@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Audiosensible : univers fictif créé par Noah Brunet" />
+    <title>Audiosensible - Les trouble de l'oreille</title>
+    <link rel="stylesheet" href="../style/tailwind.css" />
+    <link rel="stylesheet" href="../style/style.css" />
+    <style>
+        html { scroll-behavior: smooth; }
+
+        .troubles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background-color: var(--color-bone, #e8e0d0);
+        }
+
+        .troubles-grid section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 2.5rem;
+            background-color: var(--color-asphalt, #1a1a2e);
+        }
+
+        .troubles-grid section:hover {
+            opacity: 0.85;
+        }
+
+        @media (max-width: 768px) {
+            .troubles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="icon" type="image/png" href="../img/logo_audiosensible.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../img/logo_audiosensible.png" />
+    <link rel="shortcut icon" href="../img/logo_audiosensible.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/logo_audiosensible.png" />
+    <meta name="apple-mobile-web-app-title" content="Anautiqua" />
+    <link rel="manifest" href="../img/logo_audiosensible.png" />
+</head>
+<body class="group m-0 p-0 w-[100vw] overflow-x-hidden font-poppins bg-asphalt">
+<div class="wrapper bg-asphalt text-floral-white group-has-[#nav-toggle:checked]:bg-floral-white transition-all duration-300">
+
+    <!-- HEADER -->
+    <header class="container mx-auto">
+        <div class="p-2 flex w-full justify-between items-center text-floral-white group-has-[#nav-toggle:checked]:text-asphalt">
+            <a class="flex justify-start gap-3 max-w-[65%] items-center" href="/projet/travail_projet.html">
+                <img src="../img/logo_audiosensible.png"/>
+                <span class="font-gambarino text-4xl mt-2">Audiosensible</span>
+            </a>
+            <!-- BOUTON HAMBURGER MOBILE -->
+            <div class="relative mt-3 mr-3 w-8 md:hidden">
+                <input aria-hidden="true" type="checkbox" id="nav-toggle" class="hidden" />
+                <label role="button" id="nav-toggle-label" aria-hidden="true" for="nav-toggle" class="cursor-pointer z-50">
+                    <div class="relative w-8 h-8 flex flex-col justify-around">
+                        <span class="w-full h-0.5 bg-floral-white group-has-[#nav-toggle:checked]:bg-asphalt group-has-[#nav-toggle:checked]:-rotate-45 group-has-[#nav-toggle:checked]:translate-y-2 transition-all duration-300"></span>
+                        <span class="bottom-0 w-full h-0.5 bg-floral-white group-has-[#nav-toggle:checked]:bg-asphalt group-has-[#nav-toggle:checked]:rotate-45 group-has-[#nav-toggle:checked]:-translate-y-2 transition-all duration-300"></span>
+                    </div>
+                </label>
+            </div>
+            <!-- NAVIGATION MD -->
+            <nav class="hidden md:flex space-x-4 text-lg mt-2">
+                <a class="hover:opacity-80 transition-all duration-150" href="./contrees.html">Les troubles de l'oreille</a>
+                <a class="hover:opacity-80 transition-all duration-150" href="./a-propos-de-nous.html">A propos de nous</a>
+                <a class="hover:opacity-80 transition-all duration-150" href="./Simulateur_hypoacousie.html"> Simulateur d'hypoacousie</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- NAVIGATION MOBILE -->
+    <nav class="md:hidden absolute container left-[50%] -translate-x-[50%] top-[calc(5.5rem+1px)] h-[calc(100lvh-5.5rem-1px)] w-full text-asphalt z-50 flex flex-col items-start justify-start gap-8 p-8 font-gambarino opacity-0 pointer-events-none group-has-[#nav-toggle:checked]:opacity-100 group-has-[#nav-toggle:checked]:pointer-events-auto transition-all duration-300">
+        <a href="./contrees.html" class="text-3xl hover:underline">Les troubles de l'oreille</a>
+        <a href="./a-propos-de-nous.html" class="text-3xl hover:underline">À propos de nous</a>
+        <a href="./Simulateur_hypoacousie.html" class="text-3xl hover:underline"> Simulateur d'hypoacousie </a>
+    </nav>
+
+    <!-- CONTENU -->
+    <main class="container group-has-[#nav-toggle:checked]:opacity-0 p-4 my-6 min-h-[calc(100vh-20rem-2px)] text-xl mx-auto">
+
+        <hr class="border-bone mb-8">
+
+        <div class="troubles-grid">
+
+            <!-- Notice d'utilisation -->
+             <a href="../projet/notice.html" class="font-gambarino text-4xl text-center hover:opacity-80 transition-all duration-150">
+            <section>
+                <img src="../img/im_notice.jpg"
+                    alt="Photo d'une personne souffrant d'hyperacousie'" class="w-48 h-48 object-cover rounded-full shadow-lg flex-shrink-0">
+                Notice d'utilisation
+            </section>
+            </a>
+
+            <!-- Détail de notre projet -->
+             <a href="../projet/site_web.html" class="font-gambarino text-4xl text-center hover:opacity-80 transition-all duration-150">
+            <section>
+                <img src="../img/im_détail_projet.jpg"
+                    alt="Photo d'une personne souffrant d'hypoacousie" class="w-48 h-48 object-cover rounded-full shadow-lg flex-shrink-0">
+                    Découvrir notre projet
+            </section>
+            </a>
+
+        </div>
+
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="container group-has-[#nav-toggle:checked]:opacity-0 mx-auto p-2">
+        <hr class="w-[94%] md:w-full mx-auto border-t-1 border-bone mt-2">
+        <div style="display:flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div class="flex flex-col px-4 my-4 space-y-2 font-medium">
+                    <a href="./contrees.html" class="hover:underline hover:text-bone transition-all duration-150ms">Les troubles de l'oreille</a>
+                    <a href="./a-propos-de-nous.html" class="hover:underline hover:text-bone transition-all duration-150ms">A propos de nous</a>
+                    <a class="hover:underline hover:text-bone transition-all duration-150ms" href="./Simulateur_hypoacousie.html"> Simulateur d'hypoacousie</a>
+                </div>
+                <p class="my-4 px-4 text-bone">&copy; 2026 Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES, Mathile WILLEY</p>
+            </div>
+            <img src="../img/logo_audiosensible.png"/>
+        </div>
+    </footer>
+
+    <button id="scroll-top" class="shadow-lg opacity-0 pointer-events-none transition-all duration-300" aria-label="Retour en haut">
+        <svg role="img" aria-label="Remonter en haut" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mx-auto">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+</div>
+
+<script src="../scripts/hamburger-menu.js"></script>
+<script src="../scripts/handle-scroll-top.js"></script>
+<script src="../scripts/handle-tabs.js"></script>
+</body>
+</html>

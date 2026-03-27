@@ -1,0 +1,30 @@
+/* h) */
+.link-about-us {
+    display: inline-flex;
+    gap:calc(var(--spacing) * 2);
+    align-items: center;
+    border-bottom: 1px solid currentColor;
+}
+
+/* i) */
+#scroll-top {
+    position:fixed;
+    cursor:pointer;
+    top: calc(var(--spacing) * 6);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3rem; /* em relative pour responsiveness */
+    height: 3rem;
+    /* j) Couleur # */
+    background-color: #d8cfbc;
+    /* j) Couleur rgb() */
+    color: rgb(48,47,44);
+    border-radius: 100%;
+    z-index: 50;
+}
+
+#scroll-top:hover {
+    /* j) Couleur # */
+    background-color: #fffbf4;
+    transform: translateX(-50%) scale(110%);
+}

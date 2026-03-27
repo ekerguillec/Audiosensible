@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Gambarino-Regular';
+  src: url('../fonts/Gambarino-Regular.woff2') format('woff2'),
+       url('../fonts/Gambarino-Regular.woff') format('woff'),
+       url('../fonts/Gambarino-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@theme { 
+  --color-asphalt: #302f2c;
+  --color-paper: #efede3;
+  --color-smoky-black: #11120D;
+  --color-olive-drab: #565449;
+  --color-bone: #d8cfbc;
+  --color-floral-white: #fffbf4;
+  --font-poppins: "Poppins", sans-serif;
+  --font-gambarino: "Gambarino-Regular", serif;
+}

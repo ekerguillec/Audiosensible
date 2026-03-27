@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Audiosensible – Sensibilisation à l'hypoacousie, la perte auditive partielle" />
+    <title>Audiosensible – L'hypoacousie</title>
+    <link rel="stylesheet" href="../style/tailwind.css" />
+    <link rel="stylesheet" href="../style/style.css" />
+    <style>
+        html { scroll-behavior: smooth; }
+        .pull-quote { border-left:3px solid #60a5fa; padding-left:1.5rem; font-style:italic; color:#93c5fd; font-size:1.15rem; line-height:1.7; margin:2rem 0; }
+        .symptom-card { background:rgba(255,255,255,0.04); border:1px solid rgba(96,165,250,0.2); border-radius:12px; padding:1.25rem 1.5rem; display:flex; align-items:flex-start; gap:1rem; transition:background 0.2s; }
+        .symptom-card:hover { background:rgba(255,255,255,0.07); }
+        .symptom-icon { font-size:1.6rem; flex-shrink:0; margin-top:2px; }
+        .resource-card { background:rgba(255,255,255,0.04); border:1px solid rgba(96,165,250,0.15); border-radius:12px; padding:1.25rem; transition:all 0.2s; text-decoration:none; color:inherit; display:block; }
+        .resource-card:hover { background:rgba(255,255,255,0.08); border-color:rgba(96,165,250,0.4); transform:translateY(-2px); }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        .fade-up { animation:fadeUp 0.8s ease forwards; }
+        .delay-1 { animation-delay:0.15s; opacity:0; }
+        .delay-2 { animation-delay:0.3s; opacity:0; }
+        .delay-3 { animation-delay:0.45s; opacity:0; }
+    </style>
+    <link rel="icon" type="image/png" href="../img/logo_audiosensible.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../img/logo_audiosensible.png" />
+    <link rel="shortcut icon" href="../img/logo_audiosensible.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/logo_audiosensible.png" />
+    <meta name="apple-mobile-web-app-title" content="Anautiqua" />
+    <link rel="manifest" href="../img/logo_audiosensible.png" />
+</head>
+<body class="group m-0 p-0 w-[100vw] overflow-x-hidden font-poppins bg-asphalt">
+
+<div class="wrapper bg-asphalt text-floral-white group-has-[#nav-toggle:checked]:bg-floral-white transition-all duration-300">
+
+    <header class="container mx-auto">
+        <div class="p-2 flex w-full justify-between items-center text-floral-white group-has-[#nav-toggle:checked]:text-asphalt">
+            <a class="flex justify-start gap-3 max-w-[65%] items-center" href="/projet/travail_projet.html">
+                <img src="../img/logo_audiosensible.png"/>
+                <span class="font-gambarino text-4xl mt-2">Audiosensible</span>
+            </a>
+            <div class="relative mt-3 mr-3 w-8 md:hidden">
+                <input aria-hidden="true" type="checkbox" id="nav-toggle" class="hidden" />
+                <label role="button" for="nav-toggle" class="cursor-pointer z-50">
+                    <div class="relative w-8 h-8 flex flex-col justify-around">
+                        <span class="w-full h-0.5 bg-floral-white group-has-[#nav-toggle:checked]:bg-asphalt group-has-[#nav-toggle:checked]:-rotate-45 group-has-[#nav-toggle:checked]:translate-y-2 transition-all duration-300"></span>
+                        <span class="w-full h-0.5 bg-floral-white group-has-[#nav-toggle:checked]:bg-asphalt group-has-[#nav-toggle:checked]:rotate-45 group-has-[#nav-toggle:checked]:-translate-y-2 transition-all duration-300"></span>
+                    </div>
+                </label>
+            </div>
+            <nav class="hidden md:flex space-x-4 text-lg mt-2">
+                <a class="hover:opacity-80 transition-all duration-150" href="./contrees.html">Les troubles de l'oreille</a>
+                <a class="hover:opacity-80 transition-all duration-150" href="./a-propos-de-nous.html">À propos de nous</a>
+                <a class="hover:opacity-80 transition-all duration-150 flex items-center gap-1" href="https://anautiqua.leluvial.com" target="_blank">Simulateur d'hypoacousie</a>
+            </nav>
+        </div>
+        <hr class="w-[92%] md:w-full mx-auto border-t border-bone group-has-[#nav-toggle:checked]:border-asphalt mt-3 transition-all duration-300">
+    </header>
+
+    <nav class="md:hidden absolute container left-[50%] -translate-x-[50%] top-[calc(5.5rem+1px)] h-[calc(100lvh-5.5rem-1px)] w-full text-asphalt z-50 flex flex-col items-start justify-start gap-8 p-8 font-gambarino opacity-0 pointer-events-none group-has-[#nav-toggle:checked]:opacity-100 group-has-[#nav-toggle:checked]:pointer-events-auto transition-all duration-300">
+        <a href="./contrees.html" class="text-3xl hover:underline">Les troubles de l'oreille</a>
+        <a href="./a-propos-de-nous.html" class="text-3xl hover:underline">À propos de nous</a>
+        <a href="https://anautiqua.leluvial.com" target="_blank" class="text-3xl hover:underline">Simulateur d'hypoacousie</a>
+    </nav>
+
+    <main class="group-has-[#nav-toggle:checked]:opacity-0 transition-opacity duration-300">
+
+        <!-- HERO -->
+         <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+        <section class="container mx-auto px-4 pt-16 pb-12 text-center max-w-3xl">
+            <p class="fade-up delay-1 text-blue-300 text-sm tracking-widest uppercase mb-4 font-medium">Sensibilisation</p>
+            <h1 class="fade-up delay-2 font-gambarino text-5xl md:text-6xl leading-tight mb-6">L'hypoacousie</h1>
+            <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 1rem;"></section>
+            <p class="fade-up delay-3 text-lg text-bone leading-relaxed max-w-2xl mx-auto">
+                Quand les sons s'éteignent progressivement — comprendre cette perte auditive partielle qui touche
+                <strong class="text-floral-white">~1,5 milliard de personnes dans le monde</strong> et s'installe souvent dans le silence de l'indifférence.
+            </p>
+        </section>
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+
+        <!-- DÉFINITION -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6 leading-relaxed text-xl">
+            <h2 class="font-gambarino text-4xl">Qu'est-ce que l'hypoacousie ?</h2>
+            <p>L'hypoacousie désigne une <strong>perte auditive partielle</strong> — contrairement à la surdité totale. Elle peut toucher une ou les deux oreilles, apparaître brutalement ou progressivement, et affecter certaines fréquences plus que d'autres. On distingue trois grands types :</p>
+            <ul class="space-y-2 text-base">
+                <li class="flex gap-3"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Hypoacousie de transmission</strong> : le son est mal acheminé jusqu'au tympan (bouchon de cérumen, otite, perforation).</span></li>
+                <li class="flex gap-3"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Hypoacousie de perception</strong> : les cellules ciliées de l'oreille interne ou les voies nerveuses sont endommagées — c'est souvent irréversible.</span></li>
+                <li class="flex gap-3"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Hypoacousie mixte</strong> : combine les deux mécanismes précédents.</span></li>
+            </ul>
+            <div class="pull-quote">
+                « Je demandais à tout le monde de répéter. Je montais le son de la télé sans m'en rendre compte. Pendant des années, je n'ai pas réalisé que c'était ma façon d'entendre qui changeait. »
+                <div class="text-sm text-floral-white mt-2 not-italic">— Témoignage, Fondation pour l'Audition</div>
+            </div>
+            <p>Elle peut toucher <strong>tous les âges</strong> : 1 enfant sur 1 000 naît sourd profond, et la presbyacousie (perte liée à l'âge) devient quasi universelle après 65 ans. Pourtant, seulement <strong>17 % des personnes atteintes</strong> portent un appareil auditif.</p>
+        </section>
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+        <hr class="border-bone w-[90%] mx-auto">
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+
+        <!-- DEGRÉS -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6">
+            <h2 class="font-gambarino text-4xl">Les degrés de perte</h2>
+            <p class="text-xl leading-relaxed">La perte auditive se mesure en décibels (dB). Plus la perte est élevée, plus la communication devient difficile :</p>
+            <div class="space-y-4 mt-2">
+                <div>
+                    <div class="flex justify-between text-sm mb-1 text-bone"><span>Légère (20–40 dB)</span><span>Difficulté en environnement bruyant</span></div>
+                    <div class="h-2.5 rounded-full" style="background:linear-gradient(90deg,#60a5fa,#93c5fd);width:30%"></div>
+                    <p class="text-xs text-blue-300 mt-1">✓ Souvent non diagnostiquée pendant des années</p>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1 text-bone"><span>Moyenne (41–70 dB)</span><span>Difficultés en conversation normale</span></div>
+                    <div class="h-2.5 rounded-full" style="background:linear-gradient(90deg,#60a5fa,#fbbf24);width:55%"></div>
+                    <p class="text-xs text-yellow-400 mt-1">⚠ Appareillage généralement nécessaire</p>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1 text-bone"><span>Sévère (71–90 dB)</span><span>Voix forte nécessaire pour comprendre</span></div>
+                    <div class="h-2.5 rounded-full" style="background:linear-gradient(90deg,#fbbf24,#f97316);width:75%"></div>
+                    <p class="text-xs text-orange-400 mt-1">⚠ Gêne quotidienne majeure</p>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1 text-bone"><span>Profonde (91–120 dB)</span><span>La parole n'est plus perçue</span></div>
+                    <div class="h-2.5 rounded-full" style="background:linear-gradient(90deg,#f97316,#ef4444);width:95%"></div>
+                    <p class="text-xs text-red-400 mt-1">✗ Implant cochléaire souvent envisagé</p>
+                </div>
+            </div>
+        </section>
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+
+        <hr class="border-bone w-[90%] mx-auto">
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+
+        <!-- SYMPTÔMES -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6">
+            <h2 class="font-gambarino text-4xl">Les signes à ne pas ignorer</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="symptom-card"><span class="symptom-icon">🗣️</span><div><p class="font-semibold text-floral-white mb-1">Faire répéter</p><p class="text-base text-bone leading-relaxed">Demander systématiquement aux interlocuteurs de répéter ou de parler plus fort.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">📺</span><div><p class="font-semibold text-floral-white mb-1">Volume élevé</p><p class="text-base text-bone leading-relaxed">Monter le son de la télévision ou du téléphone sans s'en rendre compte.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">👥</span><div><p class="font-semibold text-floral-white mb-1">Difficultés en groupe</p><p class="text-base text-bone leading-relaxed">Perdre le fil d'une conversation dès qu'il y a du bruit ambiant ou plusieurs personnes.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">📞</span><div><p class="font-semibold text-floral-white mb-1">Téléphone difficile</p><p class="text-base text-bone leading-relaxed">Mauvaise compréhension au téléphone, notamment sur une seule oreille.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">🧠</span><div><p class="font-semibold text-floral-white mb-1">Fatigue cognitive</p><p class="text-base text-bone leading-relaxed">Effort mental intense pour déchiffrer les sons épuise rapidement la concentration.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">🔕</span><div><p class="font-semibold text-floral-white mb-1">Sons manquants</p><p class="text-base text-bone leading-relaxed">Ne plus entendre la sonnette, le téléphone ou les alarmes dans le quotidien.</p></div></div>
+            </div>
+        </section>
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+        <hr class="border-bone w-[90%] mx-auto">
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+
+        <!-- VIDÉO -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6">
+            <h2 class="font-gambarino text-4xl">Vivre avec – un témoignage</h2>
+            <p class="text-xl leading-relaxed">Cette vidéo de la Fondation pour l'Audition plonge dans le quotidien de personnes malentendantes et montre comment l'hypoacousie affecte chaque aspect de la vie sociale, professionnelle et familiale.</p>
+            <div class="relative w-full rounded-xl overflow-hidden" style="padding-bottom:56.25%;">
+                <iframe class="absolute inset-0 w-full h-full"
+                    src="https://www.youtube.com/embed/3pUFmUJPbeA"
+                    title="Hypoacousie – Témoignage Fondation pour l'Audition"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen loading="lazy">
+                </iframe>
+            </div>
+            <p class="text-sm text-bone text-center"><em>« Entendre, c'est vivre »</em> — Fondation pour l'Audition</p>
+            <div class="pull-quote">
+                « Après le diagnostic, j'ai mis deux ans avant d'accepter de porter un appareil. J'avais honte. Aujourd'hui je regrette chaque jour perdu à ne pas avoir agi plus tôt. »
+                <div class="text-sm text-floral-white mt-2 not-italic">— Damien, 47 ans, VivaSon</div>
+            </div>
+        </section>
+
+        <hr class="border-bone w-[90%] mx-auto">
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+
+        <!-- IMPACT -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6 leading-relaxed text-xl">
+            <h2 class="font-gambarino text-4xl">Un handicap aux conséquences sous-estimées</h2>
+            <p>L'hypoacousie non traitée n'est pas qu'une gêne auditive — c'est un <strong>facteur de risque avéré</strong> pour la santé globale :</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                <div class="bg-white/5 rounded-xl p-6 border border-blue-400/20">
+                    <p class="font-gambarino text-4xl text-blue-300">+40%</p>
+                    <p class="text-base text-bone mt-2">de risque de démence en l'absence de prise en charge</p>
+                </div>
+                <div class="bg-white/5 rounded-xl p-6 border border-blue-400/20">
+                    <p class="font-gambarino text-4xl text-blue-300">10%</p>
+                    <p class="text-base text-bone mt-2">des Français concernés, dont seulement 17% appareillés</p>
+                </div>
+                <div class="bg-white/5 rounded-xl p-6 border border-blue-400/20">
+                    <p class="font-gambarino text-4xl text-blue-300">6 mois</p>
+                    <p class="text-base text-bone mt-2">sans prise en charge : le cerveau commence à "désapprendre" certains sons</p>
+                </div>
+            </div>
+            <p>L'isolement social, la dépression et le déclin cognitif sont des conséquences fréquentes et documentées d'une hypoacousie non traitée. Chez l'enfant, le retard de développement du langage peut avoir des répercussions durables sur la scolarité.</p>
+        </section>
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+        <hr class="border-bone w-[90%] mx-auto">
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+
+        <!-- TRAITEMENTS -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6 leading-relaxed text-xl">
+            <h2 class="font-gambarino text-4xl">Les solutions disponibles</h2>
+            <ul class="space-y-3 text-base">
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Appareils auditifs</strong> : la solution la plus répandue pour les pertes modérées à sévères. Les modèles actuels sont discrets, connectés et très performants.</span></li>
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Implant cochléaire</strong> : pour les pertes profondes, il stimule directement le nerf auditif et permet une réhabilitation remarquable.</span></li>
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Chirurgie</strong> : reconstruction du tympan, des osselets ou traitement d'une otospongiose pour les hypoacousies de transmission.</span></li>
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Traitement de la cause</strong> : bouchon de cérumen, infection ou otite — souvent suffit pour restaurer l'audition.</span></li>
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Rééducation orthophonique</strong> : pour les enfants notamment, afin de rattraper le retard de développement du langage.</span></li>
+            </ul>
+        </section>
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+        <hr class="border-bone w-[90%] mx-auto">
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+
+        <!-- RESSOURCES -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6">
+            <h2 class="font-gambarino text-4xl">Ressources et soutien</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="https://www.fondationpourlaudition.org" target="_blank" class="resource-card"><p class="font-semibold text-floral-white mb-1">Fondation pour l'Audition</p><p class="text-sm text-bone">Recherche, sensibilisation et soutien aux personnes touchées par tous les troubles de l'audition.</p><p class="text-xs text-blue-300 mt-2">fondationpourlaudition.org ↗</p></a>
+                <a href="https://www.ameli.fr/assure/sante/themes/perte-acuite-auditive" target="_blank" class="resource-card"><p class="font-semibold text-floral-white mb-1">Ameli – Surdité et perte auditive</p><p class="text-sm text-bone">Informations officielles de l'Assurance Maladie sur le diagnostic, les causes et les aides disponibles.</p><p class="text-xs text-blue-300 mt-2">ameli.fr ↗</p></a>
+                <a href="https://www.surdi.info" target="_blank" class="resource-card"><p class="font-semibold text-floral-white mb-1">Surdi Info Service</p><p class="text-sm text-bone">Ligne d'écoute et d'information pour les personnes malentendantes et leurs proches.</p><p class="text-xs text-blue-300 mt-2">surdi.info ↗</p></a>
+                <a href="https://www.unapeda.asso.fr" target="_blank" class="resource-card"><p class="font-semibold text-floral-white mb-1">UNAPEDA</p><p class="text-sm text-bone">Association nationale de parents d'enfants déficients auditifs — soutien et accompagnement familial.</p><p class="text-xs text-blue-300 mt-2">unapeda.asso.fr ↗</p></a>
+            </div>
+        </section>
+
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+
+        <section class="container mx-auto px-4 py-12 max-w-3xl text-center space-y-4">
+            <p class="font-gambarino text-3xl text-blue-200">Entendre moins ne devrait pas signifier vivre moins.</p>
+            <p class="text-base text-bone max-w-xl mx-auto leading-relaxed">La prise en charge précoce change tout. Si vous ou un proche présentez des signes d'hypoacousie, <strong class="text-floral-white">consultez un ORL ou un audioprothésiste sans attendre.</strong></p>
+            <a href="./a-propos-de-nous.html" class="inline-block mt-4 px-6 py-3 rounded-xl bg-white/10 border border-blue-400/30 text-floral-white hover:bg-white/15 hover:border-blue-400/60 transition-all duration-200 text-base">← Retour – À propos de nous</a>
+        </section>
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+    </main>
+
+    <footer class="container group-has-[#nav-toggle:checked]:opacity-0 mx-auto p-2">
+        <hr class="w-[94%] md:w-full mx-auto border-t border-bone mt-2">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+                <div class="flex flex-col px-4 my-4 space-y-2 font-medium">
+                    <a href="./contrees.html" class="hover:underline hover:text-bone transition-all">Les troubles de l'oreille</a>
+                    <a href="./a-propos-de-nous.html" class="hover:underline hover:text-bone transition-all">À propos de nous</a>
+                    <a class="hover:underline hover:text-bone transition-all" href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie </a>
+                </div>
+                <p class="my-4 px-4 text-bone">&copy; 2026 Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES, Mathile WILLEY</p>
+            </div>
+            <img src="../img/logo_audiosensible.png"/>
+        </div>
+    </footer>
+    <button id="scroll-top" class="shadow-lg opacity-0 pointer-events-none transition-all duration-300" aria-label="Retour en haut"><svg role="img" aria-label="Remonter en haut" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mx-auto"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+</div>
+<script src="../scripts/hamburger-menu.js"></script>
+<script src="../scripts/handle-scroll-top.js"></script>
+</body>
+</html>
+<!-- <svg role="img" aria-label="Lien externe" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg> --> 

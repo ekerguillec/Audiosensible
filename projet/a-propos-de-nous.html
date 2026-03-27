@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Audiosensible : univers fictif créé par Noah Brunet" />
+    <title>Audiosensible - A propos de nous</title>
+    <link rel="stylesheet" href="../style/tailwind.css" />
+    <link rel="stylesheet" href="../style/style.css" />
+    <style>
+        html { scroll-behavior: smooth; }
+    </style> <!-- HELPPPPP -->
+    <link rel="icon" type="image/png" href="../img/logo_audiosensible.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../img/logo_audiosensible.png" />
+    <link rel="shortcut icon" href="../img/logo_audiosensible.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/logo_audiosensible.png" />
+    <meta name="apple-mobile-web-app-title" content="Anautiqua" />
+    <link rel="manifest" href="../img/logo_audiosensible.png" />
+</head>
+<body class="group m-0 p-0 w-[100vw] overflow-x-hidden font-poppins bg-asphalt">
+<div class="wrapper bg-asphalt text-floral-white group-has-[#nav-toggle:checked]:bg-floral-white transition-all duration-300">
+
+    <!-- HEADER -->
+    <header class="container mx-auto">
+        <div class="p-2 flex w-full justify-between items-center text-floral-white group-has-[#nav-toggle:checked]:text-asphalt">
+            <a class="flex justify-start gap-3 max-w-[65%] items-center" href="/projet/travail_projet.html">
+                <img src="../img/logo_audiosensible.png"/>
+                <span class="font-gambarino text-4xl mt-2">Audiosensible</span>
+            </a>
+            <!-- BOUTON HAMBURGER MOBILE -->
+            <div class="relative mt-3 mr-3 w-8 md:hidden">
+                <input aria-hidden="true" type="checkbox" id="nav-toggle" class="hidden" />
+                <label role="button" id="nav-toggle-label" aria-hidden="true" for="nav-toggle" class="cursor-pointer z-50">
+                    <div class="relative w-8 h-8 flex flex-col justify-around">
+                        <span class="w-full h-0.5 bg-floral-white group-has-[#nav-toggle:checked]:bg-asphalt group-has-[#nav-toggle:checked]:-rotate-45 group-has-[#nav-toggle:checked]:translate-y-2 transition-all duration-300"></span>
+                        <span class="bottom-0 w-full h-0.5 bg-floral-white group-has-[#nav-toggle:checked]:bg-asphalt group-has-[#nav-toggle:checked]:rotate-45 group-has-[#nav-toggle:checked]:-translate-y-2 transition-all duration-300"></span>
+                    </div>
+                </label>
+            </div>
+            <!-- NAVIGATION MD -->
+            <nav class="hidden md:flex space-x-4 text-lg mt-2">
+                <a class="hover:opacity-80 transition-all duration-150" href="./contrees.html">Les troubles de l'oreille</a>
+                <a class="hover:opacity-80 transition-all duration-150" href="./a-propos-de-nous.html">A propos de nous</a>
+                <a class="hover:opacity-80 transition-all duration-150" href="./Simulateur_hypoacousie.html"> Simulateur d'hypoacousie</a>
+            </nav>
+        </div>
+        <hr class="w-[92%] md:w-full mx-auto border-t-1 border-bone group-has-[#nav-toggle:checked]:border-asphalt mt-3 transition-all duration-300">
+    </header>
+
+    <!-- NAVIGATION MOBILE -->
+    <nav class="md:hidden absolute container left-[50%] -translate-x-[50%] top-[calc(5.5rem+1px)] h-[calc(100lvh-5.5rem-1px)] w-full text-asphalt z-50 flex flex-col items-start justify-start gap-8 p-8 font-gambarino opacity-0 pointer-events-none group-has-[#nav-toggle:checked]:opacity-100 group-has-[#nav-toggle:checked]:pointer-events-auto transition-all duration-300">
+        <a href="./contrees.html" class="text-3xl hover:underline">Les troubles de l'oreille</a>
+        <a href="./a-propos-de-nous.html" class="text-3xl hover:underline">À propos de nous</a>
+        <a href="./Simulateur_hypoacousie.html" class="text-3xl hover:underline"> Simulateur d'hypoacousie </a>
+    </nav>
+
+    <!-- CONTENU -->
+    <main class="container group-has-[#nav-toggle:checked]:opacity-0 p-4 my-6 min-h-[calc(100vh-20rem-2px)] text-xl mx-auto">
+        <div class="space-y-16 leading-relaxed">
+
+            <!-- INTRO -->
+            <section class="space-y-4">
+                <h1 class="mb-12 ml-2 text-4xl">À propos d'<b class="font-normal font-gambarino text-5xl">Audiosensible</b></h1>
+                <p><strong>Audiosensible</strong> est un projet de sensibilisation porté par <strong>quatre élèves-ingénieurs de l'ENSC</strong>, encadrés par <strong>Véronique Lespinet-Najib</strong>.</p>
+                <p>Notre équipe est directement concernée par les troubles de l'audition, certains d'entre nous étant atteints d'hypoacousie ou d'hyperacousie. Cette réalité personnelle a donné au projet une dimension profondément humaine : au-delà d'un travail académique, il s'agit d'un engagement pour <em>mieux faire comprendre des handicaps invisibles</em>, encore trop méconnus.</p>
+                <h2><strong>Notre objectif</strong></h2>
+                <p>Rendre perceptible ce qui ne l'est pas. Faire ressentir, même partiellement, les difficultés auditives vécues au quotidien. Favoriser l'empathie et la compréhension. Pour cela, nous avons conçu un dispositif interactif de simulation de l'hypoacousie intégré à ce site.</p>
+                <p>Ces simulations permettent d'illustrer concrètement l'impact d'une perte auditive sur la perception des sons, la compréhension de la parole et l'interaction sociale.</p>
+                <h2><strong>Une démarche scientifique et responsable</strong></h2>
+                <p>Le développement de ce dispositif nous a confrontés à des enjeux techniques et éthiques majeurs. Nous avons notamment dû composer avec des contraintes de sécurité auditive, limitant les niveaux sonores maximaux que nous pouvions reproduire. Concevoir une simulation fidèle tout en garantissant la protection de l'oreille de l'utilisateur a constitué un véritable défi d'ingénierie.</p>
+            </section>
+
+            <hr class="border-bone">
+
+            <!-- CALISTA -->
+            <section class="flex flex-col md:flex-row items-center gap-8">
+                <img src="../img/photo_cal.png"
+                    alt="Photo de Calista DAURIAC" class="w-48 h-48 object-cover rounded-full shadow-lg flex-shrink-0">
+                <div class="space-y-3">
+                    <h2 class="font-gambarino text-4xl">Calista DAURIAC</h2>
+                    <p>Étudiante à <strong><a href="https://ensc.bordeaux-inp.fr/fr" target="blank">l'ENSC</a></strong> en Cycle Ingénieur Cogniticien.</p>
+                    <div class="flex space-x-6 flex-wrap gap-y-2 text-xl">
+                        <a href="https://www.linkedin.com/in/calista-dauriac/" target="_blank" class="inline-flex items-center gap-2 hover:opacity-80 transition-all duration-150">
+                            <span class="inline-block w-6 h-6">
+                                <svg role="img" aria-label="LinkedIn" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 382">
+                                    <path fill="currentColor" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889 C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056 H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806 c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1 s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73 c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079 c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426 c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472 L341.91,330.654L341.91,330.654z"/>
+                                </svg>
+                            </span>
+                            <span class="link-about-us">LinkedIn</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="mailto:cadauriac@ensc.fr" class="inline-flex items-center gap-2 hover:opacity-80 transition-all duration-150">
+                            <span class="link-about-us">Contacter Calista</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-bone">
+
+            <!-- EMMA -->
+            <section class="flex flex-col md:flex-row items-center gap-8">
+                <img src="../img/photo_emma.png"
+                    alt="Photo d'Emma KERGUILLEC" class="w-48 h-48 object-cover rounded-full shadow-lg flex-shrink-0">
+                <div class="space-y-3">
+                    <h2 class="font-gambarino text-4xl">Emma KERGUILLEC</h2>
+                    <p>Étudiante à <strong><a href="https://ensc.bordeaux-inp.fr/fr" target="blank">l'ENSC</a></strong> en Cycle Ingénieur Cogniticien.</p>
+                    <div class="flex space-x-6 flex-wrap gap-y-2 text-xl">
+                        <a href="https://www.linkedin.com/in/emma-kerguillec-b86959226" target="_blank" class="inline-flex items-center gap-2 hover:opacity-80 transition-all duration-150">
+                            <span class="inline-block w-6 h-6">
+                                <svg role="img" aria-label="LinkedIn" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 382">
+                                    <path fill="currentColor" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889 C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056 H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806 c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1 s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73 c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079 c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426 c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472 L341.91,330.654L341.91,330.654z"/>
+                                </svg>
+                            </span>
+                            <span class="link-about-us">LinkedIn</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="mailto:ekerguillec@ensc.fr" class="inline-flex items-center gap-2 hover:opacity-80 transition-all duration-150">
+                            <span class="link-about-us">Contacter Emma</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-bone">
+
+            <!-- LOUIS -->
+            <section class="flex flex-col md:flex-row items-center gap-8">
+                <img src="../img/photo_louie.png"
+                    alt="Photo de Louis Latu-Villières" class="w-48 h-48 object-cover rounded-full shadow-lg flex-shrink-0">
+                <div class="space-y-3">
+                    <h2 class="font-gambarino text-4xl">Louis Latu-Villières</h2>
+                    <p>Étudiant à <strong><a href="https://ensc.bordeaux-inp.fr/fr" target="blank">l'ENSC</a></strong> en Cycle Ingénieur Cogniticien.</p>
+                    <div class="flex space-x-6 flex-wrap gap-y-2 text-xl">
+                        <a href="https://www.linkedin.com/in/louis-latuvillieres/" target="_blank" class="inline-flex items-center gap-2 hover:opacity-80 transition-all duration-150">
+                            <span class="inline-block w-6 h-6">
+                                <svg role="img" aria-label="LinkedIn" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 382">
+                                    <path fill="currentColor" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889 C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056 H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806 c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1 s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73 c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079 c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426 c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472 L341.91,330.654L341.91,330.654z"/>
+                                </svg>
+                            </span>
+                            <span class="link-about-us">LinkedIn</span>
+                        </a>
+                    </div>
+
+                    <div>
+                        <a href="mailto:lvillieres@ensc.fr" class="inline-flex items-center gap-2 hover:opacity-80 transition-all duration-150">
+                            <span class="link-about-us">Contacter Louis</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-bone">
+
+            <!-- MATHILDE -->
+            <section class="flex flex-col md:flex-row items-center gap-8">
+                <img src="../img/photo_mathilde.png"
+                    alt="Photo de Mathilde WILLEY" class="w-48 h-48 object-cover rounded-full shadow-lg flex-shrink-0">
+                <div class="space-y-3">
+                    <h2 class="font-gambarino text-4xl">Mathilde WILLEY</h2>
+                    <p>Étudiante à <strong><a href="https://ensc.bordeaux-inp.fr/fr" target="blank">l'ENSC</a></strong> en Cycle Ingénieur Cogniticien.</p>
+                    <div class="flex space-x-6 flex-wrap gap-y-2 text-xl">
+                        <a href="https://www.linkedin.com/in/mathilde-willey-33153939b/" target="_blank" class="inline-flex items-center gap-2 hover:opacity-80 transition-all duration-150">
+                            <span class="inline-block w-6 h-6">
+                                <svg role="img" aria-label="LinkedIn" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 382">
+                                    <path fill="currentColor" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889 C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056 H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806 c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1 s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73 c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079 c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426 c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472 L341.91,330.654L341.91,330.654z"/>
+                                </svg>
+                            </span>
+                            <span class="link-about-us">LinkedIn</span>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="mailto:mwilley@ensc.fr" class="inline-flex items-center gap-2 hover:opacity-80 transition-all duration-150">
+                            <span class="link-about-us">Contacter Mathilde</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="container group-has-[#nav-toggle:checked]:opacity-0 mx-auto p-2">
+        <hr class="w-[94%] md:w-full mx-auto border-t-1 border-bone mt-2">
+        <div style="display:flex; justify-content: space-between; align-items: center;">
+            <div>
+                <div class="flex flex-col px-4 my-4 space-y-2 font-medium">
+                    <a href="./contrees.html" class="hover:underline hover:text-bone transition-all duration-150ms">Les troubles de l'oreille</a>
+                    <a href="./a-propos-de-nous.html" class="hover:underline hover:text-bone transition-all duration-150ms">A propos de nous</a>
+                    <a class="flex items-center hover:underline hover:text-bone transition-all duration-150ms" href="https://anautiqua.leluvial.com" target="_blank"> Simulateur d'hypoacousie</a>
+                </div>
+                <p class="my-4 px-4 text-bone">&copy; 2026 Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES, Mathile WILLEY</p>
+            </div>
+            <img src="../img/logo_audiosensible.png"/>
+        </div>
+    </footer>
+
+    <button id="scroll-top" class="shadow-lg opacity-0 pointer-events-none transition-all duration-300" aria-label="Retour en haut">
+        <svg role="img" aria-label="Remonter en haut" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mx-auto">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+</div>
+
+<script src="../scripts/hamburger-menu.js"></script>
+<script src="../scripts/handle-scroll-top.js"></script>
+<script src="../scripts/handle-tabs.js"></script>
+</body>
+</html>

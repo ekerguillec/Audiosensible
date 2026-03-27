@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Audiosensible – Sensibilisation aux troubles de l'équilibre liés à l'oreille interne" />
+    <title>Audiosensible – Vertiges & équilibre</title>
+    <link rel="stylesheet" href="../style/tailwind.css" />
+    <link rel="stylesheet" href="../style/style.css" />
+    <style>
+        html { scroll-behavior: smooth; }
+        .pull-quote { border-left:3px solid #60a5fa; padding-left:1.5rem; font-style:italic; color:#93c5fd; font-size:1.15rem; line-height:1.7; margin:2rem 0; }
+        .symptom-card { background:rgba(255,255,255,0.04); border:1px solid rgba(96,165,250,0.2); border-radius:12px; padding:1.25rem 1.5rem; display:flex; align-items:flex-start; gap:1rem; transition:background 0.2s; }
+        .symptom-card:hover { background:rgba(255,255,255,0.07); }
+        .symptom-icon { font-size:1.6rem; flex-shrink:0; margin-top:2px; }
+        .patho-card { background:rgba(255,255,255,0.04); border:1px solid rgba(96,165,250,0.2); border-radius:12px; padding:1.5rem; transition:background 0.2s; }
+        .patho-card:hover { background:rgba(255,255,255,0.07); }
+        .resource-card { background:rgba(255,255,255,0.04); border:1px solid rgba(96,165,250,0.15); border-radius:12px; padding:1.25rem; transition:all 0.2s; text-decoration:none; color:inherit; display:block; }
+        .resource-card:hover { background:rgba(255,255,255,0.08); border-color:rgba(96,165,250,0.4); transform:translateY(-2px); }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        .fade-up { animation:fadeUp 0.8s ease forwards; }
+        .delay-1 { animation-delay:0.15s; opacity:0; }
+        .delay-2 { animation-delay:0.3s; opacity:0; }
+        .delay-3 { animation-delay:0.45s; opacity:0; }
+    </style>
+    <link rel="icon" type="image/png" href="../img/logo_audiosensible.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../img/logo_audiosensible.png" />
+    <link rel="shortcut icon" href="../img/logo_audiosensible.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/logo_audiosensible.png" />
+    <meta name="apple-mobile-web-app-title" content="Anautiqua" />
+    <link rel="manifest" href="../img/logo_audiosensible.png" />
+</head>
+<body class="group m-0 p-0 w-[100vw] overflow-x-hidden font-poppins bg-asphalt">
+
+<div class="wrapper bg-asphalt text-floral-white group-has-[#nav-toggle:checked]:bg-floral-white transition-all duration-300">
+
+    <header class="container mx-auto">
+        <div class="p-2 flex w-full justify-between items-center text-floral-white group-has-[#nav-toggle:checked]:text-asphalt">
+            <a class="flex justify-start gap-3 max-w-[65%] items-center" href="/projet/travail_projet.html">
+                <img src="../img/logo_audiosensible.png"/>
+                <span class="font-gambarino text-4xl mt-2">Audiosensible</span>
+            </a>
+            <div class="relative mt-3 mr-3 w-8 md:hidden">
+                <input aria-hidden="true" type="checkbox" id="nav-toggle" class="hidden" />
+                <label role="button" for="nav-toggle" class="cursor-pointer z-50">
+                    <div class="relative w-8 h-8 flex flex-col justify-around">
+                        <span class="w-full h-0.5 bg-floral-white group-has-[#nav-toggle:checked]:bg-asphalt group-has-[#nav-toggle:checked]:-rotate-45 group-has-[#nav-toggle:checked]:translate-y-2 transition-all duration-300"></span>
+                        <span class="w-full h-0.5 bg-floral-white group-has-[#nav-toggle:checked]:bg-asphalt group-has-[#nav-toggle:checked]:rotate-45 group-has-[#nav-toggle:checked]:-translate-y-2 transition-all duration-300"></span>
+                    </div>
+                </label>
+            </div>
+            <nav class="hidden md:flex space-x-4 text-lg mt-2">
+                <a class="hover:opacity-80 transition-all duration-150" href="./contrees.html">Les troubles de l'oreille</a>
+                <a class="hover:opacity-80 transition-all duration-150" href="./a-propos-de-nous.html">À propos de nous</a>
+                <a class="hover:opacity-80 transition-all duration-150" href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie </a>
+            </nav>
+        </div>
+        <hr class="border-bone w-[90%] mx-auto" style="margin-top: 3rem; margin-bottom: 3rem;">
+    </header>
+
+    <nav class="md:hidden absolute container left-[50%] -translate-x-[50%] top-[calc(5.5rem+1px)] h-[calc(100lvh-5.5rem-1px)] w-full text-asphalt z-50 flex flex-col items-start justify-start gap-8 p-8 font-gambarino opacity-0 pointer-events-none group-has-[#nav-toggle:checked]:opacity-100 group-has-[#nav-toggle:checked]:pointer-events-auto transition-all duration-300">
+        <a href="./contrees.html" class="text-3xl hover:underline">Les troubles de l'oreille</a>
+        <a href="./a-propos-de-nous.html" class="text-3xl hover:underline">À propos de nous</a>
+        <a href="./Simulateur_hypoacousie.html" class="text-3xl hover:underline">Simulateur d'hypoacousie</a>
+    </nav>
+
+    <main class="group-has-[#nav-toggle:checked]:opacity-0 transition-opacity duration-300">
+
+        <!-- HERO -->
+        <section class="container mx-auto px-4 pt-16 pb-12 text-center max-w-3xl">
+            <p class="fade-up delay-1 text-blue-300 text-sm tracking-widest uppercase mb-4 font-medium">Sensibilisation</p>
+            <h1 class="fade-up delay-2 font-gambarino text-5xl md:text-6xl leading-tight mb-6">Vertiges & troubles de l'équilibre</h1>
+            <section class="container mx-auto px-4 pt-16 pb-12 text-center max-w-3xl" style="margin-bottom: 1rem;"></section>
+            <p class="fade-up delay-3 text-lg text-bone leading-relaxed max-w-2xl mx-auto">
+                Quand le sol se dérobe sous les pieds — comprendre comment l'oreille interne contrôle notre équilibre et ce qui se passe quand elle dysfonctionne, affectant des <strong class="text-floral-white">millions de personnes</strong> dans leur vie quotidienne.
+            </p>
+        </section>
+<section class="container mx-auto px-4 pt-16 pb-12 text-center max-w-3xl" style="margin-bottom: 3rem;"></section>
+        <!-- L'OREILLE INTERNE ET L'ÉQUILIBRE -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6 leading-relaxed text-xl">
+            <h2 class="font-gambarino text-4xl">L'oreille interne, organe de l'équilibre</h2>
+            <p>L'oreille interne ne sert pas qu'à entendre. Elle abrite le <strong>système vestibulaire</strong>, un réseau de canaux semi-circulaires remplis de liquide (l'endolymphe) et de minuscules cristaux de calcium (les otolithes) qui informent en permanence le cerveau de la position et des mouvements de la tête.</p>
+            <p>Ce système fonctionne comme un <strong>niveau à bulle biologique</strong> : il indique si vous êtes debout, penché, en mouvement, en chute. Quand l'oreille interne dysfonctionne, le cerveau reçoit des informations contradictoires — et c'est le vertige.</p>
+            <div class="pull-quote">
+                « Je me suis réveillée un matin et la chambre tournait à toute vitesse. Je ne pouvais pas me lever. Je pensais avoir un AVC. C'était en fait une névrite vestibulaire. »
+                <div class="text-sm text-floral-white mt-2 not-italic">— Témoignage de patient, HUG Genève</div>
+            </div>
+        </section>
+
+        <hr class="border-bone w-[90%] mx-auto" style="margin-top: 3rem; margin-bottom: 3rem;">
+
+        <!-- LES PRINCIPALES PATHOLOGIES -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6">
+            <h2 class="font-gambarino text-4xl">Les principales pathologies</h2>
+            <p class="text-xl leading-relaxed">Plusieurs maladies de l'oreille interne peuvent provoquer des vertiges et des troubles de l'équilibre :</p>
+            <div class="space-y-4">
+                <div class="patho-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">🔵</span>
+                        <p class="font-semibold text-floral-white text-lg">VPPB – Vertige Positionnel Paroxystique Bénin</p>
+                    </div>
+                    <p class="text-base text-bone leading-relaxed">La cause la plus fréquente : des otolithes se détachent et migrent dans un canal semi-circulaire. Chaque mouvement de tête déclenche un vertige bref mais intense (quelques secondes). Traitement efficace par des <strong class="text-floral-white">manœuvres de repositionnement</strong> (manœuvre d'Epley) réalisées en consultation ORL.</p>
+                </div>
+                <div class="patho-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">🟡</span>
+                        <p class="font-semibold text-floral-white text-lg">Névrite vestibulaire</p>
+                    </div>
+                    <p class="text-base text-bone leading-relaxed">Inflammation virale du nerf vestibulaire. Provoque une <strong class="text-floral-white">grande crise de vertiges continue</strong> (plusieurs jours), avec nausées et vomissements intenses. Pas de surdité ni d'acouphènes associés. Récupération en quelques semaines avec rééducation vestibulaire.</p>
+                </div>
+                <div class="patho-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">🔴</span>
+                        <p class="font-semibold text-floral-white text-lg">Maladie de Ménière</p>
+                    </div>
+                    <p class="text-base text-bone leading-relaxed">Accumulation de liquide dans le labyrinthe (hydrops endolymphatique). Crises de vertiges rotatoires intenses durant 20 minutes à plusieurs heures, associées à des <strong class="text-floral-white">acouphènes, une sensation d'oreille bouchée et une perte auditive</strong> progressive. Maladie chronique, imprévisible, sans traitement curatif.</p>
+                </div>
+                <div class="patho-card">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-2xl">🟠</span>
+                        <p class="font-semibold text-floral-white text-lg">Migraine vestibulaire</p>
+                    </div>
+                    <p class="text-base text-bone leading-relaxed">Forme particulière de migraine causant des vertiges sans céphalées nécessaires. Souvent méconnue et mal diagnostiquée. Les épisodes peuvent durer de 5 minutes à 72 heures et s'accompagnent d'une sensibilité à la lumière et aux mouvements.</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-bone w-[90%] mx-auto" style="margin-top: 3rem; margin-bottom: 3rem;">
+
+        <!-- SYMPTÔMES -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6">
+            <h2 class="font-gambarino text-4xl">Comment ça se manifeste</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="symptom-card"><span class="symptom-icon">🌀</span><div><p class="font-semibold text-floral-white mb-1">Vertiges rotatoires</p><p class="text-base text-bone leading-relaxed">Sensation que le monde tourne, parfois si intense qu'il est impossible de se lever ou de marcher.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">🤢</span><div><p class="font-semibold text-floral-white mb-1">Nausées et vomissements</p><p class="text-base text-bone leading-relaxed">Réaction du cerveau aux signaux contradictoires envoyés par l'oreille dysfonctionnelle.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">👁️</span><div><p class="font-semibold text-floral-white mb-1">Nystagmus</p><p class="text-base text-bone leading-relaxed">Mouvements oculaires involontaires et saccadés, signe caractéristique d'une atteinte vestibulaire.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">🚶</span><div><p class="font-semibold text-floral-white mb-1">Déséquilibre permanent</p><p class="text-base text-bone leading-relaxed">Même entre les crises, une instabilité résiduelle peut rendre la marche difficile et dangereuse.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">😰</span><div><p class="font-semibold text-floral-white mb-1">Anxiété anticipatoire</p><p class="text-base text-bone leading-relaxed">La peur de la prochaine crise génère un stress permanent qui aggrave encore le trouble.</p></div></div>
+                <div class="symptom-card"><span class="symptom-icon">🚗</span><div><p class="font-semibold text-floral-white mb-1">Restrictions du quotidien</p><p class="text-base text-bone leading-relaxed">Conduite impossible, escaliers dangereux, sports abandonnés, vie professionnelle impactée.</p></div></div>
+            </div>
+        </section>
+
+        <hr class="border-bone w-[90%] mx-auto" style="margin-top: 3rem; margin-bottom: 3rem;">
+
+        <!-- VIDÉO -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6">
+            <h2 class="font-gambarino text-4xl">Vivre avec – un témoignage</h2>
+            <p class="text-xl leading-relaxed">Cette vidéo donne la parole à des personnes souffrant de la maladie de Ménière, et illustre comment les crises de vertiges bouleversent chaque aspect de leur vie.</p>
+            <div class="w-full rounded-xl overflow-hidden" style="aspect-ratio: 16/9;">
+                <iframe
+                    style="width:100%; height:100%; display:block;"
+                    src="https://www.youtube.com/embed/-b6TCW-Kypo?si=onvVKEn9tCMOPXux"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p class="text-sm text-bone text-center"><em>«Vertiges, acouphènes, la maladie de Ménière reste méconnue» - CHU de Rouen, Reportage France 3</em></p>
+            <div class="pull-quote">
+                « Pendant une crise, je ne peux rien faire. Je suis clouée au lit, le plafond tourne, je vomis. Et quand ça passe, j'attends la prochaine en me demandant quand elle viendra. »
+                <div class="text-sm text-floral-white mt-2 not-italic">— Témoignage, Association Ménière France</div>
+            </div>
+        </section>
+
+        <hr class="border-bone w-[90%] mx-auto" style="margin-top: 3rem; margin-bottom: 3rem;">
+
+        <!-- TRAITEMENTS -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6 leading-relaxed text-xl">
+            <h2 class="font-gambarino text-4xl">Prise en charge et traitements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center mb-6">
+                <div class="bg-white/5 rounded-xl p-6 border border-blue-400/20"><p class="font-gambarino text-4xl text-blue-300">50%</p><p class="text-base text-bone mt-2">des consultations ORL pour vertiges sont liées à un VPPB</p></div>
+                <div class="bg-white/5 rounded-xl p-6 border border-blue-400/20"><p class="font-gambarino text-4xl text-blue-300">90%</p><p class="text-base text-bone mt-2">des VPPB résolus dès la première manœuvre d'Epley</p></div>
+                <div class="bg-white/5 rounded-xl p-6 border border-blue-400/20"><p class="font-gambarino text-4xl text-blue-300">0</p><p class="text-base text-bone mt-2">traitement curatif pour la maladie de Ménière à ce jour</p></div>
+            </div>
+            <ul class="space-y-3 text-base">
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Manœuvres de repositionnement (VPPB)</strong> : la manœuvre d'Epley replace les cristaux à leur bonne position en quelques minutes, avec un taux de succès supérieur à 90 %.</span></li>
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Rééducation vestibulaire</strong> : exercices spécifiques pour apprendre au cerveau à compenser le dysfonctionnement de l'oreille interne.</span></li>
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Médicaments antivertigineux</strong> : en phase aiguë, pour soulager les nausées et réduire l'intensité des crises.</span></li>
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Régime pauvre en sel (Ménière)</strong> : réduit la pression endolymphatique et peut diminuer la fréquence des crises.</span></li>
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Injections intratympaniques</strong> : corticoïdes ou gentamicine injectés dans l'oreille moyenne pour traiter les formes résistantes de Ménière.</span></li>
+                <li class="flex gap-3 items-start"><span class="text-blue-300 mt-1">→</span><span><strong class="text-floral-white">Implant vestibulaire (en développement)</strong> : technique innovante aux HUG qui restaure la fonction vestibulaire grâce à des électrodes implantées dans l'oreille interne.</span></li>
+            </ul>
+        </section>
+
+       <hr class="border-bone w-[90%] mx-auto" style="margin-top: 3rem; margin-bottom: 3rem;">
+
+        <!-- RESSOURCES -->
+        <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6">
+            <h2 class="font-gambarino text-4xl">Ressources et soutien</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="https://www.ameli.fr/assure/sante/themes/vertiges" target="_blank" class="resource-card"><p class="font-semibold text-floral-white mb-1">Ameli – Vertiges</p><p class="text-sm text-bone">Informations officielles de l'Assurance Maladie sur les causes, le diagnostic et le traitement des vertiges.</p><p class="text-xs text-blue-300 mt-2">ameli.fr ↗</p></a>
+                <a href="https://www.fondationpourlaudition.org/maladie-de-meniere-1113" target="_blank" class="resource-card"><p class="font-semibold text-floral-white mb-1">Fondation pour l'Audition – Ménière</p><p class="text-sm text-bone">Fiche complète sur la maladie de Ménière : symptômes, évolution et pistes de traitement.</p><p class="text-xs text-blue-300 mt-2">fondationpourlaudition.org ↗</p></a>
+                <a href="https://www.meniere.fr" target="_blank" class="resource-card"><p class="font-semibold text-floral-white mb-1">Association Ménière France</p><p class="text-sm text-bone">Entraide, informations et accompagnement pour les patients atteints de la maladie de Ménière.</p><p class="text-xs text-blue-300 mt-2">meniere.fr ↗</p></a>
+                <a href="https://www.has-sante.fr" target="_blank" class="resource-card"><p class="font-semibold text-floral-white mb-1">HAS – Haute Autorité de Santé</p><p class="text-sm text-bone">Recommandations officielles sur la prise en charge des vertiges et troubles de l'équilibre.</p><p class="text-xs text-blue-300 mt-2">has-sante.fr ↗</p></a>
+            </div>
+        </section>
+<section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+        <section class="container mx-auto px-4 py-12 max-w-3xl text-center space-y-4">
+            <p class="font-gambarino text-3xl text-blue-200">Un vertige n'est jamais anodin.</p>
+            <p class="text-base text-bone max-w-xl mx-auto leading-relaxed">Si vous souffrez de vertiges récurrents, ne les banalisez pas. Un ORL spécialisé peut, dans la plupart des cas, <strong class="text-floral-white">identifier la cause et vous soulager rapidement.</strong></p>
+            <a href="./a-propos-de-nous.html" class="inline-block mt-4 px-6 py-3 rounded-xl bg-white/10 border border-blue-400/30 text-floral-white hover:bg-white/15 hover:border-blue-400/60 transition-all duration-200 text-base">← Retour – À propos de nous</a>
+            <section class="container mx-auto px-4 py-10 max-w-3xl space-y-6" style="margin-bottom: 3rem;"></section>
+        </section>
+    </main>
+
+    <footer class="container group-has-[#nav-toggle:checked]:opacity-0 mx-auto p-2">
+        <hr class="w-[94%] md:w-full mx-auto border-t border-bone mt-2">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+                <div class="flex flex-col px-4 my-4 space-y-2 font-medium">
+                    <a href="./contrees.html" class="hover:underline hover:text-bone transition-all">Les troubles de l'oreille</a>
+                    <a href="./a-propos-de-nous.html" class="hover:underline hover:text-bone transition-all">À propos de nous</a>
+                    <a class="flex items-center hover:underline hover:text-bone transition-all" href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie <svg role="img" aria-label="Lien externe" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg></a>
+                </div>
+                <p class="my-4 px-4 text-bone">&copy; 2026 Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES, Mathile WILLEY</p>
+            </div>
+            <img src="../img/logo_audiosensible.png"/>
+        </div>
+    </footer>
+    <button id="scroll-top" class="shadow-lg opacity-0 pointer-events-none transition-all duration-300" aria-label="Retour en haut"><svg role="img" aria-label="Remonter en haut" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6 mx-auto"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg></button>
+</div>
+<script src="../scripts/hamburger-menu.js"></script>
+<script src="../scripts/handle-scroll-top.js"></script>
+</body>
+</html>
