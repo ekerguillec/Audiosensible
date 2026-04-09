@@ -1,18 +1,18 @@
-// SCRIPT 
-
-// Gestion du Bouton Scroll To Top
+// Gestion du bouton Scroll To Top - adapté au nouveau layout (sans classes Tailwind)
 
 const scrollTopBtn = document.getElementById('scroll-top');
 const scrollThreshold = 300;
 
-window.addEventListener('scroll', function() {
-    if (window.scrollY > scrollThreshold) {
-        scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none');
-    } else {
-        scrollTopBtn.classList.add('opacity-0', 'pointer-events-none');
-    }
-});
+if (scrollTopBtn) {
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > scrollThreshold) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
+    });
 
-scrollTopBtn.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+    scrollTopBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}

@@ -7,59 +7,325 @@
     <title>Audiosensible</title>
     <link rel="stylesheet" href="./style/tailwind.css" />
     <link rel="stylesheet" href="./style/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        html {
-            scroll-behavior: smooth;
+        html { scroll-behavior: smooth; color-scheme: light only; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-floral-white, #fffbf4);
+            color: var(--color-asphalt, #302f2c);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .font-montserrat-semibold {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 4rem 1.5rem 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            color: var(--color-asphalt, #302f2c);
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #5c1a2a;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.25rem;
+            border-bottom: 2px solid currentColor;
+            text-decoration: none;
+            color: #7a1e30;
+            transition: color 0.15s;
+        }
+
+        .hero-cta:hover { color: #5c1a2a; }
+
+        /* GRID TROUBLES */
+        .troubles-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background-color: #c9a0aa;
+        }
+
+        .troubles-grid a {
+            text-decoration: none;
+        }
+
+        .troubles-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 3rem 2rem;
+            background-color: #fdf5f6;
+            color: #5c1a2a;
+            transition: background-color 0.15s, color 0.15s;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+            text-align: center;
+        }
+
+        .troubles-card:hover {
+            background-color: #7a1e30;
+            color: #fdf5f6;
+        }
+
+        .troubles-card img {
+            width: 12rem;
+            height: 12rem;
+            object-fit: cover;
+            border-radius: 9999px;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .troubles-grid { grid-template-columns: 1fr; }
+        }
+
+        /* NAV */
+        nav a { text-decoration: none; }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid #c9a0aa;
+            padding: 1.5rem;
+            text-align: center;
+            color: #5c1a2a;
+            font-size: 0.9rem;
+        }
+
+        /* SCROLL TOP */
+        #scroll-top {
+            position: fixed;
+            cursor: pointer;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3rem;
+            height: 3rem;
+            background-color: #d8cfbc;
+            color: #302f2c;
+            border-radius: 9999px;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        }
+
+        #scroll-top:hover {
+            background-color: #fffbf4;
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        /* HEADER NAV */
+        .site-header {
+            background-color: #fffbf4;
+            border-bottom: 1px solid #d8cfbc;
+        }
+
+        .site-header .inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .site-header .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: #302f2c;
+        }
+
+        .site-header .logo-link img {
+            height: 2.5rem;
+            width: auto;
+        }
+
+        .site-header .logo-link span {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.6rem;
+        }
+
+        .site-header nav {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1rem;
+            color: #302f2c;
+        }
+
+        .site-header nav a {
+            color: #302f2c;
+            transition: opacity 0.15s;
+        }
+
+        .site-header nav a:hover { opacity: 0.7; }
+
+        @media (max-width: 640px) {
+            .site-header nav { display: none; }
+        }
+
+        /* INTRO SECTION */
+        .intro-section {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 2.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .intro-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #7a1e30;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* DIVIDER */
+        .divider {
+            border: none;
+            border-top: 1px solid #c9a0aa;
+            margin: 0;
         }
     </style>
     <link rel="icon" type="image/png" href="./img/logo_audiosensible.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="./img/logo_audiosensible.png" />
     <link rel="shortcut icon" href="./img/logo_audiosensible.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="./img/logo_audiosensible.png" />
-    <meta name="apple-mobile-web-app-title" content="Anautiqua" />
-    <link rel="manifest" href="./img/logo_audiosensible.png" />
 </head>
-<body class="m-0 p-0 w-[100vw] overflow-x-hidden font-poppins bg-asphalt text-floral-white">
-    <div class="wrapper container mx-auto p-6 space-y-8">
+<body>
 
-        <header class="text-center">
-            <h1 class="text-5xl font-gambarino mb-2">Audiosensible - Présentation</h1>
-            <p class="text-lg text-bone">Site réalisé par Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES et Mathile WILLEY, 4 élèves-ingénieurs de l'ENSC afin de sensibiliser aux handicaps invisibles liés aux troubles de l'audition.</p>
-        </header>
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="inner">
+            <a class="logo-link" href="./index.html">
+                <img src="./img/logo_audiosensible.png" alt="Logo Audiosensible" />
+                <span>Audiosensible</span>
+            </a>
+            <nav>
+                <a href="./contrees.html">Les troubles de l'oreille</a>
+                <a href="./a-propos-de-nous.html">À propos de nous</a>
+                <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+            </nav>
+        </div>
+    </header>
 
-        <main class="space-y-6 text-xl leading-relaxed">
+    <!-- HERO -->
+    <section class="hero">
+        <p class="section-label">Projet ENSC · 2026</p>
+        <h1>Audiosensible</h1>
+        <p>
+            Un projet de sensibilisation porté par <strong>quatre élèves-ingénieurs de l'ENSC</strong>, encadrés par <strong>Véronique Lespinet-Najib</strong>. Via ce site et notre dispositif de simulation d'hypoacousie, nous vous invitons à comprendre et ressentir les difficultés auditives vécues au quotidien par les personnes souffrant de troubles de l'oreille.
+        </p>
+        <a href="#troubles" class="hero-cta">
+            Découvrir les troubles
+            <svg height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true">
+                <path d="M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"/>
+            </svg>
+        </a>
+    </section>
 
-            <section>
-                <h2 class="text-3xl mb-3">Objectif du site</h2>
-                <p>
-                    Audiosensible</strong> est un projet de sensibilisation porté par <strong>quatre élèves-ingénieurs de l'ENSC</strong>, encadrés par <strong>Véronique Lespinet-Najib</strong>. Nous espérons que via ce site web et notre dispositif de simulation d'hypoacousie, vous comprendrez et ressentirez, même partiellement, les difficultés auditives vécues au quotidien par les personnes souffrant de troubles de l'oreille.</p>
-                </p>
-            </section>
+    <hr class="divider" />
 
-            <section>
-                <h2 class="text-3xl mb-3">Structure du site</h2>
-                <ul class="list-disc ml-6 space-y-2">
-                    <li><b>Les troubles de l'oreille</b> : page principale menant à la description détaillée des divers troubles.</li>
-                    <li><b>A propos de nous</b> : page présentant les auteurs du site avec photos et des liens vers LinkedIn, messagerie.</li>
-                    <li><b>Simulateur d'hypoacousie</b> : page permettant d'accéder à la notice d'utilisation de notre dispositif de simulation ainsi qu'au détails sur la conception de notre projet.</li>
-                </ul>
-            </section>
+    <!-- TROUBLES -->
+    <section id="troubles" aria-label="Les troubles de l'oreille">
+        <div class="troubles-grid">
 
-            <section class="flex justify-center">
-                <a href="projet/contrees.html" class="text-4xl font-gambarino border-b-2 hover:text-bone transition-all duration-150 flex gap-2 items-center">
-                  Accéder au projet
-                  <svg class="h-8"role="img" aria-label="Lien externe" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor">
-                      <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/>
-                  </svg>
-                </a>
-            </section>
+            <a href="./hyperacousie.html">
+                <div class="troubles-card">
+                    <img src="./img/im_hyperacousie.jpeg" alt="Personne souffrant d'hyperacousie" />
+                    Découvrir l'hyperacousie
+                </div>
+            </a>
 
-        </main>
+            <a href="./hypoacousie.html">
+                <div class="troubles-card">
+                    <img src="./img/im_hypoacousie.jpeg" alt="Personne souffrant d'hypoacousie" />
+                    Découvrir l'hypoacousie
+                </div>
+            </a>
 
-        <footer class="text-center mt-12 border-t border-bone pt-4 text-bone">
-            &copy; 2026 Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES, Mathile WILLEY
-        </footer>
+            <a href="./acouphenes.html">
+                <div class="troubles-card">
+                    <img src="./img/im_acouphene.png" alt="Personne souffrant d'acouphènes" />
+                    Découvrir les acouphènes
+                </div>
+            </a>
 
-    </div>
+            <a href="./vertiges.html">
+                <div class="troubles-card">
+                    <img src="./img/im_vertige.jpeg" alt="Personne souffrant de vertiges" />
+                    Découvrir les vertiges
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div style="max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; padding: 0.5rem 0;">
+            <div style="display:flex; flex-direction:column; gap:0.4rem; text-align:left;">
+                <a href="./contrees.html" style="color:#7a1e30; text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Les troubles de l'oreille</a>
+                <a href="./a-propos-de-nous.html" style="color:#7a1e30; text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">À propos de nous</a>
+                <a href="./Simulateur_hypoacousie.html" style="color:#7a1e30; text-decoration:none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">Simulateur d'hypoacousie</a>
+            </div>
+            <p style="margin:0;">&copy; 2026 Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES, Mathile WILLEY</p>
+            <img src="./img/logo_audiosensible.png" alt="Logo" style="height:3rem;" />
+        </div>
+    </footer>
+
+    <button id="scroll-top" aria-label="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+
+    <script src="./scripts/handle-scroll-top.js"></script>
 </body>
 </html>

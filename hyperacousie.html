@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Audiosensible – Sensibilisation à l'hyperacousie, un handicap invisible" />
+    <title>Audiosensible – L'hyperacousie</title>
+    <link rel="stylesheet" href="./style/tailwind.css" />
+    <link rel="stylesheet" href="./style/style.css" />
+<!-- SHARED HEAD EXTRAS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ── RESET & BASE ── */
+        html { scroll-behavior: smooth; color-scheme: light only; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fffbf4;
+            color: #302f2c;
+            margin: 0; padding: 0; overflow-x: hidden;
+        }
+
+        /* ── HEADER ── */
+        .site-header { background-color: #fffbf4; border-bottom: 1px solid #c9a0aa; }
+        .site-header .inner { max-width: 1100px; margin: 0 auto; padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .site-header .logo-link { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #302f2c; }
+        .site-header .logo-link img { height: 2.5rem; width: auto; }
+        .site-header .logo-link span { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.6rem; }
+        .site-header nav { display: flex; gap: 1.5rem; font-size: 1rem; }
+        .site-header nav a { color: #302f2c; text-decoration: none; transition: color 0.15s; }
+        .site-header nav a:hover { color: #7a1e30; }
+
+        /* ── HAMBURGER ── */
+        .hamburger-btn { display: none; flex-direction: column; justify-content: space-around; width: 2rem; height: 2rem; background: none; border: none; cursor: pointer; padding: 0; }
+        .hamburger-btn span { display: block; width: 100%; height: 2px; background-color: #302f2c; border-radius: 2px; transition: all 0.3s; }
+        .hamburger-btn.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger-btn.open span:nth-child(2) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ── MOBILE NAV ── */
+        .mobile-nav { display: none; position: fixed; inset: 0; top: 57px; background: #fffbf4; z-index: 40; flex-direction: column; gap: 2rem; padding: 2.5rem 2rem; }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.75rem; color: #302f2c; text-decoration: none; }
+        .mobile-nav a:hover { color: #7a1e30; }
+
+        /* ── TYPOGRAPHY ── */
+        h1, h2, h3, .font-montserrat { font-family: 'Montserrat', sans-serif; font-weight: 600; }
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; color: #302f2c; }
+        h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin-bottom: 0.75rem; color: #302f2c; }
+
+        /* ── ACCENT COLORS ── */
+        .accent { color: #7a1e30; }
+        .accent-muted { color: #5c1a2a; }
+        a { color: #7a1e30; }
+
+        /* ── DIVIDER ── */
+        hr { border: none; border-top: 1px solid #c9a0aa; margin: 3rem auto; width: 90%; }
+
+        /* ── PULL QUOTE ── */
+        .pull-quote { border-left: 3px solid #7a1e30; padding-left: 1.5rem; font-style: italic; color: #5c1a2a; font-size: 1.1rem; line-height: 1.7; margin: 2rem 0; }
+        .pull-quote .attribution { font-size: 0.9rem; color: #302f2c; margin-top: 0.5rem; font-style: normal; }
+
+        /* ── CARDS ── */
+        .symptom-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: flex-start; gap: 1rem; transition: background 0.2s; }
+        .symptom-card:hover { background: #f7e8eb; }
+        .symptom-card .card-title { font-weight: 600; color: #302f2c; margin-bottom: 0.25rem; }
+        .symptom-card .card-body { font-size: 1rem; color: #4a3535; line-height: 1.6; }
+        .symptom-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+
+        .patho-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.5rem; transition: background 0.2s; }
+        .patho-card:hover { background: #f7e8eb; }
+
+        .resource-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.25rem; transition: all 0.2s; text-decoration: none; color: inherit; display: block; }
+        .resource-card:hover { background: #f7e8eb; border-color: #7a1e30; transform: translateY(-2px); }
+        .resource-card .rc-title { font-weight: 600; color: #302f2c; margin-bottom: 0.25rem; }
+        .resource-card .rc-body { font-size: 0.9rem; color: #4a3535; }
+        .resource-card .rc-link { font-size: 0.8rem; color: #7a1e30; margin-top: 0.5rem; }
+
+        /* ── STAT CARDS ── */
+        .stat-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.5rem; text-align: center; }
+        .stat-card .stat-num { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 2.5rem; color: #7a1e30; }
+        .stat-card .stat-label { font-size: 0.9rem; color: #4a3535; margin-top: 0.5rem; }
+
+        /* ── LIST ARROWS ── */
+        .arrow-list { list-style: none; padding: 0; }
+        .arrow-list li { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.75rem; font-size: 1rem; }
+        .arrow-list li::before { content: "→"; color: #7a1e30; flex-shrink: 0; margin-top: 2px; }
+
+        /* ── HERO ── */
+        .page-hero { text-align: center; padding: 4rem 1.5rem 2rem; max-width: 800px; margin: 0 auto; }
+        .page-hero .section-label { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7a1e30; font-weight: 500; margin-bottom: 1.5rem; }
+        .page-hero p { font-size: 1.1rem; line-height: 1.7; color: #4a3535; }
+
+        /* ── CTA BUTTON ── */
+        .cta-btn { display: inline-block; padding: 0.75rem 1.5rem; border: 1px solid #7a1e30; color: #7a1e30; text-decoration: none; border-radius: 10px; font-size: 1rem; transition: all 0.2s; }
+        .cta-btn:hover { background: #7a1e30; color: #fffbf4; }
+
+        /* ── FOOTER ── */
+        .site-footer { border-top: 1px solid #c9a0aa; padding: 1.5rem; font-size: 0.9rem; color: #5c1a2a; }
+        .site-footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .site-footer .footer-links { display: flex; flex-direction: column; gap: 0.4rem; }
+        .site-footer a { color: #7a1e30; text-decoration: none; }
+        .site-footer a:hover { text-decoration: underline; }
+        .site-footer img { height: 3rem; }
+
+        /* ── SCROLL TOP ── */
+        #scroll-top { position: fixed; cursor: pointer; top: 1.5rem; left: 50%; transform: translateX(-50%); width: 3rem; height: 3rem; background-color: #d8cfbc; color: #302f2c; border-radius: 9999px; z-index: 50; opacity: 0; pointer-events: none; transition: all 0.3s; border: none; display: flex; align-items: center; justify-content: center; }
+        #scroll-top:hover { background-color: #fffbf4; transform: translateX(-50%) scale(1.1); }
+        #scroll-top.visible { opacity: 1; pointer-events: auto; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        .fade-up { animation: fadeUp 0.8s ease forwards; }
+        .delay-1 { animation-delay: 0.15s; opacity: 0; }
+        .delay-2 { animation-delay: 0.3s; opacity: 0; }
+        .delay-3 { animation-delay: 0.45s; opacity: 0; }
+
+        /* ── CONTENT WRAPPER ── */
+        .content-wrap { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+
+        @media (max-width: 640px) {
+            .site-header nav { display: none; }
+            .hamburger-btn { display: flex; }
+        }
+    </style>
+    <style>
+        .sound-scale-bar { height: 10px; border-radius: 9999px; margin-bottom: 6px; }
+    </style>
+    <link rel="icon" type="image/png" href="./img/logo_audiosensible.png" sizes="96x96" />
+    <link rel="shortcut icon" href="./img/logo_audiosensible.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/logo_audiosensible.png" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="inner">
+            <a class="logo-link" href="./index.html">
+                <img src="./img/logo_audiosensible.png" alt="Logo Audiosensible" />
+                <span>Audiosensible</span>
+            </a>
+            <nav>
+                <a href="./index.html#troubles">Les troubles de l'oreille</a>
+                <a href="./a-propos-de-nous.html">À propos de nous</a>
+                <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+            </nav>
+            <button class="hamburger-btn" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+                <span></span><span></span>
+            </button>
+        </div>
+    </header>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile">
+        <a href="./index.html#troubles">Les troubles de l'oreille</a>
+        <a href="./a-propos-de-nous.html">À propos de nous</a>
+        <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+    </nav>
+
+    <main>
+        <div class="page-hero">
+            <p class="section-label fade-up delay-1">Sensibilisation</p>
+            <h1 class="fade-up delay-2">L'hyperacousie</h1>
+            <p class="fade-up delay-3">
+                Quand le monde devient trop bruyant — comprendre ce handicap invisible qui affecte
+                environ <strong>8&nbsp;% de la population</strong> et bouleverse chaque instant du quotidien.
+            </p>
+        </div>
+
+        <hr>
+
+        <div class="content-wrap" style="padding-bottom:4rem;">
+
+            <section style="margin-bottom:3rem;">
+                <h2>Qu'est-ce que l'hyperacousie&nbsp;?</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">
+                    L'hyperacousie est une <strong>hypersensibilité pathologique aux sons</strong>. Les personnes qui en souffrent perçoivent les bruits du quotidien — une conversation, le bruit d'un robinet, le claquement d'une portière — comme <strong>douloureux, voire insupportables</strong>, alors que ces sons semblent parfaitement normaux pour leur entourage.
+                </p>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">
+                    Contrairement à une simple sensibilité au bruit, l'hyperacousie est un dysfonctionnement du système auditif central : le cerveau amplifie et traite mal les signaux sonores, sans que l'oreille elle-même soit nécessairement endommagée.
+                </p>
+                <div class="pull-quote">
+                    « Je portais des bouchons d'oreilles en permanence. Même chez moi, le bruit de mes propres pas sur le parquet me faisait mal. »
+                    <div class="attribution">— Témoignage, France Acouphènes</div>
+                </div>
+                <p style="font-size:1.1rem;line-height:1.8;">
+                    Elle est souvent associée aux acouphènes (environ 40&nbsp;% des cas) et peut résulter d'un <strong>traumatisme sonore</strong>, d'un stress intense, d'une maladie de l'oreille interne ou apparaître sans cause identifiée.
+                </p>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Les symptômes</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1.5rem;">L'hyperacousie ne se résume pas à une gêne auditive — elle envahit toutes les dimensions de la vie.</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+                    <div class="symptom-card"><span class="symptom-icon">🔊</span><div><p class="card-title">Douleurs auditives</p><p class="card-body">Brûlures, pressions ou douleurs aiguës à l'oreille déclenchées par des sons ordinaires.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">😓</span><div><p class="card-title">Fatigue et migraines</p><p class="card-body">Le cerveau en alerte constante épuise l'organisme, générant céphalées et épuisement profond.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">😰</span><div><p class="card-title">Anxiété anticipatoire</p><p class="card-body">La peur du bruit crée une hypervigilance permanente qui amplifie encore la sensibilité.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">🏠</span><div><p class="card-title">Isolement social</p><p class="card-body">Restaurants, transports, réunions… les lieux habituels deviennent inaccessibles.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">💼</span><div><p class="card-title">Impact professionnel</p><p class="card-body">Arrêts maladie prolongés, reconversions forcées, incapacité à maintenir une activité normale.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">🌙</span><div><p class="card-title">Troubles du sommeil</p><p class="card-body">L'hypervigilance auditive persiste la nuit, rendant l'endormissement et le repos difficiles.</p></div></div>
+                </div>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Ce que les sons représentent</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1.5rem;">Pour une personne hyperacousique, le seuil de douleur peut descendre jusqu'à <strong>50–60&nbsp;dB</strong> — soit le niveau d'une simple conversation.</p>
+                <div style="display:flex;flex-direction:column;gap:1.25rem;">
+                    <div><div style="display:flex;justify-content:space-between;font-size:0.9rem;color:#4a3535;margin-bottom:4px;"><span>Chuchotement</span><span>30 dB</span></div><div class="sound-scale-bar" style="background:linear-gradient(90deg,#b05070,#d4909e);width:20%"></div><p style="font-size:0.85rem;color:#7a1e30;margin:0;">✓ Généralement supportable</p></div>
+                    <div><div style="display:flex;justify-content:space-between;font-size:0.9rem;color:#4a3535;margin-bottom:4px;"><span>Conversation normale</span><span>60 dB</span></div><div class="sound-scale-bar" style="background:linear-gradient(90deg,#b05070,#c8843c);width:40%"></div><p style="font-size:0.85rem;color:#b06020;margin:0;">⚠ Peut être douloureux en cas d'hyperacousie sévère</p></div>
+                    <div><div style="display:flex;justify-content:space-between;font-size:0.9rem;color:#4a3535;margin-bottom:4px;"><span>Aspirateur / couverts</span><span>75 dB</span></div><div class="sound-scale-bar" style="background:linear-gradient(90deg,#c8843c,#c85030);width:55%"></div><p style="font-size:0.85rem;color:#a04020;margin:0;">⚠ Douloureux pour la majorité des hyperacousiques</p></div>
+                    <div><div style="display:flex;justify-content:space-between;font-size:0.9rem;color:#4a3535;margin-bottom:4px;"><span>Sirène / klaxon</span><span>100 dB</span></div><div class="sound-scale-bar" style="background:linear-gradient(90deg,#c85030,#8b1a10);width:75%"></div><p style="font-size:0.85rem;color:#8b1a10;margin:0;">✗ Intolérable – peut provoquer une crise</p></div>
+                    <div><div style="display:flex;justify-content:space-between;font-size:0.9rem;color:#4a3535;margin-bottom:4px;"><span>Concert / chantier</span><span>120 dB</span></div><div class="sound-scale-bar" style="background:linear-gradient(90deg,#8b1a10,#5c0a08);width:95%"></div><p style="font-size:0.85rem;color:#5c0a08;margin:0;">✗ Agression sensorielle majeure, risque de rechute</p></div>
+                </div>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Un quotidien en témoignage</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">Ce reportage donne la parole à une personne vivant avec l'hyperacousie au quotidien. Une plongée dans un handicap que l'on ne voit pas, mais qui s'entend — douloureusement.</p>
+                <div style="position:relative;width:100%;border-radius:12px;overflow:hidden;padding-bottom:56.25%;">
+                    <iframe style="position:absolute;inset:0;width:100%;height:100%;" src="https://www.youtube.com/embed/3CNcgG0G37g?si=fMgwfu5gKqqcDxzQ" title="Acouphènes, hyperacousie : ce musicien qui ne supporte plus le moindre bruit" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p style="font-size:0.9rem;color:#4a3535;text-align:center;margin-top:0.75rem;"><em>« Acouphènes, hyperacousie : ce musicien qui ne supporte plus le moindre bruit »</em> — Complément d'enquête</p>
+                <div class="pull-quote" style="margin-top:1.5rem;">
+                    « Ma vie est réduite à néant. Je suis enfermée chez moi, casque sur les oreilles, à fuir ce que les autres n'entendent même pas. »
+                    <div class="attribution">— Sonia, 41 ans, France 3 Nouvelle-Aquitaine, mars 2025</div>
+                </div>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Un handicap mal reconnu</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">L'hyperacousie souffre d'un <strong>manque de reconnaissance médicale et sociale</strong>. De nombreux patients témoignent d'une errance médicale de mois, voire d'années, avant d'obtenir un diagnostic.</p>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1.5rem;">En France, la maladie n'est pas reconnue par la MDPH, ce qui laisse les patients sans filet de protection sociale, souvent contraints à des arrêts maladie prolongés sans perspective de retour à l'emploi.</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;">
+                    <div class="stat-card"><p class="stat-num">~8&nbsp;%</p><p class="stat-label">de la population mondiale touchée</p></div>
+                    <div class="stat-card"><p class="stat-num">40&nbsp;%</p><p class="stat-label">des cas associés à des acouphènes</p></div>
+                    <div class="stat-card"><p class="stat-num">0</p><p class="stat-label">traitement curatif disponible à ce jour</p></div>
+                </div>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Vivre avec – les pistes de prise en charge</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">Il n'existe pas de traitement curatif. Les approches actuelles visent à <strong>améliorer la tolérance</strong> aux sons et à réduire la souffrance au quotidien :</p>
+                <ul class="arrow-list" style="font-size:1rem;">
+                    <li><span><strong>Thérapie sonore d'habituation (TRT)</strong> : exposition progressive et contrôlée aux sons pour recalibrer le système auditif central.</span></li>
+                    <li><span><strong>Bruiteurs auditifs</strong> : appareils diffusant un bruit de fond doux pour désensibiliser progressivement l'oreille.</span></li>
+                    <li><span><strong>Thérapie cognitivo-comportementale (TCC)</strong> : travail sur l'anxiété et la peur du bruit pour briser le cercle vicieux hypervigilance / douleur.</span></li>
+                    <li><span><strong>Protection auditive raisonnée</strong> : éviter la surprotection systématique qui aggrave la sensibilité à long terme.</span></li>
+                    <li><span><strong>Sophrologie / gestion du stress</strong> : le stress amplifiant directement les symptômes, sa réduction est un levier clé.</span></li>
+                </ul>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Ressources et soutien</h2>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem;">
+                    <a href="https://www.france-acouphenes.fr" target="_blank" class="resource-card"><p class="rc-title">France Acouphènes</p><p class="rc-body">Association de référence — groupes de parole, informations médicales, forum d'entraide.</p><p class="rc-link">france-acouphenes.fr ↗</p></a>
+                    <a href="https://www.fondationpourlaudition.org" target="_blank" class="resource-card"><p class="rc-title">Fondation pour l'Audition</p><p class="rc-body">Recherche scientifique, témoignages et ressources pour tous les troubles de l'audition.</p><p class="rc-link">fondationpourlaudition.org ↗</p></a>
+                    <a href="https://hyperacousies.fr" target="_blank" class="resource-card"><p class="rc-title">Hyperacousies.fr</p><p class="rc-body">Témoignages, thérapies alternatives et suivi de patients hyperacousiques.</p><p class="rc-link">hyperacousies.fr ↗</p></a>
+                    <a href="https://www.oreille-malade.com" target="_blank" class="resource-card"><p class="rc-title">Oreille Malade</p><p class="rc-body">Forum communautaire — échanges entre patients, conseils pratiques et retours d'expérience.</p><p class="rc-link">oreille-malade.com ↗</p></a>
+                </div>
+            </section>
+
+            <section style="text-align:center;padding:3rem 0;">
+                <p style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:1.75rem;color:#5c1a2a;margin-bottom:1rem;">Comprendre, c'est déjà aider.</p>
+                <p style="font-size:1rem;color:#4a3535;max-width:540px;margin:0 auto 1.5rem;line-height:1.7;">Si vous connaissez quelqu'un souffrant d'hyperacousie, la première chose à faire est de <strong>croire en sa douleur</strong>. Ce handicap invisible mérite d'être reconnu, pris en charge et mieux connu de tous.</p>
+                <a href="./index.html" class="cta-btn">← Retour à l'accueil</a>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="./index.html#troubles">Les troubles de l'oreille</a>
+                <a href="./a-propos-de-nous.html">À propos de nous</a>
+                <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+            </div>
+            <p style="margin:0;">&copy; 2026 Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES, Mathile WILLEY</p>
+            <img src="./img/logo_audiosensible.png" alt="Logo Audiosensible" />
+        </div>
+    </footer>
+    <button id="scroll-top" aria-label="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+    <script src="./scripts/hamburger-menu.js"></script>
+    <script src="./scripts/handle-scroll-top.js"></script>
+</body>
+</html>

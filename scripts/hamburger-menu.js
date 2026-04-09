@@ -1,52 +1,53 @@
-// SCRIPT 
-
-// Gestion du menu Hamburger et Scroll to Top puis désactivation du scroll lorsqu'on clique sur 
-// le menu hamburger - avec adaptation pour compatibilité Safari iOS
+// Gestion du menu hamburger - adapté au nouveau layout light mode
 
 document.addEventListener('DOMContentLoaded', function () {
-    const label = document.getElementById('nav-toggle-label');
-    const checkbox = document.getElementById('nav-toggle');
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobile-nav');
 
-    label.addEventListener('keydown', (e) => {
-    // Space or Enter
-    if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Enter') {
-        e.preventDefault();        // empêche le scroll (Space) / comportement par défaut
-        checkbox.click();          // déclenche le changement comme un clic
-    }
+    if (!hamburger || !mobileNav) return;
+
+    // Keyboard support
+    hamburger.addEventListener('keydown', function (e) {
+        if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Enter') {
+            e.preventDefault();
+            toggleMenu();
+        }
     });
-})
 
-document.addEventListener('DOMContentLoaded', function() {
-    const navToggle = document.getElementById('nav-toggle');
-    let scrollPosition = 0;
+    hamburger.addEventListener('click', toggleMenu);
 
-    if (navToggle) {
-        navToggle.addEventListener('change', function() {
-            if(this.checked) {
-                scrollPosition = window.scrollY;
-                
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                setTimeout(() => {
-                    document.body.style.position = 'fixed';
-                    document.body.style.width = '100%';
-                }, 400);
+    function toggleMenu() {
+        const isOpen = mobileNav.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+        hamburger.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
 
-                // Gestion de la background-color du body pour iOS Safari
-                document.body.classList.remove('bg-asphalt');
-                document.body.classList.add('bg-floral-white');
-            }
-            else {
-                document.body.style.position = '';
-                document.body.style.top = '';
-                document.body.style.width = '';
-                
-                window.scrollTo(0, scrollPosition);
-
-                // Gestion de la background-color du body pour iOS Safari
-                document.body.classList.remove('bg-floral-white');
-                document.body.classList.add('bg-asphalt');
-            }
-        });
+        // Bloquer le scroll du body quand le menu est ouvert
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     }
+
+    // Fermer si on clique sur un lien
+    mobileNav.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+            mobileNav.classList.remove('open');
+            hamburger.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', false);
+            hamburger.setAttribute('aria-label', 'Ouvrir le menu');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Fermer si on resize vers desktop
+    window.addEventListener('resize', function () {
+        if (window.innerWidth >= 641) {
+            mobileNav.classList.remove('open');
+            hamburger.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', false);
+            document.body.style.overflow = '';
+        }
+    });
 });

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Audiosensible – Sensibilisation aux acouphènes, ces bruits intérieurs sans source" />
+    <title>Audiosensible – Les acouphènes</title>
+    <link rel="stylesheet" href="./style/tailwind.css" />
+    <link rel="stylesheet" href="./style/style.css" />
+<!-- SHARED HEAD EXTRAS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ── RESET & BASE ── */
+        html { scroll-behavior: smooth; color-scheme: light only; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fffbf4;
+            color: #302f2c;
+            margin: 0; padding: 0; overflow-x: hidden;
+        }
+
+        /* ── HEADER ── */
+        .site-header { background-color: #fffbf4; border-bottom: 1px solid #c9a0aa; }
+        .site-header .inner { max-width: 1100px; margin: 0 auto; padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .site-header .logo-link { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #302f2c; }
+        .site-header .logo-link img { height: 2.5rem; width: auto; }
+        .site-header .logo-link span { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.6rem; }
+        .site-header nav { display: flex; gap: 1.5rem; font-size: 1rem; }
+        .site-header nav a { color: #302f2c; text-decoration: none; transition: color 0.15s; }
+        .site-header nav a:hover { color: #7a1e30; }
+
+        /* ── HAMBURGER ── */
+        .hamburger-btn { display: none; flex-direction: column; justify-content: space-around; width: 2rem; height: 2rem; background: none; border: none; cursor: pointer; padding: 0; }
+        .hamburger-btn span { display: block; width: 100%; height: 2px; background-color: #302f2c; border-radius: 2px; transition: all 0.3s; }
+        .hamburger-btn.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger-btn.open span:nth-child(2) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ── MOBILE NAV ── */
+        .mobile-nav { display: none; position: fixed; inset: 0; top: 57px; background: #fffbf4; z-index: 40; flex-direction: column; gap: 2rem; padding: 2.5rem 2rem; }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.75rem; color: #302f2c; text-decoration: none; }
+        .mobile-nav a:hover { color: #7a1e30; }
+
+        /* ── TYPOGRAPHY ── */
+        h1, h2, h3, .font-montserrat { font-family: 'Montserrat', sans-serif; font-weight: 600; }
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; color: #302f2c; }
+        h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin-bottom: 0.75rem; color: #302f2c; }
+
+        /* ── ACCENT COLORS ── */
+        .accent { color: #7a1e30; }
+        .accent-muted { color: #5c1a2a; }
+        a { color: #7a1e30; }
+
+        /* ── DIVIDER ── */
+        hr { border: none; border-top: 1px solid #c9a0aa; margin: 3rem auto; width: 90%; }
+
+        /* ── PULL QUOTE ── */
+        .pull-quote { border-left: 3px solid #7a1e30; padding-left: 1.5rem; font-style: italic; color: #5c1a2a; font-size: 1.1rem; line-height: 1.7; margin: 2rem 0; }
+        .pull-quote .attribution { font-size: 0.9rem; color: #302f2c; margin-top: 0.5rem; font-style: normal; }
+
+        /* ── CARDS ── */
+        .symptom-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: flex-start; gap: 1rem; transition: background 0.2s; }
+        .symptom-card:hover { background: #f7e8eb; }
+        .symptom-card .card-title { font-weight: 600; color: #302f2c; margin-bottom: 0.25rem; }
+        .symptom-card .card-body { font-size: 1rem; color: #4a3535; line-height: 1.6; }
+        .symptom-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+
+        .patho-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.5rem; transition: background 0.2s; }
+        .patho-card:hover { background: #f7e8eb; }
+
+        .resource-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.25rem; transition: all 0.2s; text-decoration: none; color: inherit; display: block; }
+        .resource-card:hover { background: #f7e8eb; border-color: #7a1e30; transform: translateY(-2px); }
+        .resource-card .rc-title { font-weight: 600; color: #302f2c; margin-bottom: 0.25rem; }
+        .resource-card .rc-body { font-size: 0.9rem; color: #4a3535; }
+        .resource-card .rc-link { font-size: 0.8rem; color: #7a1e30; margin-top: 0.5rem; }
+
+        /* ── STAT CARDS ── */
+        .stat-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.5rem; text-align: center; }
+        .stat-card .stat-num { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 2.5rem; color: #7a1e30; }
+        .stat-card .stat-label { font-size: 0.9rem; color: #4a3535; margin-top: 0.5rem; }
+
+        /* ── LIST ARROWS ── */
+        .arrow-list { list-style: none; padding: 0; }
+        .arrow-list li { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.75rem; font-size: 1rem; }
+        .arrow-list li::before { content: "→"; color: #7a1e30; flex-shrink: 0; margin-top: 2px; }
+
+        /* ── HERO ── */
+        .page-hero { text-align: center; padding: 4rem 1.5rem 2rem; max-width: 800px; margin: 0 auto; }
+        .page-hero .section-label { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7a1e30; font-weight: 500; margin-bottom: 1.5rem; }
+        .page-hero p { font-size: 1.1rem; line-height: 1.7; color: #4a3535; }
+
+        /* ── CTA BUTTON ── */
+        .cta-btn { display: inline-block; padding: 0.75rem 1.5rem; border: 1px solid #7a1e30; color: #7a1e30; text-decoration: none; border-radius: 10px; font-size: 1rem; transition: all 0.2s; }
+        .cta-btn:hover { background: #7a1e30; color: #fffbf4; }
+
+        /* ── FOOTER ── */
+        .site-footer { border-top: 1px solid #c9a0aa; padding: 1.5rem; font-size: 0.9rem; color: #5c1a2a; }
+        .site-footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .site-footer .footer-links { display: flex; flex-direction: column; gap: 0.4rem; }
+        .site-footer a { color: #7a1e30; text-decoration: none; }
+        .site-footer a:hover { text-decoration: underline; }
+        .site-footer img { height: 3rem; }
+
+        /* ── SCROLL TOP ── */
+        #scroll-top { position: fixed; cursor: pointer; top: 1.5rem; left: 50%; transform: translateX(-50%); width: 3rem; height: 3rem; background-color: #d8cfbc; color: #302f2c; border-radius: 9999px; z-index: 50; opacity: 0; pointer-events: none; transition: all 0.3s; border: none; display: flex; align-items: center; justify-content: center; }
+        #scroll-top:hover { background-color: #fffbf4; transform: translateX(-50%) scale(1.1); }
+        #scroll-top.visible { opacity: 1; pointer-events: auto; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        .fade-up { animation: fadeUp 0.8s ease forwards; }
+        .delay-1 { animation-delay: 0.15s; opacity: 0; }
+        .delay-2 { animation-delay: 0.3s; opacity: 0; }
+        .delay-3 { animation-delay: 0.45s; opacity: 0; }
+
+        /* ── CONTENT WRAPPER ── */
+        .content-wrap { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+
+        @media (max-width: 640px) {
+            .site-header nav { display: none; }
+            .hamburger-btn { display: flex; }
+        }
+    </style>
+    <style>
+        .wave-container { display:flex; align-items:center; justify-content:center; gap:3px; height:48px; }
+        .wave-bar { width:4px; border-radius:9999px; background:#7a1e30; animation:wave 1.4s ease-in-out infinite; }
+        .wave-bar:nth-child(2){animation-delay:.1s;height:60%}
+        .wave-bar:nth-child(3){animation-delay:.2s;height:90%}
+        .wave-bar:nth-child(4){animation-delay:.3s;height:70%}
+        .wave-bar:nth-child(5){animation-delay:.4s;height:100%}
+        .wave-bar:nth-child(6){animation-delay:.3s;height:80%}
+        .wave-bar:nth-child(7){animation-delay:.2s;height:60%}
+        .wave-bar:nth-child(8){animation-delay:.1s;height:40%}
+        @keyframes wave { 0%,100%{transform:scaleY(0.4)} 50%{transform:scaleY(1)} }
+    </style>
+    <link rel="icon" type="image/png" href="./img/logo_audiosensible.png" sizes="96x96" />
+    <link rel="shortcut icon" href="./img/logo_audiosensible.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/logo_audiosensible.png" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="inner">
+            <a class="logo-link" href="./index.html">
+                <img src="./img/logo_audiosensible.png" alt="Logo Audiosensible" />
+                <span>Audiosensible</span>
+            </a>
+            <nav>
+                <a href="./index.html#troubles">Les troubles de l'oreille</a>
+                <a href="./a-propos-de-nous.html">À propos de nous</a>
+                <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+            </nav>
+            <button class="hamburger-btn" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+                <span></span><span></span>
+            </button>
+        </div>
+    </header>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile">
+        <a href="./index.html#troubles">Les troubles de l'oreille</a>
+        <a href="./a-propos-de-nous.html">À propos de nous</a>
+        <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+    </nav>
+
+    <main>
+        <div class="page-hero">
+            <p class="section-label fade-up delay-1">Sensibilisation</p>
+            <div class="wave-container fade-up delay-1" style="margin-bottom:1.5rem;">
+                <div class="wave-bar" style="height:40%"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+            <h1 class="fade-up delay-2">Les acouphènes</h1>
+            <p class="fade-up delay-3">
+                Un bruit qui n'existe que dans votre tête — sifflement, bourdonnement, grésillement permanent.
+                <strong>16 millions de Français</strong> en souffrent, dont 4 à 7 millions de façon chronique et invalidante.
+            </p>
+        </div>
+
+        <hr>
+
+        <div class="content-wrap" style="padding-bottom:4rem;">
+
+            <section style="margin-bottom:3rem;">
+                <h2>Qu'est-ce qu'un acouphène&nbsp;?</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">Un acouphène est la <strong>perception d'un son sans source extérieure</strong>. Sifflement, bourdonnement, cliquetis, grésillement : ces sons fantômes sont réels pour celui qui les entend, même si personne d'autre ne les perçoit. On distingue :</p>
+                <ul class="arrow-list" style="font-size:1rem;margin-bottom:1rem;">
+                    <li><span><strong>Acouphènes subjectifs</strong> (95&nbsp;% des cas) : entendus uniquement par le patient, liés à un dysfonctionnement des cellules ciliées ou du nerf auditif.</span></li>
+                    <li><span><strong>Acouphènes objectifs</strong> (rares) : parfois audibles par le médecin, souvent liés à un problème vasculaire ou musculaire.</span></li>
+                </ul>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">Ils peuvent être <strong>intermittents ou continus</strong>, dans une oreille, les deux, ou au centre de la tête. Leur intensité perçue varie d'une légère gêne à un bruit comparable — selon certains témoignages — à un moteur d'avion en permanence.</p>
+                <div class="pull-quote">
+                    « Je me suis réveillé un matin avec un sifflement aigu dans l'oreille droite. Trois ans plus tard, il est toujours là. J'ai appris à vivre avec, mais je ne m'y suis jamais vraiment habitué. »
+                    <div class="attribution">— Antoine, 32 ans, Fondation pour l'Audition</div>
+                </div>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Origines et causes</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1.5rem;">Les acouphènes ne sont pas une maladie en soi mais un <strong>symptôme</strong> qui peut avoir de nombreuses causes :</p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;">
+                    <div class="symptom-card"><span class="symptom-icon">🎶</span><div><p class="card-title">Traumatisme sonore</p><p class="card-body">Concert, explosion, casque trop fort — la cause la plus fréquente chez les jeunes adultes.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">👴</span><div><p class="card-title">Vieillissement</p><p class="card-body">La presbyacousie s'accompagne souvent d'acouphènes liés à l'usure des cellules ciliées.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">😤</span><div><p class="card-title">Stress chronique</p><p class="card-body">Le stress peut déclencher ou aggraver les acouphènes par des mécanismes neuro-auditifs complexes.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">💊</span><div><p class="card-title">Médicaments ototoxiques</p><p class="card-body">Certains antibiotiques, anti-inflammatoires ou chimiothérapies peuvent endommager l'oreille interne.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">🫀</span><div><p class="card-title">Troubles vasculaires</p><p class="card-body">Hypertension, anémie ou anomalie vasculaire près de l'oreille peuvent générer des sons pulsatiles.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">🦷</span><div><p class="card-title">Problèmes articulaires</p><p class="card-body">Les tensions cervicales ou l'articulation temporo-mandibulaire peuvent provoquer des acouphènes.</p></div></div>
+                </div>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>L'impact sur la vie quotidienne</h2>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:1rem;">
+                    <div class="symptom-card"><span class="symptom-icon">🌙</span><div><p class="card-title">Troubles du sommeil</p><p class="card-body">Dans le silence de la nuit, l'acouphène devient envahissant. L'endormissement peut prendre des heures.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">🧠</span><div><p class="card-title">Difficultés de concentration</p><p class="card-body">Le bruit intérieur constant perturbe la mémoire de travail, la lecture et le travail intellectuel.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">😢</span><div><p class="card-title">Dépression et anxiété</p><p class="card-body">L'épuisement, l'incompréhension de l'entourage et l'absence de perspective peuvent mener à une dépression.</p></div></div>
+                    <div class="symptom-card"><span class="symptom-icon">👥</span><div><p class="card-title">Isolement social</p><p class="card-body">Les environnements bruyants aggravent les acouphènes, poussant à éviter les sorties et les rencontres.</p></div></div>
+                </div>
+                <div class="pull-quote" style="margin-top:1.5rem;">
+                    « Les larmes sont devenues mon quotidien. Je retenais mes larmes face au médecin qui m'indiquait que j'avais une très bonne audition et que c'était lié au stress. »
+                    <div class="attribution">— Antoine G., Fondation pour l'Audition</div>
+                </div>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Comprendre les acouphènes</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">Cette vidéo réalisée par un médecin ORL de l'hôpital Georges Pompidou explique les acouphènes.</p>
+                <div style="position:relative;width:100%;border-radius:12px;overflow:hidden;padding-bottom:56.25%;">
+                    <iframe style="position:absolute;inset:0;width:100%;height:100%;" src="https://www.youtube.com/embed/dP31-8A5r1k?si=PS-H3A7AVPI2bNz5" title="Les acouphènes – AP-HP" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p style="font-size:0.9rem;color:#4a3535;text-align:center;margin-top:0.75rem;"><em>« Les acouphènes »</em> — Hôpital européen Georges Pompidou AP-HP</p>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>En chiffres</h2>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;">
+                    <div class="stat-card"><p class="stat-num">16M</p><p class="stat-label">de Français touchés</p></div>
+                    <div class="stat-card"><p class="stat-num">4–7M</p><p class="stat-label">en souffrent de façon chronique et invalidante</p></div>
+                    <div class="stat-card"><p class="stat-num">4,9M</p><p class="stat-label">symptômes sévères à catastrophiques</p></div>
+                    <div class="stat-card"><p class="stat-num">0</p><p class="stat-label">traitement curatif disponible</p></div>
+                </div>
+                <p style="font-size:1.1rem;line-height:1.8;">Des artistes de renom souffrent ou ont souffert d'acouphènes : <strong>Éric Clapton, Angèle, Grand Corps Malade, Neil Young</strong>. Ce trouble n'épargne personne, quelle que soit la notoriété ou l'âge.</p>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Vivre avec – les stratégies</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">Il n'existe pas de remède miracle. L'objectif est de <strong>réduire la perception et l'impact</strong> des acouphènes jusqu'à ce qu'ils deviennent gérables :</p>
+                <ul class="arrow-list" style="font-size:1rem;">
+                    <li><span><strong>Thérapie sonore (TRT)</strong> : bruiteurs auditifs diffusant un fond sonore doux pour désensibiliser le cerveau au signal de l'acouphène.</span></li>
+                    <li><span><strong>TCC – Thérapie cognitivo-comportementale</strong> : travail sur la relation émotionnelle à l'acouphène pour briser le cycle anxiété/hypervigilance.</span></li>
+                    <li><span><strong>Appareils auditifs</strong> : si l'acouphène est associé à une perte auditive, l'appareillage peut réduire la perception du bruit parasite.</span></li>
+                    <li><span><strong>Gestion du stress</strong> : sport, sophrologie, méditation — le stress amplifie directement la perception des acouphènes.</span></li>
+                    <li><span><strong>Applications de bruits blancs</strong> : MyNoise et autres masquent partiellement l'acouphène, notamment la nuit et dans les silences.</span></li>
+                </ul>
+            </section>
+
+            <hr>
+
+            <section style="margin-bottom:3rem;">
+                <h2>Ressources et soutien</h2>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem;">
+                    <a href="https://www.france-acouphenes.fr" target="_blank" class="resource-card"><p class="rc-title">France Acouphènes</p><p class="rc-body">Association de référence — groupes de parole, forum, témoignages et informations médicales.</p><p class="rc-link">france-acouphenes.fr ↗</p></a>
+                    <a href="https://www.fondationpourlaudition.org" target="_blank" class="resource-card"><p class="rc-title">Fondation pour l'Audition</p><p class="rc-body">Témoignages de patients, avancées de la recherche et ressources pour mieux comprendre les acouphènes.</p><p class="rc-link">fondationpourlaudition.org ↗</p></a>
+                    <a href="https://mynoise.net" target="_blank" class="resource-card"><p class="rc-title">MyNoise</p><p class="rc-body">Application de bruits blancs et de sons apaisants pour masquer les acouphènes et retrouver le calme.</p><p class="rc-link">mynoise.net ↗</p></a>
+                    <a href="https://www.coopacou.com" target="_blank" class="resource-card"><p class="rc-title">Coopacou</p><p class="rc-body">Communauté de patients acouphéniques, témoignages et conseils pratiques pour le quotidien.</p><p class="rc-link">coopacou.com ↗</p></a>
+                </div>
+            </section>
+
+            <section style="text-align:center;padding:3rem 0;">
+                <p style="font-family:'Montserrat',sans-serif;font-weight:600;font-size:1.75rem;color:#5c1a2a;margin-bottom:1rem;">Le silence n'existe pas. Mais la paix intérieure, si.</p>
+                <p style="font-size:1rem;color:#4a3535;max-width:540px;margin:0 auto 1.5rem;line-height:1.7;">Les acouphènes ne disparaissent pas toujours, mais <strong>apprendre à les apprivoiser est possible</strong>. En parler autour de soi est déjà un premier pas vers le mieux-être.</p>
+                <a href="./index.html" class="cta-btn">← Retour à l'accueil</a>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="./index.html#troubles">Les troubles de l'oreille</a>
+                <a href="./a-propos-de-nous.html">À propos de nous</a>
+                <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+            </div>
+            <p style="margin:0;">&copy; 2026 Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES, Mathile WILLEY</p>
+            <img src="./img/logo_audiosensible.png" alt="Logo Audiosensible" />
+        </div>
+    </footer>
+    <button id="scroll-top" aria-label="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+    <script src="./scripts/hamburger-menu.js"></script>
+    <script src="./scripts/handle-scroll-top.js"></script>
+</body>
+</html>

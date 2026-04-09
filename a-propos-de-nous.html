@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Audiosensible – L'équipe derrière le projet" />
+    <title>Audiosensible – À propos de nous</title>
+    <link rel="stylesheet" href="./style/tailwind.css" />
+    <link rel="stylesheet" href="./style/style.css" />
+<!-- SHARED HEAD EXTRAS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ── RESET & BASE ── */
+        html { scroll-behavior: smooth; color-scheme: light only; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fffbf4;
+            color: #302f2c;
+            margin: 0; padding: 0; overflow-x: hidden;
+        }
+
+        /* ── HEADER ── */
+        .site-header { background-color: #fffbf4; border-bottom: 1px solid #c9a0aa; }
+        .site-header .inner { max-width: 1100px; margin: 0 auto; padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+        .site-header .logo-link { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: #302f2c; }
+        .site-header .logo-link img { height: 2.5rem; width: auto; }
+        .site-header .logo-link span { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.6rem; }
+        .site-header nav { display: flex; gap: 1.5rem; font-size: 1rem; }
+        .site-header nav a { color: #302f2c; text-decoration: none; transition: color 0.15s; }
+        .site-header nav a:hover { color: #7a1e30; }
+
+        /* ── HAMBURGER ── */
+        .hamburger-btn { display: none; flex-direction: column; justify-content: space-around; width: 2rem; height: 2rem; background: none; border: none; cursor: pointer; padding: 0; }
+        .hamburger-btn span { display: block; width: 100%; height: 2px; background-color: #302f2c; border-radius: 2px; transition: all 0.3s; }
+        .hamburger-btn.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger-btn.open span:nth-child(2) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ── MOBILE NAV ── */
+        .mobile-nav { display: none; position: fixed; inset: 0; top: 57px; background: #fffbf4; z-index: 40; flex-direction: column; gap: 2rem; padding: 2.5rem 2rem; }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 1.75rem; color: #302f2c; text-decoration: none; }
+        .mobile-nav a:hover { color: #7a1e30; }
+
+        /* ── TYPOGRAPHY ── */
+        h1, h2, h3, .font-montserrat { font-family: 'Montserrat', sans-serif; font-weight: 600; }
+        h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1rem; color: #302f2c; }
+        h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin-bottom: 0.75rem; color: #302f2c; }
+
+        /* ── ACCENT COLORS ── */
+        .accent { color: #7a1e30; }
+        .accent-muted { color: #5c1a2a; }
+        a { color: #7a1e30; }
+
+        /* ── DIVIDER ── */
+        hr { border: none; border-top: 1px solid #c9a0aa; margin: 3rem auto; width: 90%; }
+
+        /* ── PULL QUOTE ── */
+        .pull-quote { border-left: 3px solid #7a1e30; padding-left: 1.5rem; font-style: italic; color: #5c1a2a; font-size: 1.1rem; line-height: 1.7; margin: 2rem 0; }
+        .pull-quote .attribution { font-size: 0.9rem; color: #302f2c; margin-top: 0.5rem; font-style: normal; }
+
+        /* ── CARDS ── */
+        .symptom-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.25rem 1.5rem; display: flex; align-items: flex-start; gap: 1rem; transition: background 0.2s; }
+        .symptom-card:hover { background: #f7e8eb; }
+        .symptom-card .card-title { font-weight: 600; color: #302f2c; margin-bottom: 0.25rem; }
+        .symptom-card .card-body { font-size: 1rem; color: #4a3535; line-height: 1.6; }
+        .symptom-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+
+        .patho-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.5rem; transition: background 0.2s; }
+        .patho-card:hover { background: #f7e8eb; }
+
+        .resource-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.25rem; transition: all 0.2s; text-decoration: none; color: inherit; display: block; }
+        .resource-card:hover { background: #f7e8eb; border-color: #7a1e30; transform: translateY(-2px); }
+        .resource-card .rc-title { font-weight: 600; color: #302f2c; margin-bottom: 0.25rem; }
+        .resource-card .rc-body { font-size: 0.9rem; color: #4a3535; }
+        .resource-card .rc-link { font-size: 0.8rem; color: #7a1e30; margin-top: 0.5rem; }
+
+        /* ── STAT CARDS ── */
+        .stat-card { background: #fdf5f6; border: 1px solid #c9a0aa; border-radius: 12px; padding: 1.5rem; text-align: center; }
+        .stat-card .stat-num { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 2.5rem; color: #7a1e30; }
+        .stat-card .stat-label { font-size: 0.9rem; color: #4a3535; margin-top: 0.5rem; }
+
+        /* ── LIST ARROWS ── */
+        .arrow-list { list-style: none; padding: 0; }
+        .arrow-list li { display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 0.75rem; font-size: 1rem; }
+        .arrow-list li::before { content: "→"; color: #7a1e30; flex-shrink: 0; margin-top: 2px; }
+
+        /* ── HERO ── */
+        .page-hero { text-align: center; padding: 4rem 1.5rem 2rem; max-width: 800px; margin: 0 auto; }
+        .page-hero .section-label { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #7a1e30; font-weight: 500; margin-bottom: 1.5rem; }
+        .page-hero p { font-size: 1.1rem; line-height: 1.7; color: #4a3535; }
+
+        /* ── CTA BUTTON ── */
+        .cta-btn { display: inline-block; padding: 0.75rem 1.5rem; border: 1px solid #7a1e30; color: #7a1e30; text-decoration: none; border-radius: 10px; font-size: 1rem; transition: all 0.2s; }
+        .cta-btn:hover { background: #7a1e30; color: #fffbf4; }
+
+        /* ── FOOTER ── */
+        .site-footer { border-top: 1px solid #c9a0aa; padding: 1.5rem; font-size: 0.9rem; color: #5c1a2a; }
+        .site-footer .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .site-footer .footer-links { display: flex; flex-direction: column; gap: 0.4rem; }
+        .site-footer a { color: #7a1e30; text-decoration: none; }
+        .site-footer a:hover { text-decoration: underline; }
+        .site-footer img { height: 3rem; }
+
+        /* ── SCROLL TOP ── */
+        #scroll-top { position: fixed; cursor: pointer; top: 1.5rem; left: 50%; transform: translateX(-50%); width: 3rem; height: 3rem; background-color: #d8cfbc; color: #302f2c; border-radius: 9999px; z-index: 50; opacity: 0; pointer-events: none; transition: all 0.3s; border: none; display: flex; align-items: center; justify-content: center; }
+        #scroll-top:hover { background-color: #fffbf4; transform: translateX(-50%) scale(1.1); }
+        #scroll-top.visible { opacity: 1; pointer-events: auto; }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+        .fade-up { animation: fadeUp 0.8s ease forwards; }
+        .delay-1 { animation-delay: 0.15s; opacity: 0; }
+        .delay-2 { animation-delay: 0.3s; opacity: 0; }
+        .delay-3 { animation-delay: 0.45s; opacity: 0; }
+
+        /* ── CONTENT WRAPPER ── */
+        .content-wrap { max-width: 800px; margin: 0 auto; padding: 0 1.5rem; }
+
+        @media (max-width: 640px) {
+            .site-header nav { display: none; }
+            .hamburger-btn { display: flex; }
+        }
+    </style>
+
+    <link rel="icon" type="image/png" href="./img/logo_audiosensible.png" sizes="96x96" />
+    <link rel="shortcut icon" href="./img/logo_audiosensible.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/logo_audiosensible.png" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="inner">
+            <a class="logo-link" href="./index.html">
+                <img src="./img/logo_audiosensible.png" alt="Logo Audiosensible" />
+                <span>Audiosensible</span>
+            </a>
+            <nav>
+                <a href="./index.html#troubles">Les troubles de l'oreille</a>
+                <a href="./a-propos-de-nous.html">À propos de nous</a>
+                <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+            </nav>
+            <button class="hamburger-btn" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false">
+                <span></span><span></span>
+            </button>
+        </div>
+    </header>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile">
+        <a href="./index.html#troubles">Les troubles de l'oreille</a>
+        <a href="./a-propos-de-nous.html">À propos de nous</a>
+        <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+    </nav>
+
+    <main>
+        <div class="page-hero" style="text-align:left;max-width:none;padding-left:0;padding-right:0;">
+        </div>
+
+        <div class="content-wrap" style="padding-bottom:4rem;padding-top:3rem;">
+
+            <section style="margin-bottom:3rem;">
+                <h1 style="margin-bottom:1rem;">À propos d'<span style="font-size:1.2em;">Audiosensible</span></h1>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;"><strong>Audiosensible</strong> est un projet de sensibilisation porté par <strong>quatre élèves-ingénieurs de l'ENSC</strong>, encadrés par <strong>Véronique Lespinet-Najib</strong>.</p>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">Notre équipe est directement concernée par les troubles de l'audition, certains d'entre nous étant atteints d'hypoacousie ou d'hyperacousie. Cette réalité personnelle a donné au projet une dimension profondément humaine : au-delà d'un travail académique, il s'agit d'un engagement pour <em>mieux faire comprendre des handicaps invisibles</em>, encore trop méconnus.</p>
+                <h2>Notre objectif</h2>
+                <p style="font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">Rendre perceptible ce qui ne l'est pas. Faire ressentir, même partiellement, les difficultés auditives vécues au quotidien. Pour cela, nous avons conçu un dispositif interactif de simulation de l'hypoacousie intégré à ce site.</p>
+                <h2>Une démarche scientifique et responsable</h2>
+                <p style="font-size:1.1rem;line-height:1.8;">Le développement de ce dispositif nous a confrontés à des enjeux techniques et éthiques majeurs. Nous avons notamment dû composer avec des contraintes de sécurité auditive, limitant les niveaux sonores maximaux que nous pouvions reproduire.</p>
+            </section>
+
+            <hr style="width:100%;">
+
+            <style>
+                @media (min-width: 640px) {
+                    .member-section { flex-direction: row !important; align-items: center !important; }
+                }
+            </style>
+
+            <section style="display:flex;flex-direction:column;gap:2rem;margin-bottom:2rem;" class="member-section">
+                <img src="./img/photo_cal.png" alt="Photo de Calista DAURIAC" style="width:12rem;height:12rem;object-fit:cover;border-radius:9999px;flex-shrink:0;">
+                <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                    <h2 style="margin:0;">Calista DAURIAC</h2>
+                    <p style="font-size:1rem;color:#4a3535;margin:0;">Étudiante à <strong><a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">l'ENSC</a></strong> en Cycle Ingénieur Cogniticien.</p>
+                    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+                        <a href="https://www.linkedin.com/in/calista-dauriac/" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;color:#7a1e30;text-decoration:none;border-bottom:1px solid currentColor;"><svg role="img" aria-label="LinkedIn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 382" style="width:1.25rem;height:1.25rem;flex-shrink:0;"><path fill="currentColor" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472L341.91,330.654L341.91,330.654z"/></svg>LinkedIn</a>
+                        <a href="/cdn-cgi/l/email-protection#422123262337302b232102272c31216c2430" style="display:inline-flex;align-items:center;gap:0.5rem;color:#7a1e30;text-decoration:none;border-bottom:1px solid currentColor;">Contacter Calista</a>
+                    </div>
+                </div>
+            </section><hr style="margin:2rem 0;">
+            <section style="display:flex;flex-direction:column;gap:2rem;margin-bottom:2rem;" class="member-section">
+                <img src="./img/photo_emma.png" alt="Photo de Emma KERGUILLEC" style="width:12rem;height:12rem;object-fit:cover;border-radius:9999px;flex-shrink:0;">
+                <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                    <h2 style="margin:0;">Emma KERGUILLEC</h2>
+                    <p style="font-size:1rem;color:#4a3535;margin:0;">Étudiante à <strong><a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">l'ENSC</a></strong> en Cycle Ingénieur Cogniticien.</p>
+                    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+                        <a href="https://www.linkedin.com/in/emma-kerguillec-b86959226" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;color:#7a1e30;text-decoration:none;border-bottom:1px solid currentColor;"><svg role="img" aria-label="LinkedIn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 382" style="width:1.25rem;height:1.25rem;flex-shrink:0;"><path fill="currentColor" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472L341.91,330.654L341.91,330.654z"/></svg>LinkedIn</a>
+                        <a href="/cdn-cgi/l/email-protection#1c7977796e7b69757070797f5c79726f7f327a6e" style="display:inline-flex;align-items:center;gap:0.5rem;color:#7a1e30;text-decoration:none;border-bottom:1px solid currentColor;">Contacter Emma</a>
+                    </div>
+                </div>
+            </section><hr style="margin:2rem 0;">
+            <section style="display:flex;flex-direction:column;gap:2rem;margin-bottom:2rem;" class="member-section">
+                <img src="./img/photo_louie.png" alt="Photo de Louis Latu-Villières" style="width:12rem;height:12rem;object-fit:cover;border-radius:9999px;flex-shrink:0;">
+                <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                    <h2 style="margin:0;">Louis Latu-Villières</h2>
+                    <p style="font-size:1rem;color:#4a3535;margin:0;">Étudiant à <strong><a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">l'ENSC</a></strong> en Cycle Ingénieur Cogniticien.</p>
+                    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+                        <a href="https://www.linkedin.com/in/louis-latuvillieres/" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;color:#7a1e30;text-decoration:none;border-bottom:1px solid currentColor;"><svg role="img" aria-label="LinkedIn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 382" style="width:1.25rem;height:1.25rem;flex-shrink:0;"><path fill="currentColor" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472L341.91,330.654L341.91,330.654z"/></svg>LinkedIn</a>
+                        <a href="/cdn-cgi/l/email-protection#96fae0fffafafff3e4f3e5d6f3f8e5f5b8f0e4" style="display:inline-flex;align-items:center;gap:0.5rem;color:#7a1e30;text-decoration:none;border-bottom:1px solid currentColor;">Contacter Louis</a>
+                    </div>
+                </div>
+            </section><hr style="margin:2rem 0;">
+            <section style="display:flex;flex-direction:column;gap:2rem;margin-bottom:2rem;" class="member-section">
+                <img src="./img/photo_mathilde.png" alt="Photo de Mathilde WILLEY" style="width:12rem;height:12rem;object-fit:cover;border-radius:9999px;flex-shrink:0;">
+                <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                    <h2 style="margin:0;">Mathilde WILLEY</h2>
+                    <p style="font-size:1rem;color:#4a3535;margin:0;">Étudiante à <strong><a href="https://ensc.bordeaux-inp.fr/fr" target="_blank">l'ENSC</a></strong> en Cycle Ingénieur Cogniticien.</p>
+                    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
+                        <a href="https://www.linkedin.com/in/mathilde-willey-33153939b/" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;color:#7a1e30;text-decoration:none;border-bottom:1px solid currentColor;"><svg role="img" aria-label="LinkedIn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 382" style="width:1.25rem;height:1.25rem;flex-shrink:0;"><path fill="currentColor" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472L341.91,330.654L341.91,330.654z"/></svg>LinkedIn</a>
+                        <a href="/cdn-cgi/l/email-protection#fc918b9590909985bc99928f9fd29a8e" style="display:inline-flex;align-items:center;gap:0.5rem;color:#7a1e30;text-decoration:none;border-bottom:1px solid currentColor;">Contacter Mathilde</a>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="./index.html#troubles">Les troubles de l'oreille</a>
+                <a href="./a-propos-de-nous.html">À propos de nous</a>
+                <a href="./Simulateur_hypoacousie.html">Simulateur d'hypoacousie</a>
+            </div>
+            <p style="margin:0;">&copy; 2026 Calista DAURIAC, Emma KERGUILLEC, Louis LATU-VILLIÈRES, Mathile WILLEY</p>
+            <img src="./img/logo_audiosensible.png" alt="Logo Audiosensible" />
+        </div>
+    </footer>
+    <button id="scroll-top" aria-label="Retour en haut">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20" height="20" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </button>
+    <script src="./scripts/hamburger-menu.js"></script>
+    <script src="./scripts/handle-scroll-top.js"></script>
+</body>
+</html>
