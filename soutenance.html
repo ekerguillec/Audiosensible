@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Audiosensible – Soutenance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Poppins:wght@300;400;500&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --cream: #fffbf4;
+            --rose-border: #c9a0aa;
+            --rose-deep: #7a1e30;
+            --rose-dark: #5c1a2a;
+            --asphalt: #302f2c;
+            --blush: #fdf5f6;
+            --sand: #d8cfbc;
+            --text-muted: #4a3535;
+        }
+
+        html, body {
+            width: 100%; height: 100%;
+            overflow: hidden;
+            background: var(--asphalt);
+            font-family: 'Poppins', sans-serif;
+            color: var(--asphalt);
+        }
+
+        /* ── DECK SHELL ── */
+        #deck {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ── SLIDE BASE ── */
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--cream);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.55s cubic-bezier(.4,0,.2,1), transform 0.55s cubic-bezier(.4,0,.2,1);
+            transform: translateX(60px);
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateX(0);
+        }
+
+        .slide.exit-left {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        /* ── SLIDE HEADER BAR ── */
+        .slide-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2.5rem;
+            border-bottom: 1px solid var(--rose-border);
+            background: var(--cream);
+            flex-shrink: 0;
+        }
+
+        .slide-logo {
+            display: flex; align-items: center; gap: 0.6rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; font-size: 1.2rem;
+            color: var(--asphalt);
+            text-decoration: none;
+        }
+
+        .slide-logo-dot {
+            width: 2rem; height: 2rem;
+            background: var(--rose-deep);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .slide-logo-dot svg { width: 1rem; height: 1rem; fill: white; }
+
+        .slide-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ── SLIDE CONTENT AREA ── */
+        .slide-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2.5rem 5vw;
+            overflow: hidden;
+        }
+
+        .slide-body.row { flex-direction: row; align-items: center; gap: 4rem; }
+        .slide-body.padded { padding: 2rem 6vw; }
+
+        /* ── SLIDE FOOTER ── */
+        .slide-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.9rem 2.5rem;
+            border-top: 1px solid var(--rose-border);
+            flex-shrink: 0;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 2px;
+            background: var(--rose-border);
+            border-radius: 2px;
+            margin: 0 1.5rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--rose-deep);
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        .slide-counter {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .nav-btn {
+            background: none;
+            border: 1px solid var(--rose-border);
+            color: var(--rose-deep);
+            border-radius: 50%;
+            width: 2.25rem; height: 2.25rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .nav-btn:hover:not(:disabled) { background: var(--rose-deep); color: var(--cream); border-color: var(--rose-deep); }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        /* ── TYPOGRAPHY ── */
+        .label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--rose-deep);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        h1.slide-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.05;
+            color: var(--asphalt);
+            margin-bottom: 1rem;
+        }
+
+        h2.slide-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.8rem, 3.5vw, 3rem);
+            line-height: 1.1;
+            color: var(--asphalt);
+            margin-bottom: 1.25rem;
+        }
+
+        h3.slide-sub {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: var(--rose-deep);
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-lead {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            line-height: 1.7;
+            color: var(--text-muted);
+            max-width: 680px;
+        }
+
+        .italic-quote {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 1.6vw, 1.25rem);
+            line-height: 1.75;
+            color: var(--rose-dark);
+            border-left: 3px solid var(--rose-deep);
+            padding-left: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        /* ── CARDS GRID ── */
+        .cards-grid {
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .cards-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+        .cards-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+        .cards-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+        .card {
+            background: var(--blush);
+            border: 1px solid var(--rose-border);
+            border-radius: 10px;
+            padding: 1.1rem 1.3rem;
+        }
+
+        .card-num {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--rose-deep);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .card-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .card-title { font-weight: 600; font-size: 0.9rem; color: var(--asphalt); margin-bottom: 0.3rem; }
+        .card-body { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* ── STEP LIST ── */
+        .step-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.8rem; }
+        .step-list li {
+            display: flex; align-items: flex-start; gap: 1rem;
+            font-size: clamp(0.82rem, 1.3vw, 1rem);
+            line-height: 1.55;
+            color: var(--text-muted);
+        }
+
+        .step-num {
+            width: 1.75rem; height: 1.75rem;
+            background: var(--rose-deep);
+            color: white;
+            border-radius: 50%;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ── SPLIT LAYOUT ── */
+        .col-left { flex: 1; }
+        .col-right { flex: 1; }
+
+        /* ── ACCENT BOX ── */
+        .accent-box {
+            background: var(--rose-deep);
+            color: var(--cream);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+        }
+
+        .accent-box .label { color: rgba(255,255,255,0.6); }
+        .accent-box h2.slide-title { color: white; }
+        .accent-box .slide-lead { color: rgba(255,255,255,0.85); }
+
+        /* ── TIMELINE ── */
+        .timeline { display: flex; flex-direction: column; gap: 0; }
+        .timeline-item {
+            display: flex; gap: 1.25rem; position: relative;
+        }
+
+        .timeline-spine { display: flex; flex-direction: column; align-items: center; }
+        .timeline-dot {
+            width: 0.85rem; height: 0.85rem;
+            background: var(--rose-deep); border-radius: 50%; flex-shrink: 0;
+            margin-top: 4px;
+        }
+        .timeline-line { width: 1px; background: var(--rose-border); flex: 1; min-height: 1.25rem; }
+        .timeline-item:last-child .timeline-line { display: none; }
+
+        .timeline-content { padding-bottom: 1rem; }
+        .timeline-date {
+            font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--rose-deep); font-weight: 600; margin-bottom: 0.15rem;
+        }
+        .timeline-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+        .timeline-text strong { color: var(--asphalt); }
+
+        /* ── TAG PILLS ── */
+        .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+        .tag {
+            background: var(--blush);
+            border: 1px solid var(--rose-border);
+            color: var(--rose-dark);
+            border-radius: 999px;
+            padding: 0.25rem 0.85rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* ── COVER SLIDE ── */
+        .cover-ornament {
+            position: absolute;
+            right: -4vw;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42vw;
+            height: 42vw;
+            max-width: 520px;
+            max-height: 520px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 40% 40%, #c9a0aa55, #7a1e3022);
+            border: 1px solid #c9a0aa44;
+            pointer-events: none;
+        }
+
+        .cover-ornament-inner {
+            position: absolute;
+            right: 2vw;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28vw;
+            height: 28vw;
+            max-width: 360px;
+            max-height: 360px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 60% 60%, #7a1e3033, #c9a0aa11);
+            border: 1px solid #c9a0aa66;
+        }
+
+        /* ── WAVE ANIMATION ── */
+        .wave-row { display: flex; align-items: flex-end; gap: 4px; height: 3rem; margin-bottom: 1rem; }
+        .wave-bar {
+            width: 4px; border-radius: 9999px; background: var(--rose-deep);
+            animation: wave 1.6s ease-in-out infinite;
+        }
+        @keyframes wave { 0%,100%{transform:scaleY(.3)} 50%{transform:scaleY(1)} }
+
+        /* ── RESULT HIGHLIGHT ── */
+        .result-highlight {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: var(--blush); border: 1px solid var(--rose-border);
+            border-radius: 12px; padding: 1.5rem; text-align: center;
+        }
+
+        .result-big {
+            font-family: 'Montserrat', sans-serif; font-weight: 700;
+            font-size: clamp(2rem, 4vw, 3.5rem); color: var(--rose-deep); line-height: 1;
+        }
+
+        .result-sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.4rem; line-height: 1.4; }
+
+        /* ── KEYBOARD HINT ── */
+        .kbd { display: inline-flex; align-items: center; justify-content: center; padding: 0.15rem 0.5rem; background: var(--blush); border: 1px solid var(--rose-border); border-radius: 4px; font-size: 0.7rem; font-family: monospace; color: var(--text-muted); }
+
+        /* ── FULLSCREEN BTN ── */
+        #fs-btn {
+            position: fixed; bottom: 1.5rem; right: 1.5rem;
+            z-index: 999;
+            background: var(--cream); border: 1px solid var(--rose-border);
+            color: var(--rose-deep); border-radius: 8px;
+            padding: 0.4rem 0.75rem;
+            font-size: 0.75rem; cursor: pointer;
+            display: flex; align-items: center; gap: 0.4rem;
+            transition: all 0.2s;
+        }
+
+        #fs-btn:hover { background: var(--rose-deep); color: var(--cream); border-color: var(--rose-deep); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .slide-body.row { flex-direction: column; gap: 2rem; }
+            .cards-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+            .cards-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+            .cover-ornament, .cover-ornament-inner { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .cards-grid.cols-2, .cards-grid.cols-3, .cards-grid.cols-4 { grid-template-columns: 1fr; }
+            .slide-body { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="deck">
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 1 — COUVERTURE
+    ═══════════════════════════════════════════ -->
+    <div class="slide active" data-index="0">
+        <div class="slide-header">
+            <div class="slide-logo">
+                <div class="slide-logo-dot">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg>
+                </div>
+                Audiosensible
+            </div>
+            <span class="slide-meta">ENSC · Projet transdisciplinaire · 2025–2026</span>
+        </div>
+
+        <div class="slide-body" style="position:relative; overflow:hidden; padding: 3rem 6vw;">
+            <div class="cover-ornament"></div>
+            <div class="cover-ornament-inner"></div>
+
+            <div style="max-width: 660px; position:relative; z-index:1;">
+                <div class="wave-row">
+                    <div class="wave-bar" style="height:40%; animation-delay:0s"></div>
+                    <div class="wave-bar" style="height:70%; animation-delay:0.1s"></div>
+                    <div class="wave-bar" style="height:100%; animation-delay:0.2s"></div>
+                    <div class="wave-bar" style="height:80%; animation-delay:0.3s"></div>
+                    <div class="wave-bar" style="height:55%; animation-delay:0.4s"></div>
+                    <div class="wave-bar" style="height:90%; animation-delay:0.3s"></div>
+                    <div class="wave-bar" style="height:65%; animation-delay:0.2s"></div>
+                    <div class="wave-bar" style="height:40%; animation-delay:0.1s"></div>
+                </div>
+
+                <p class="label">Sensibilisation aux handicaps auditifs invisibles</p>
+                <h1 class="slide-title">Rendre perceptible<br>ce qui ne l'est pas.</h1>
+                <p class="slide-lead" style="margin-top:1.25rem;">Simulation d'hypoacousie, jeu de rôle immersif et site de sensibilisation — une année de projet pour faire ressentir des troubles que l'on ne voit pas.</p>
+
+                <div style="display:flex; gap:1.5rem; margin-top:2rem; flex-wrap:wrap;">
+                    <div style="font-size:0.82rem; color:var(--text-muted);">
+                        <span style="font-weight:600; color:var(--asphalt);">Équipe</span><br>
+                        Calista Dauriac · Emma Kerguillec<br>
+                        Louis Latu-Villières · Mathilde Willey
+                    </div>
+                    <div style="font-size:0.82rem; color:var(--text-muted);">
+                        <span style="font-weight:600; color:var(--asphalt);">Encadrante</span><br>
+                        Véronique Lespinet-Najib
+                    </div>
+                    <div style="font-size:0.82rem; color:var(--text-muted);">
+                        <span style="font-weight:600; color:var(--asphalt);">Contexte</span><br>
+                        Semaine SASU<br>Élèves de 2e année ENSC
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide-footer">
+            <button class="nav-btn" id="prev-0" disabled onclick="navigate(-1)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="progress-bar"><div class="progress-fill" style="width:5.56%"></div></div>
+            <span class="slide-counter">1 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 2 — PLAN
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="1">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">Plan de présentation</span>
+        </div>
+        <div class="slide-body">
+            <p class="label">Sommaire</p>
+            <h2 class="slide-title">Au programme de ces 10 minutes</h2>
+            <div class="cards-grid cols-2" style="margin-top:1.5rem; max-width:820px;">
+                <div class="card">
+                    <div class="card-num" style="font-size:1.2rem;">01</div>
+                    <div class="card-title">Contexte & motivation</div>
+                    <div class="card-body">Pourquoi les troubles auditifs ? Qui sommes-nous ? Quel était notre mandat ?</div>
+                </div>
+                <div class="card">
+                    <div class="card-num" style="font-size:1.2rem;">02</div>
+                    <div class="card-title">État de l'art</div>
+                    <div class="card-body">Les 4 troubles étudiés, épidémiologie, impacts sur la qualité de vie.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num" style="font-size:1.2rem;">03</div>
+                    <div class="card-title">Cahier des charges</div>
+                    <div class="card-body">Objectifs, contraintes éthiques & techniques, publics cibles.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num" style="font-size:1.2rem;">04</div>
+                    <div class="card-title">Dispositif & protocole</div>
+                    <div class="card-body">Simulateur, jeu de rôle, site web — comment nous avons opérationnalisé.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num" style="font-size:1.2rem;">05</div>
+                    <div class="card-title">Résultats & analyse</div>
+                    <div class="card-body">Retours des participants, mesures de l'impact, points de vigilance.</div>
+                </div>
+                <div class="card">
+                    <div class="card-num" style="font-size:1.2rem;">06</div>
+                    <div class="card-title">Perspectives</div>
+                    <div class="card-body">Ce que nous referions, ce que le projet pourrait devenir.</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:11.11%"></div></div>
+            <span class="slide-counter">2 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 3 — CONTEXTE
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="2">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">01 — Contexte & motivation</span>
+        </div>
+        <div class="slide-body row">
+            <div class="col-left">
+                <p class="label">01 · Contexte</p>
+                <h2 class="slide-title">Un mandat, une liberté, un engagement.</h2>
+                <p class="slide-lead">Dans le cadre de la <strong>semaine SASU</strong>, nous avions pour mandat de sensibiliser les élèves de 2e année de l'ENSC à un <strong>handicap invisible</strong> — le choix du sujet et de la forme nous était laissé libre.</p>
+                <div class="italic-quote" style="margin-top:1.25rem;">
+                    « Certains d'entre nous sont directement touchés par des troubles auditifs. Ce n'était pas seulement un travail académique — c'était personnel. »
+                </div>
+            </div>
+            <div class="col-right">
+                <div style="display:flex; flex-direction:column; gap:0.85rem;">
+                    <div class="card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-title">La consigne</div>
+                        <div class="card-body">Sensibiliser les 2e années à un handicap invisible lors de la semaine SASU, sous une forme libre et innovante.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👂</div>
+                        <div class="card-title">Notre choix</div>
+                        <div class="card-body">Les troubles de l'audition : hypoacousie, hyperacousie, acouphènes, vertiges — des handicaps rarement visibles, souvent incompris.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🧭</div>
+                        <div class="card-title">Notre angle</div>
+                        <div class="card-body">Faire <em>ressentir</em> plutôt que simplement <em>informer</em> — créer une expérience immersive et empathique.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:16.67%"></div></div>
+            <span class="slide-counter">3 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 4 — ÉTAT DE L'ART (chiffres)
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="3">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">02 — État de l'art</span>
+        </div>
+        <div class="slide-body padded">
+            <p class="label">02 · État de l'art — épidémiologie</p>
+            <h2 class="slide-title">Des chiffres qui interpellent</h2>
+            <div class="cards-grid cols-4" style="margin-top:1.25rem;">
+                <div class="card" style="text-align:center;">
+                    <div class="card-num">1/6</div>
+                    <div class="card-label">personnes dans le monde présentent un trouble de l'audition</div>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div class="card-num">16M</div>
+                    <div class="card-label">Français touchés par les acouphènes (4–7M chroniques)</div>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div class="card-num">8M</div>
+                    <div class="card-label">Français atteints d'hypoacousie</div>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div class="card-num">~3%</div>
+                    <div class="card-label">de la population souffrent d'hyperacousie invalidante</div>
+                </div>
+            </div>
+            <div style="margin-top:1.25rem; display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                <div class="card">
+                    <div class="card-icon">😶</div>
+                    <div class="card-title">Des handicaps invisibles</div>
+                    <div class="card-body">Aucun signe extérieur ne trahit ces troubles. Cela génère incompréhension, invalidation et isolement social.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔇</div>
+                    <div class="card-title">Peu sensibilisés</div>
+                    <div class="card-body">La surdité profonde bénéficie d'une visibilité croissante, mais l'hypoacousie légère à modérée reste largement méconnue.</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:22.22%"></div></div>
+            <span class="slide-counter">4 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 5 — LES 4 TROUBLES
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="4">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">02 — État de l'art · Les 4 troubles</span>
+        </div>
+        <div class="slide-body padded">
+            <p class="label">02 · Les troubles étudiés</p>
+            <h2 class="slide-title">Quatre réalités auditives, un même isolement</h2>
+            <div class="cards-grid cols-2" style="margin-top:1.25rem;">
+                <div class="card">
+                    <div class="card-icon">🔉</div>
+                    <div class="card-title">Hypoacousie</div>
+                    <div class="card-body">Perte partielle ou totale de l'audition, souvent progressive. Légère à sévère, elle affecte la compréhension de la parole, la vie sociale et professionnelle. <strong>Cible principale de notre simulateur.</strong></div>
+                    <div class="tag-row"><span class="tag">Légère 26–40 dB</span><span class="tag">Modérée 41–70 dB</span><span class="tag">Sévère 71–90 dB</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔊</div>
+                    <div class="card-title">Hyperacousie</div>
+                    <div class="card-body">Hypersensibilité douloureuse aux sons du quotidien (froissement de papier, voix, bruit de rue). Difficile à simuler sans risque éthique — travaillée via le site.</div>
+                    <div class="tag-row"><span class="tag">Douleur</span><span class="tag">Anxiété sonore</span><span class="tag">Repli social</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔔</div>
+                    <div class="card-title">Acouphènes</div>
+                    <div class="card-body">Son fantôme permanent (sifflement, bourdonnement) perçu sans source extérieure. Associé à une anxiété chronique et des troubles du sommeil sévères.</div>
+                    <div class="tag-row"><span class="tag">16M de Français</span><span class="tag">0 traitement curatif</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌀</div>
+                    <div class="card-title">Vertiges</div>
+                    <div class="card-body">Troubles de l'équilibre liés à l'oreille interne (VPPB, Ménière…). Les crises surviennent de façon imprévisible, rendant toute activité dangereuse.</div>
+                    <div class="tag-row"><span class="tag">Imprévisible</span><span class="tag">Invalidant</span><span class="tag">Méconnu</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:27.78%"></div></div>
+            <span class="slide-counter">5 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 6 — CAHIER DES CHARGES
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="5">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">03 — Cahier des charges</span>
+        </div>
+        <div class="slide-body row">
+            <div class="col-left">
+                <p class="label">03 · Cahier des charges</p>
+                <h2 class="slide-title">Objectifs & contraintes</h2>
+                <ul class="step-list" style="margin-top:1rem;">
+                    <li><div class="step-num">O1</div><span><strong>Provoquer de l'empathie</strong> par une expérience immersive, pas seulement informer.</span></li>
+                    <li><div class="step-num">O2</div><span><strong>Toucher tous les profils</strong> — qu'ils soient déjà sensibilisés ou totalement naïfs sur le sujet.</span></li>
+                    <li><div class="step-num">O3</div><span><strong>Ne causer aucun préjudice</strong> — contraintes fortes sur les niveaux sonores (< 80 dB sur des durées brèves).</span></li>
+                    <li><div class="step-num">O4</div><span><strong>Laisser une trace</strong> — le site web comme ressource consultable après la semaine SASU.</span></li>
+                </ul>
+            </div>
+            <div class="col-right">
+                <div style="display:flex; flex-direction:column; gap:0.85rem;">
+                    <div class="card">
+                        <div class="card-icon">⚖️</div>
+                        <div class="card-title">Contrainte éthique majeure</div>
+                        <div class="card-body">Reproduire une perte auditive sans abîmer l'audition des participants. Cela a exclu la simulation d'hyperacousie et limité nos niveaux de simulation.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🎧</div>
+                        <div class="card-title">Contrainte technique</div>
+                        <div class="card-body">Filtrage audiophonologique temps réel avec casque, sans latence perceptible, sur matériel accessible et reproductible.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">👥</div>
+                        <div class="card-title">Contrainte logistique</div>
+                        <div class="card-body">Groupes de 6 à 7 élèves, rotation sur plusieurs créneaux, animation pédagogique incluse dans le dispositif.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:33.33%"></div></div>
+            <span class="slide-counter">6 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 7 — LE DISPOSITIF
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="6">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">04 — Dispositif</span>
+        </div>
+        <div class="slide-body padded">
+            <p class="label">04 · Le dispositif — vue d'ensemble</p>
+            <h2 class="slide-title">Un triptyque cohérent</h2>
+            <div class="cards-grid cols-3" style="margin-top:1.25rem;">
+                <div class="card" style="border-color:var(--rose-deep); border-width:2px;">
+                    <div class="card-icon">🎧</div>
+                    <div class="card-title" style="color:var(--rose-deep); font-size:1rem;">Simulateur d'hypoacousie</div>
+                    <div class="card-body">Filtrage audiophonologique temps réel reproduisant une perte légère (26–40 dB) et une perte modérée (41–70 dB). Porté au casque pendant le jeu.</div>
+                    <div class="tag-row"><span class="tag">Perte légère</span><span class="tag">Perte modérée</span></div>
+                </div>
+                <div class="card" style="border-color:var(--rose-deep); border-width:2px;">
+                    <div class="card-icon">🐺</div>
+                    <div class="card-title" style="color:var(--rose-deep); font-size:1rem;">Loup-garou revisité</div>
+                    <div class="card-body">Jeu de rôle de 6–7 joueurs adapté : les "malentendants" portent le simulateur, créant des asymétries de communication vécues en temps réel.</div>
+                    <div class="tag-row"><span class="tag">Immersif</span><span class="tag">Collectif</span></div>
+                </div>
+                <div class="card" style="border-color:var(--rose-deep); border-width:2px;">
+                    <div class="card-icon">🌐</div>
+                    <div class="card-title" style="color:var(--rose-deep); font-size:1rem;">Site Audiosensible</div>
+                    <div class="card-body">Ressource pédagogique accessible en ligne : 4 troubles documentés, simulateur en ligne, témoignages et liens vers associations.</div>
+                    <div class="tag-row"><span class="tag">Durable</span><span class="tag">Accessible</span></div>
+                </div>
+            </div>
+            <div class="italic-quote" style="margin-top:1.5rem;">
+                « Le jeu de rôle était le cœur de l'expérience — il rendait la contrainte auditive concrète, sociale, et immédiatement empathique. »
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:38.89%"></div></div>
+            <span class="slide-counter">7 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 8 — SIMULATEUR (technique)
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="7">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">04 — Le simulateur en détail</span>
+        </div>
+        <div class="slide-body row">
+            <div class="col-left">
+                <p class="label">04 · Simulateur — approche technique</p>
+                <h2 class="slide-title">Reproduire une perte auditive de façon réaliste et sûre</h2>
+                <p class="slide-lead">L'hypoacousie n'est pas une simple baisse de volume : elle affecte sélectivement les <strong>hautes fréquences</strong>, rendant les consonnes et la parole inintelligibles.</p>
+                <ul class="step-list" style="margin-top:1rem;">
+                    <li><div class="step-num">1</div><span>Filtrage passe-bas pour simuler la <strong>perte en hautes fréquences</strong></span></li>
+                    <li><div class="step-num">2</div><span>Deux niveaux : <strong>légère</strong> (coupure ~2 kHz) et <strong>modérée</strong> (coupure ~1 kHz)</span></li>
+                    <li><div class="step-num">3</div><span>Traitement temps réel — <strong>aucune latence perceptible</strong></span></li>
+                    <li><div class="step-num">4</div><span>Niveaux sonores maintenus <strong>sous 80 dB</strong> pour la sécurité auditive</span></li>
+                </ul>
+            </div>
+            <div class="col-right">
+                <!-- Frequency visualization -->
+                <div class="card" style="padding:1.5rem;">
+                    <div class="card-title" style="margin-bottom:1rem;">Courbe d'atténuation simulée</div>
+                    <svg viewBox="0 0 300 160" style="width:100%;height:auto;" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#7a1e30;stop-opacity:0.15"/>
+                                <stop offset="100%" style="stop-color:#7a1e30;stop-opacity:0.05"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Grid -->
+                        <line x1="30" y1="10" x2="30" y2="130" stroke="#c9a0aa" stroke-width="0.5"/>
+                        <line x1="30" y1="130" x2="290" y2="130" stroke="#c9a0aa" stroke-width="0.5"/>
+                        <!-- Freq labels -->
+                        <text x="30" y="148" font-size="8" fill="#4a3535" text-anchor="middle">250Hz</text>
+                        <text x="95" y="148" font-size="8" fill="#4a3535" text-anchor="middle">1kHz</text>
+                        <text x="160" y="148" font-size="8" fill="#4a3535" text-anchor="middle">2kHz</text>
+                        <text x="225" y="148" font-size="8" fill="#4a3535" text-anchor="middle">4kHz</text>
+                        <text x="280" y="148" font-size="8" fill="#4a3535" text-anchor="middle">8kHz</text>
+                        <!-- dB labels -->
+                        <text x="25" y="15" font-size="7" fill="#4a3535" text-anchor="end">0dB</text>
+                        <text x="25" y="50" font-size="7" fill="#4a3535" text-anchor="end">-25</text>
+                        <text x="25" y="90" font-size="7" fill="#4a3535" text-anchor="end">-50</text>
+                        <text x="25" y="130" font-size="7" fill="#4a3535" text-anchor="end">-75</text>
+                        <!-- Normal hearing -->
+                        <path d="M30,15 L290,15" stroke="#c9a0aa" stroke-width="1.5" stroke-dasharray="4,3" fill="none"/>
+                        <text x="180" y="12" font-size="7" fill="#c9a0aa">Audition normale</text>
+                        <!-- Légère -->
+                        <path d="M30,15 L95,18 L160,35 L225,75 L280,100" stroke="#7a1e30" stroke-width="2" fill="none"/>
+                        <circle cx="30" cy="15" r="3" fill="#7a1e30"/>
+                        <text x="285" y="98" font-size="7" fill="#7a1e30">Légère</text>
+                        <!-- Modérée -->
+                        <path d="M30,15 L95,30 L160,68 L225,110 L280,128" stroke="#5c1a2a" stroke-width="2" fill="none" stroke-dasharray="5,2"/>
+                        <text x="265" y="142" font-size="7" fill="#5c1a2a">Modérée</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:44.44%"></div></div>
+            <span class="slide-counter">8 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 9 — PROTOCOLE
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="8">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">04 — Protocole de la semaine SASU</span>
+        </div>
+        <div class="slide-body row">
+            <div class="col-left">
+                <p class="label">04 · Protocole</p>
+                <h2 class="slide-title">Déroulé de la session de sensibilisation</h2>
+                <div class="timeline" style="margin-top:1.25rem;">
+                    <div class="timeline-item">
+                        <div class="timeline-spine"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+                        <div class="timeline-content"><div class="timeline-date">Phase 1 · ~5 min</div><div class="timeline-text"><strong>Accueil & introduction</strong> — présentation du sujet, consentement verbal, explications sur les troubles.</div></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-spine"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+                        <div class="timeline-content"><div class="timeline-date">Phase 2 · ~5 min</div><div class="timeline-text"><strong>Calibration</strong> — prise en main du simulateur, test audio, ajustement des casques pour chaque participant.</div></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-spine"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+                        <div class="timeline-content"><div class="timeline-date">Phase 3 · ~15 min</div><div class="timeline-text"><strong>Partie de Loup-garou</strong> — rôles asymétriques, certains joueurs en simulation légère, d'autres en simulation modérée, un groupe sans filtre.</div></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-spine"><div class="timeline-dot"></div><div class="timeline-line"></div></div>
+                        <div class="timeline-content"><div class="timeline-date">Phase 4 · ~10 min</div><div class="timeline-text"><strong>Débriefing collectif</strong> — partage des ressentis, liens avec les troubles réels, questions et discussion ouverte.</div></div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-spine"><div class="timeline-dot"></div></div>
+                        <div class="timeline-content"><div class="timeline-date">Phase 5 · renvoi</div><div class="timeline-text"><strong>Site Audiosensible</strong> — QR code pour accéder aux ressources, témoignages et simulateur en ligne.</div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-right">
+                <div style="display:flex; flex-direction:column; gap:0.85rem;">
+                    <div class="card">
+                        <div class="card-icon">🎲</div>
+                        <div class="card-title">Pourquoi le Loup-garou ?</div>
+                        <div class="card-body">Un jeu connu de tous, qui repose entièrement sur la <strong>communication verbale</strong>. La perte auditive simulée crée naturellement des malentendus et de l'exclusion — sans mise en scène artificielle.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🔄</div>
+                        <div class="card-title">Rotation des rôles</div>
+                        <div class="card-body">Chaque participant vit successivement la position de "malentendant" et de "normo-entendant", créant un double point de vue.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">📝</div>
+                        <div class="card-title">Mesure de l'impact</div>
+                        <div class="card-body">Questionnaire pré/post session pour évaluer l'évolution des représentations et du niveau d'empathie déclaré.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
+            <span class="slide-counter">9 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 10 — LE SITE WEB
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="9">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">04 — Le site web</span>
+        </div>
+        <div class="slide-body row">
+            <div class="col-left">
+                <p class="label">04 · Le site — ressource durable</p>
+                <h2 class="slide-title">Au-delà de la semaine SASU</h2>
+                <p class="slide-lead">Le site Audiosensible prolonge l'impact de la sensibilisation au-delà de l'événement. Il est conçu pour être <strong>consulté, partagé et utilisé</strong> par toute personne souhaitant mieux comprendre les troubles auditifs.</p>
+                <ul class="step-list" style="margin-top:1rem;">
+                    <li><div class="step-num">→</div><span>4 pages dédiées : <strong>hypoacousie, hyperacousie, acouphènes, vertiges</strong></span></li>
+                    <li><div class="step-num">→</div><span>Simulateur d'hypoacousie <strong>accessible en ligne</strong></span></li>
+                    <li><div class="step-num">→</div><span>Témoignages patients, ressources et associations de référence</span></li>
+                    <li><div class="step-num">→</div><span>Design accessible, responsive, mobile-first</span></li>
+                </ul>
+            </div>
+            <div class="col-right">
+                <!-- Mini site mockup -->
+                <div style="border:1px solid var(--rose-border); border-radius:10px; overflow:hidden; box-shadow:0 4px 20px rgba(122,30,48,0.1);">
+                    <div style="background:#302f2c; padding:0.5rem 0.75rem; display:flex; align-items:center; gap:0.4rem;">
+                        <div style="width:8px;height:8px;border-radius:50%;background:#ff5f57;"></div>
+                        <div style="width:8px;height:8px;border-radius:50%;background:#febc2e;"></div>
+                        <div style="width:8px;height:8px;border-radius:50%;background:#28c840;"></div>
+                        <div style="flex:1;background:#4a3535;border-radius:4px;height:16px;margin-left:0.5rem;"></div>
+                    </div>
+                    <div style="background:var(--cream);padding:1rem;">
+                        <div style="background:var(--blush);border:1px solid var(--rose-border);border-radius:6px;padding:0.75rem;margin-bottom:0.6rem;">
+                            <div style="font-size:0.7rem;font-weight:600;color:var(--asphalt);margin-bottom:0.2rem;">Audiosensible</div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.3rem;">
+                                <div style="background:var(--cream);border:1px solid var(--rose-border);border-radius:4px;padding:0.4rem;font-size:0.6rem;color:var(--text-muted);text-align:center;">Hypoacousie</div>
+                                <div style="background:var(--cream);border:1px solid var(--rose-border);border-radius:4px;padding:0.4rem;font-size:0.6rem;color:var(--text-muted);text-align:center;">Hyperacousie</div>
+                                <div style="background:var(--cream);border:1px solid var(--rose-border);border-radius:4px;padding:0.4rem;font-size:0.6rem;color:var(--text-muted);text-align:center;">Acouphènes</div>
+                                <div style="background:var(--cream);border:1px solid var(--rose-border);border-radius:4px;padding:0.4rem;font-size:0.6rem;color:var(--text-muted);text-align:center;">Vertiges</div>
+                            </div>
+                        </div>
+                        <div style="background:var(--rose-deep);border-radius:6px;padding:0.6rem;text-align:center;font-size:0.65rem;color:white;font-weight:600;">🎧 Simulateur d'hypoacousie</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:55.56%"></div></div>
+            <span class="slide-counter">10 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 11 — ENJEUX TECHNIQUES
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="10">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">04 — Enjeux & obstacles</span>
+        </div>
+        <div class="slide-body padded">
+            <p class="label">04 · Ce que nous avons dû surmonter</p>
+            <h2 class="slide-title">Les défis inattendus du projet</h2>
+            <div class="cards-grid cols-3" style="margin-top:1.25rem;">
+                <div class="card">
+                    <div class="card-icon">🔬</div>
+                    <div class="card-title">Fidelité perceptive</div>
+                    <div class="card-body">Une hypoacousie réelle ne se réduit pas à couper les fréquences — distorsion, recrutement sonore, fatigue auditive s'y ajoutent. Nous avons dû accepter une simulation imparfaite mais éthiquement sûre.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">⏱️</div>
+                    <div class="card-title">Latence en temps réel</div>
+                    <div class="card-body">Le filtrage audio doit être imperceptiblement rapide. Trop de latence brise l'immersion et génère une gêne artificielle. Plusieurs itérations d'optimisation ont été nécessaires.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎭</div>
+                    <div class="card-title">Dimension émotionnelle</div>
+                    <div class="card-body">Certains participants du groupe présentent eux-mêmes des troubles. La conception du dispositif a dû intégrer ce paramètre pour ne pas provoquer de détresse.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📐</div>
+                    <div class="card-title">Calibration individuelle</div>
+                    <div class="card-body">Chaque oreille est différente. Le réglage du simulateur a demandé un protocole de calibration rapide mais rigoureux pour chaque participant.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔁</div>
+                    <div class="card-title">Animation du jeu</div>
+                    <div class="card-body">Adapter les règles du Loup-garou pour que la contrainte auditive soit un vecteur d'empathie et non une source de frustration ou de désengagement.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Mesure de l'impact</div>
+                    <div class="card-body">Évaluer une évolution d'empathie sur une courte session demande des outils psychométriques adaptés — un vrai enjeu méthodologique.</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:61.11%"></div></div>
+            <span class="slide-counter">11 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 12 — RÉSULTATS QUANTITATIFS
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="11">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">05 — Résultats</span>
+        </div>
+        <div class="slide-body padded">
+            <p class="label">05 · Résultats — données quantitatives</p>
+            <h2 class="slide-title">Ce que les chiffres nous ont appris</h2>
+            <div class="cards-grid cols-4" style="margin-top:1.25rem;">
+                <div class="result-highlight">
+                    <div class="result-big">N</div>
+                    <div class="result-sub">participants à la semaine SASU<br><em>À compléter</em></div>
+                </div>
+                <div class="result-highlight">
+                    <div class="result-big">+↑</div>
+                    <div class="result-sub">Score d'empathie déclarée post-session<br><em>À compléter</em></div>
+                </div>
+                <div class="result-highlight">
+                    <div class="result-big">X/5</div>
+                    <div class="result-sub">Satisfaction moyenne du dispositif<br><em>À compléter</em></div>
+                </div>
+                <div class="result-highlight">
+                    <div class="result-big">Y%</div>
+                    <div class="result-sub">Auraient recommandé l'expérience<br><em>À compléter</em></div>
+                </div>
+            </div>
+            <div class="cards-grid cols-2" style="margin-top:1rem;">
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <div class="card-title">Évolution des représentations</div>
+                    <div class="card-body">Avant/après : les participants sous-estimaient significativement la gêne causée par une perte légère. L'expérience du simulateur a modifié cette perception.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💬</div>
+                    <div class="card-title">Retour qualitatif dominant</div>
+                    <div class="card-body">« Je ne réalisais pas à quel point c'est épuisant de se concentrer pour comprendre une conversation. » — Verbatim représentatif du débriefing.</div>
+                </div>
+            </div>
+            <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.75rem; font-style:italic;">⚠ Remplacez les valeurs N, X/5 et Y% par vos chiffres réels avant la soutenance.</p>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:66.67%"></div></div>
+            <span class="slide-counter">12 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 13 — RÉSULTATS QUALITATIFS
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="12">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">05 — Analyse qualitative</span>
+        </div>
+        <div class="slide-body row">
+            <div class="col-left">
+                <p class="label">05 · Ce que les participants ont vécu</p>
+                <h2 class="slide-title">L'expérience qui fait basculer</h2>
+                <div class="italic-quote">
+                    « Le plus dur, c'était de devoir demander de répéter encore et encore sans oser interrompre la conversation. »
+                </div>
+                <div class="italic-quote">
+                    « Je me suis senti exclu du groupe malgré ma présence physique — c'est exactement ça, l'invisibilité du handicap. »
+                </div>
+                <div class="italic-quote">
+                    « La partie légère semblait presque gérable au début… et puis la fatigue est arrivée en 10 minutes. »
+                </div>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-top:0.75rem; font-style:italic;">Remplacez / complétez avec vos verbatims réels de débriefing.</p>
+            </div>
+            <div class="col-right">
+                <div class="card" style="margin-bottom:0.85rem;">
+                    <div class="card-icon">🧩</div>
+                    <div class="card-title">Ce qui a le mieux fonctionné</div>
+                    <div class="card-body">Le jeu de rôle a créé des situations naturelles d'exclusion sans artifice — les participants ont spontanément verbalisé l'épuisement, la frustration et l'isolement.</div>
+                </div>
+                <div class="card" style="margin-bottom:0.85rem;">
+                    <div class="card-icon">⚠️</div>
+                    <div class="card-title">Points d'attention identifiés</div>
+                    <div class="card-body">Certains participants ont tourné la contrainte en dérision plutôt qu'en empathie — le débriefing était crucial pour recadrer et donner du sens.</div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌱</div>
+                    <div class="card-title">Impact inattendu</div>
+                    <div class="card-body">Plusieurs participants ont spontanément mentionné des proches malentendants — le dispositif a créé un espace de parole que nous n'avions pas anticipé.</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:72.22%"></div></div>
+            <span class="slide-counter">13 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 14 — DISCUSSION / LIMITES
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="13">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">05 — Discussion & limites</span>
+        </div>
+        <div class="slide-body row">
+            <div class="col-left">
+                <p class="label">05 · Discussion</p>
+                <h2 class="slide-title">Ce que le projet ne peut pas (encore) faire</h2>
+                <ul class="step-list" style="margin-top:1rem;">
+                    <li><div class="step-num">!</div><span>La simulation reste <strong>partielle</strong> — une hypoacousie réelle implique distorsion, recrutement et fatigue que nous ne reproduisons pas.</span></li>
+                    <li><div class="step-num">!</div><span>L'empathie induite est <strong>temporaire</strong> sans ancrage — le site et le débriefing sont essentiels pour consolider.</span></li>
+                    <li><div class="step-num">!</div><span>L'<strong>hyperacousie</strong> n'a pas pu être simulée pour des raisons éthiques — sa dimension douloureuse est mal restituée par le texte seul.</span></li>
+                    <li><div class="step-num">!</div><span>La taille d'échantillon reste limitée à la cohorte SASU — <strong>pas de généralisation</strong> possible.</span></li>
+                </ul>
+            </div>
+            <div class="col-right">
+                <div class="accent-box">
+                    <p class="label">Ce que ça nous apprend</p>
+                    <h3 style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:1.2rem;color:white;margin-bottom:0.75rem;">Le gap entre savoir et ressentir</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.85);line-height:1.65;">Les participants connaissaient, pour la plupart, l'existence de l'hypoacousie. Ce qu'ils n'avaient jamais expérimenté, c'est la <strong style="color:white;">charge cognitive</strong> associée, la gêne sociale, et l'<strong style="color:white;">épuisement</strong> d'une conversation ordinaire. C'est ce gap que notre dispositif comble — imparfaitement, mais réellement.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:77.78%"></div></div>
+            <span class="slide-counter">14 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 15 — PERSPECTIVES
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="14">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">06 — Perspectives</span>
+        </div>
+        <div class="slide-body padded">
+            <p class="label">06 · Et après ?</p>
+            <h2 class="slide-title">Ce que ce projet pourrait devenir</h2>
+            <div class="cards-grid cols-3" style="margin-top:1.25rem;">
+                <div class="card">
+                    <div class="card-icon">🔊</div>
+                    <div class="card-title">Simulation étendue</div>
+                    <div class="card-body">Intégrer les acouphènes et la distorsion perceptive dans le simulateur — avec un protocole éthique renforcé et des audioprothésistes partenaires.</div>
+                    <div class="tag-row"><span class="tag">Court terme</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🏫</div>
+                    <div class="card-title">Déploiement scolaire</div>
+                    <div class="card-body">Adapter le dispositif pour des lycées ou classes prépa — la sensibilisation aux handicaps invisibles a sa place dans l'éducation secondaire.</div>
+                    <div class="tag-row"><span class="tag">Moyen terme</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <div class="card-title">Open source</div>
+                    <div class="card-body">Mettre le code du simulateur et le protocole à disposition d'autres équipes qui souhaitent adapter l'expérience à d'autres contextes.</div>
+                    <div class="tag-row"><span class="tag">Dès maintenant</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🤝</div>
+                    <div class="card-title">Partenariats associatifs</div>
+                    <div class="card-body">Collaborer avec France Acouphènes, Fondation pour l'Audition ou des ESAT pour enrichir les témoignages et valider scientifiquement le dispositif.</div>
+                    <div class="tag-row"><span class="tag">À explorer</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📱</div>
+                    <div class="card-title">App mobile</div>
+                    <div class="card-body">Rendre le simulateur accessible directement depuis un smartphone avec des écouteurs, sans installation — démocratiser l'accès à l'expérience.</div>
+                    <div class="tag-row"><span class="tag">Long terme</span></div>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📐</div>
+                    <div class="card-title">Étude longitudinale</div>
+                    <div class="card-body">Mesurer si l'impact empathique persiste dans le temps — et si l'expérience modifie durablement les comportements de communication.</div>
+                    <div class="tag-row"><span class="tag">Recherche</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:83.33%"></div></div>
+            <span class="slide-counter">15 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 16 — L'ÉQUIPE
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="15">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">L'équipe</span>
+        </div>
+        <div class="slide-body padded">
+            <p class="label">L'équipe derrière le projet</p>
+            <h2 class="slide-title">Quatre ingénieurs·es, un engagement commun</h2>
+            <div class="cards-grid cols-4" style="margin-top:1.25rem;">
+                <div class="card" style="text-align:center;">
+                    <div style="width:4rem;height:4rem;border-radius:50%;background:var(--rose-border);margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">👩</div>
+                    <div class="card-title">Calista Dauriac</div>
+                    <div class="card-body">Cycle Ingénieur Cogniticien, ENSC</div>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div style="width:4rem;height:4rem;border-radius:50%;background:var(--rose-border);margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">👩</div>
+                    <div class="card-title">Emma Kerguillec</div>
+                    <div class="card-body">Cycle Ingénieur Cogniticien, ENSC</div>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div style="width:4rem;height:4rem;border-radius:50%;background:var(--rose-border);margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">👨</div>
+                    <div class="card-title">Louis Latu-Villières</div>
+                    <div class="card-body">Cycle Ingénieur Cogniticien, ENSC</div>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div style="width:4rem;height:4rem;border-radius:50%;background:var(--rose-border);margin:0 auto 0.75rem;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">👩</div>
+                    <div class="card-title">Mathilde Willey</div>
+                    <div class="card-body">Cycle Ingénieur Cogniticien, ENSC</div>
+                </div>
+            </div>
+            <div class="card" style="margin-top:1rem;display:flex;align-items:center;gap:1rem;">
+                <div style="font-size:2rem;">🎓</div>
+                <div>
+                    <div class="card-title">Véronique Lespinet-Najib — Encadrante</div>
+                    <div class="card-body">Maîtresse de conférences à l'ENSC, spécialiste des interfaces homme-machine et de la cognition. Son encadrement a guidé nos choix méthodologiques et éthiques tout au long du projet.</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:88.89%"></div></div>
+            <span class="slide-counter">16 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 17 — MERCI / DEMO
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="16">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">Conclusion</span>
+        </div>
+        <div class="slide-body" style="justify-content:center;align-items:center;text-align:center;">
+            <div class="wave-row" style="justify-content:center;margin-bottom:1.5rem;">
+                <div class="wave-bar" style="height:40%;animation-delay:0s"></div>
+                <div class="wave-bar" style="height:70%;animation-delay:0.1s"></div>
+                <div class="wave-bar" style="height:100%;animation-delay:0.2s"></div>
+                <div class="wave-bar" style="height:80%;animation-delay:0.3s"></div>
+                <div class="wave-bar" style="height:55%;animation-delay:0.4s"></div>
+                <div class="wave-bar" style="height:90%;animation-delay:0.3s"></div>
+                <div class="wave-bar" style="height:65%;animation-delay:0.2s"></div>
+                <div class="wave-bar" style="height:40%;animation-delay:0.1s"></div>
+            </div>
+            <p class="label" style="text-align:center;">Merci pour votre attention</p>
+            <h2 class="slide-title" style="font-size:clamp(2rem,4vw,3.5rem); margin-bottom:1rem;">Découvrez le site en direct</h2>
+            <p class="slide-lead" style="margin:0 auto 2rem; text-align:center; max-width:540px;">Le diaporama que vous venez de voir <em>est</em> le site Audiosensible — naviguez librement pour explorer les 4 troubles et tester le simulateur d'hypoacousie.</p>
+            <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                <a href="./index.html" style="display:inline-block;padding:0.75rem 1.75rem;background:var(--rose-deep);color:var(--cream);text-decoration:none;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:1rem;transition:all 0.2s;" onmouseover="this.style.background='var(--rose-dark)'" onmouseout="this.style.background='var(--rose-deep)'">🌐 Accueil du site</a>
+                <a href="./Simulateur_hypoacousie.html" style="display:inline-block;padding:0.75rem 1.75rem;border:1px solid var(--rose-deep);color:var(--rose-deep);text-decoration:none;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:600;font-size:1rem;transition:all 0.2s;" onmouseover="this.style.background='var(--blush)'" onmouseout="this.style.background='transparent'">🎧 Simulateur</a>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:94.44%"></div></div>
+            <span class="slide-counter">17 / 18</span>
+            <button class="nav-btn" onclick="navigate(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════
+         SLIDE 18 — QUESTIONS
+    ═══════════════════════════════════════════ -->
+    <div class="slide" data-index="17">
+        <div class="slide-header">
+            <div class="slide-logo"><div class="slide-logo-dot"><svg viewBox="0 0 24 24"><path fill="white" d="M12 3a9 9 0 0 1 9 9 9 9 0 0 1-9 9A9 9 0 0 1 3 12 9 9 0 0 1 12 3m0 2a7 7 0 0 0-7 7 7 7 0 0 0 7 7 7 7 0 0 0 7-7 7 7 0 0 0-7-7m0 1a1 1 0 0 1 1 1v3.586l2.121 2.121a1 1 0 0 1-1.414 1.414l-2.414-2.414A1 1 0 0 1 11 11V7a1 1 0 0 1 1-1z"/></svg></div>Audiosensible</div>
+            <span class="slide-meta">Questions</span>
+        </div>
+        <div class="slide-body" style="justify-content:center;align-items:center;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;max-width:900px;margin:0 auto;">
+                <div>
+                    <p class="label">Pour aller plus loin</p>
+                    <h2 class="slide-title" style="font-size:clamp(2rem,4vw,3.5rem);">Des questions ?</h2>
+                    <p class="slide-lead" style="margin-top:0.75rem;">Nous sommes disponibles pour détailler nos choix techniques, méthodologiques, ou partager nos learnings sur un an de projet.</p>
+                    <div style="margin-top:1.5rem;display:flex;flex-direction:column;gap:0.5rem;font-size:0.85rem;color:var(--text-muted);">
+                        <span>🎧 Simulateur d'hypoacousie → accessible sur le site</span>
+                        <span>📄 Cahier des charges & protocole → sur demande</span>
+                        <span>📊 Données brutes → sur demande</span>
+                    </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:0.85rem;">
+                    <div class="card">
+                        <div class="card-title" style="font-size:0.85rem;">Foire aux questions anticipées</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="font-size:1rem;">❓</div>
+                        <div class="card-body"><strong>Pourquoi le Loup-garou ?</strong> Parce qu'il repose entièrement sur la communication verbale, rendant la simulation auditive immédiatement significative.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="font-size:1rem;">❓</div>
+                        <div class="card-body"><strong>Risque pour les oreilles ?</strong> Niveaux maintenus &lt;80 dB, durée courte — équivalent à une conversation normale légèrement amplifiée.</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon" style="font-size:1rem;">❓</div>
+                        <div class="card-body"><strong>Ce qui nous a le plus surpris ?</strong> La vitesse à laquelle la fatigue auditive s'installe — même sur quelques minutes de simulation légère.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <button class="nav-btn" onclick="navigate(-1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+            <span class="slide-counter">18 / 18</span>
+            <button class="nav-btn" disabled><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Fullscreen button -->
+<button id="fs-btn" onclick="toggleFullscreen()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+    Plein écran
+</button>
+
+<script>
+    const TOTAL = 18;
+    let current = 0;
+    let isAnimating = false;
+
+    function navigate(dir) {
+        if (isAnimating) return;
+        const next = current + dir;
+        if (next < 0 || next >= TOTAL) return;
+
+        isAnimating = true;
+        const slides = document.querySelectorAll('.slide');
+
+        slides[current].classList.add('exit-left');
+        slides[current].classList.remove('active');
+
+        setTimeout(() => {
+            slides[current].classList.remove('exit-left');
+            current = next;
+            slides[current].style.transform = dir > 0 ? 'translateX(60px)' : 'translateX(-60px)';
+            slides[current].style.opacity = '0';
+            slides[current].classList.add('active');
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    slides[current].style.transform = '';
+                    slides[current].style.opacity = '';
+                    isAnimating = false;
+                });
+            });
+        }, 300);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); navigate(1); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); navigate(-1); }
+        if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', e => {
+        const dx = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(dx) > 50) navigate(dx > 0 ? 1 : -1);
+    });
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+            document.exitFullscreen();
+        }
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+        const btn = document.getElementById('fs-btn');
+        btn.textContent = document.fullscreenElement ? '✕ Quitter' : '';
+        if (!document.fullscreenElement) {
+            btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg> Plein écran';
+        }
+    });
+</script>
+
+</body>
+</html>
