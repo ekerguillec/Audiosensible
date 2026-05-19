@@ -5,6 +5,7 @@
 
 /* ── RESET & BASE ── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-padding-top: calc(var(--nav-h, 5rem) + var(--rn-nav-h, 0px)); }
 
 :root {
   --rouge:           #8B1A1A;
@@ -271,16 +272,6 @@ nav.scrolled {
   padding: 0 4rem 6rem 4rem;
   position: relative;
   z-index: 2;
-}
-.hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--rouge);
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: fadeUp 1s var(--transition) 0.3s forwards;
 }
 .hero-title {
   font-family: var(--font-titre);

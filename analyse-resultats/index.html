@@ -1,11 +1,36 @@
-<!DOCTYPE html><html lang="fr"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Analyse des résultats — Audiosensible</title><meta name="description" content="Analyse statistique des résultats de l'expérience de sensibilisation à l'hypoacousie — statistiques descriptives, tests de Wilcoxon et Analyse en Composantes Principales."><!-- Favicon --><link rel="icon" type="image/x-icon" href="/favicon.ico"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><!-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"><!-- Styles globaux --><link rel="stylesheet" href="/style/style.css"><style>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analyse des résultats — Audiosensible</title>
+  <meta name="description" content="Analyse statistique des résultats de l'expérience de sensibilisation à l'hypoacousie — statistiques descriptives, tests de Wilcoxon et Analyse en Composantes Principales.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- Styles globaux -->
+  <link rel="stylesheet" href="/style/style.css">
+
+  <style>
   .page-wrap { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
   .page-hero { padding: 10rem 2.5rem 4rem; max-width: 860px; margin: 0 auto; }
-  .page-eyebrow { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rouge); margin-bottom: 1.5rem; }
-  .page-title { font-family: var(--font-titre); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.04em; color: var(--encre); margin-bottom: 1.5rem; line-height: 1.1; }
+.page-title { font-family: var(--font-titre); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.04em; color: var(--encre); margin-bottom: 1.5rem; line-height: 1.1; }
   .page-intro { font-size: 1.15rem; line-height: 1.8; color: var(--gris-fonce); max-width: 640px; }
   .page-divider { border: none; border-top: 0.5px solid var(--gris-clair); margin: 3rem 0; }
   .content-section { margin-bottom: 3.5rem; }
+  .page-toc { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
+  .page-toc a { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--rouge); text-decoration: none; display: flex; align-items: baseline; gap: 0.75rem; padding: 0.4rem 0; border-bottom: 0.5px solid var(--gris-tres-clair); }
+  .page-toc a:hover { color: var(--encre); }
+  .page-toc-num { min-width: 1.5rem; opacity: 0.5; }
   .section-heading { font-family: var(--font-titre); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; color: var(--encre); margin-bottom: 1.25rem; }
   .subsection-heading { font-family: var(--font-titre); font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; color: var(--encre); margin-bottom: 0.75rem; margin-top: 2rem; }
   .body-text { font-size: 1.05rem; line-height: 1.85; color: var(--gris-fonce); margin-bottom: 1rem; }
@@ -48,11 +73,6 @@
   .btn-primary:hover { background: var(--rouge); }
   @media (max-width: 640px) { .page-hero { padding: 8rem 1.5rem 3rem; } .page-wrap { padding: 0 1.5rem; } }
 
-  .art-toc { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
-  .art-toc a { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--rouge); text-decoration: none; display: flex; align-items: baseline; gap: 0.75rem; padding: 0.4rem 0; border-bottom: 0.5px solid var(--gris-tres-clair); }
-  .art-toc a:hover { color: var(--encre); }
-  .art-toc-num { min-width: 1.5rem; opacity: 0.5; }
-  .section-num { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; color: var(--rouge); display: block; margin-bottom: 0.5rem; }
   .fig-block { margin: 2.5rem 0; }
   .fig-img { width: 100%; border: 0.5px solid var(--gris-clair); }
   .fig-img img { width: 100%; height: auto; display: block; }
@@ -78,18 +98,531 @@
   @media (max-width: 640px) {
     .profile-stats { grid-template-columns: 1fr; }
   }
-</style><style>.rn-nav[data-astro-cid-zlvxpvln]{position:sticky;top:65px;z-index:90;width:100%;background:#fafaf8f5;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:.5px solid var(--gris-clair);text-align:center}.rn-toggle[data-astro-cid-zlvxpvln]{display:none}.rn-list[data-astro-cid-zlvxpvln]{display:inline-flex;list-style:none;padding:0;margin:0;white-space:nowrap}.rn-link[data-astro-cid-zlvxpvln]{display:flex;align-items:baseline;gap:.5rem;padding:.9rem 1.25rem;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-decoration:none;color:var(--gris);border-bottom:2px solid transparent;transition:color .2s,border-color .2s;position:relative;bottom:-.5px}.rn-link[data-astro-cid-zlvxpvln]:hover{color:var(--encre);border-bottom-color:var(--gris-clair)}.rn-link--active[data-astro-cid-zlvxpvln]{color:var(--rouge);border-bottom-color:var(--rouge)}.rn-num[data-astro-cid-zlvxpvln]{opacity:.45;font-size:.6rem;letter-spacing:.15em}.rn-link--active[data-astro-cid-zlvxpvln] .rn-num[data-astro-cid-zlvxpvln]{opacity:.7}@media(max-width:1300px){.rn-nav[data-astro-cid-zlvxpvln]{top:58px}.rn-list[data-astro-cid-zlvxpvln]{display:flex;flex-wrap:wrap;justify-content:center;width:100%}}@media(max-width:768px){.rn-nav[data-astro-cid-zlvxpvln]{top:52px;display:flex;flex-direction:column}.rn-toggle[data-astro-cid-zlvxpvln]{display:flex;align-items:center;justify-content:space-between;width:100%;padding:.85rem 1.25rem;background:none;border:none;cursor:pointer}.rn-toggle-label[data-astro-cid-zlvxpvln]{display:flex;flex-direction:column;align-items:flex-start;gap:.1rem}.rn-toggle-eyebrow[data-astro-cid-zlvxpvln]{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rouge);opacity:.7}.rn-toggle-current[data-astro-cid-zlvxpvln]{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;color:var(--encre)}.rn-chevron[data-astro-cid-zlvxpvln]{width:1rem;height:1rem;color:var(--rouge);flex-shrink:0;transition:transform .25s ease}.rn-list[data-astro-cid-zlvxpvln]{display:none;flex-direction:column;width:100%;border-top:.5px solid var(--gris-clair);padding:.5rem 0;white-space:normal}.rn-link[data-astro-cid-zlvxpvln]{padding:.7rem 1.25rem;font-size:.68rem;border-bottom:none;border-left:2px solid transparent;bottom:0;width:100%}.rn-link[data-astro-cid-zlvxpvln]:hover{border-bottom-color:transparent;border-left-color:var(--gris-clair)}.rn-link--active[data-astro-cid-zlvxpvln]{border-bottom-color:transparent;border-left-color:var(--rouge)}.rn-num[data-astro-cid-zlvxpvln]{display:none}}
-</style></head> <body> <!-- ── SCROLL TO TOP ── --> <button id="scroll-top" aria-label="Retour en haut de page"> <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"> <path d="M8 12V4M4 8l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <!-- ════════════════════ NAVIGATION ════════════════════ --> <nav id="mainNav" role="navigation" aria-label="Navigation principale"> <a href="/" class="nav-logo" aria-label="Audiosensible — Accueil"> <img src="/img/logo_audiosensible.png" style="width: 2em;" alt="">
-Audiosensible
-</a> <!-- Liens desktop --> <ul class="nav-links" role="list"> <li><a href="/">Accueil</a></li> <li><a href="/le-projet">Le projet</a></li> <li><a href="/a-propos">À propos de nous</a></li> <!-- Dropdown "Ressources" --> <li class="nav-item-dropdown"> <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-ressources" id="btn-ressources">
-Ressources
-<svg class="nav-chevron" viewBox="0 0 10 10" fill="none" aria-hidden="true"> <path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </button> <ul class="nav-dropdown" id="dropdown-ressources" role="menu" aria-labelledby="btn-ressources"> <li role="none"> <a href="/etat-de-lart" role="menuitem"> État de l&#39;art  </a> </li><li role="none"> <a href="/cahier-des-charges" role="menuitem"> Cahier des charges  </a> </li><li role="none"> <a href="/code-et-fonctionnement" role="menuitem"> Code et fonctionnement  </a> </li><li role="none"> <a href="/protocole-experimental" role="menuitem"> Protocole expérimental  </a> </li><li role="none"> <a href="/analyse-resultats" role="menuitem"> Analyse des résultats  </a> </li><li role="none"> <a href="/scenario-usage" role="menuitem"> Scénario d&#39;usage  </a> </li> </ul> </li> <li><a href="/soutenance">Soutenance</a></li> </ul> <!-- Burger (mobile) --> <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileNav"> <span></span><span></span><span></span> </button> </nav> <!-- ════════════════════ MENU MOBILE ════════════════════ --> <nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile" aria-hidden="true"> <a href="/" class="mobile-link">Accueil</a><a href="/le-projet" class="mobile-link">Le projet</a><a href="/a-propos" class="mobile-link">À propos de nous</a><a href="/ressources" class="mobile-link">Ressources</a><a href="/soutenance" class="mobile-link">Soutenance</a> </nav> <!-- ═══════════════════ CONTENU DE LA PAGE ═══════════════════ -->   <nav class="rn-nav" aria-label="Navigation entre les ressources" data-astro-cid-zlvxpvln> <button class="rn-toggle" aria-expanded="false" aria-controls="rn-list" data-astro-cid-zlvxpvln> <span class="rn-toggle-label" data-astro-cid-zlvxpvln> <span class="rn-toggle-eyebrow" data-astro-cid-zlvxpvln>Ressources</span> <span class="rn-toggle-current" data-astro-cid-zlvxpvln>Analyse des résultats</span> </span> <svg class="rn-chevron" viewBox="0 0 10 10" fill="none" aria-hidden="true" data-astro-cid-zlvxpvln> <path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-zlvxpvln></path> </svg> </button> <ul class="rn-list" id="rn-list" role="list" data-astro-cid-zlvxpvln> <li data-astro-cid-zlvxpvln> <a href="/etat-de-lart" class="rn-link" data-astro-cid-zlvxpvln> <span class="rn-num" data-astro-cid-zlvxpvln>01</span> <span data-astro-cid-zlvxpvln>État de l&#39;art</span> </a> </li><li data-astro-cid-zlvxpvln> <a href="/cahier-des-charges" class="rn-link" data-astro-cid-zlvxpvln> <span class="rn-num" data-astro-cid-zlvxpvln>02</span> <span data-astro-cid-zlvxpvln>Cahier des charges</span> </a> </li><li data-astro-cid-zlvxpvln> <a href="/code-et-fonctionnement" class="rn-link" data-astro-cid-zlvxpvln> <span class="rn-num" data-astro-cid-zlvxpvln>03</span> <span data-astro-cid-zlvxpvln>Code et fonctionnement</span> </a> </li><li data-astro-cid-zlvxpvln> <a href="/protocole-experimental" class="rn-link" data-astro-cid-zlvxpvln> <span class="rn-num" data-astro-cid-zlvxpvln>04</span> <span data-astro-cid-zlvxpvln>Protocole expérimental</span> </a> </li><li data-astro-cid-zlvxpvln> <a href="/analyse-resultats" class="rn-link rn-link--active" aria-current="page" data-astro-cid-zlvxpvln> <span class="rn-num" data-astro-cid-zlvxpvln>05</span> <span data-astro-cid-zlvxpvln>Analyse des résultats</span> </a> </li><li data-astro-cid-zlvxpvln> <a href="/scenario-usage" class="rn-link" data-astro-cid-zlvxpvln> <span class="rn-num" data-astro-cid-zlvxpvln>06</span> <span data-astro-cid-zlvxpvln>Scénario d&#39;usage</span> </a> </li> </ul> </nav>  <script type="module">function o(){const n=document.querySelector(".rn-toggle"),t=document.getElementById("rn-list"),r=document.querySelector(".rn-chevron");if(!n||!t)return;let e=!1;n.addEventListener("click",()=>{e=!e,t.style.display=e?"flex":"none",t.style.flexDirection=e?"column":"",n.setAttribute("aria-expanded",String(e)),r&&(r.style.transform=e?"rotate(180deg)":"")}),t.querySelectorAll(".rn-link").forEach(l=>{l.addEventListener("click",()=>{e=!1,t.style.display="none",t.style.flexDirection="",n.setAttribute("aria-expanded","false"),r&&(r.style.transform="")})})}o();</script> <div class="page-hero reveal"> <p class="page-eyebrow">Projet SASU · Rapport statistique</p> <h1 class="page-title">Analyse des résultats</h1> <p class="page-intro">Cette expérience de sensibilisation à l'hypoacousie a-t-elle réellement modifié les perceptions et connaissances des participants ? Analyse descriptive, tests d'hypothèses et ACP réalisés sous R sur un échantillon de 26 étudiants de l'ENSC.</p> </div> <div class="page-wrap" style="padding-bottom: 6rem;"> <hr class="page-divider"> <!-- SOMMAIRE --> <div class="content-section reveal"> <h2 class="section-heading">Sommaire</h2> <div class="art-toc" role="navigation" aria-label="Sommaire du document"> <a href="#intro"><span class="art-toc-num">—</span>Introduction</a> <a href="#donnees"><span class="art-toc-num">I.</span>Présentation du jeu de données</a> <a href="#descriptive"><span class="art-toc-num">II.</span>Analyse descriptive</a> <a href="#inferentielle"><span class="art-toc-num">III.</span>Analyse inférentielle</a> <a href="#acp"><span class="art-toc-num">IV.</span>Analyse en Composantes Principales</a> <a href="#conclusion"><span class="art-toc-num">—</span>Conclusion</a> </div> </div> <hr class="page-divider"> <!-- INTRODUCTION --> <div id="intro" class="content-section reveal" style="scroll-margin-top: 5rem;"> <span class="section-num">Introduction</span> <h2 class="section-heading">Contexte et objectifs</h2> <p class="body-text">Les handicaps invisibles sont souvent les grands oubliés des démarches de sensibilisation. Pourtant, ils touchent une part considérable de la population et méritent une attention particulière. C'est dans cette optique que s'inscrit notre projet transdisciplinaire, réalisé dans le cadre de la semaine SASU à l'ENSC.</p> <p class="body-text">Chaque année, les étudiants de deuxième année participent à l'atelier HandiSim, qui leur permet de découvrir différentes formes de handicap. Constatant que les handicaps invisibles y sont peu représentés, nous avons choisi de nous concentrer sur les troubles auditifs — et plus précisément sur <strong>l'hypoacousie</strong>, perte partielle de l'acuité auditive. Pour donner à ces phénomènes une dimension concrète et vécue, nous avons conçu un dispositif de simulation d'hypoacousie que des étudiants de deuxième année ont pu expérimenter lors de la semaine SASU.</p> <blockquote class="pull-quote">
-Concevoir une expérience de sensibilisation ne suffit pas : encore faut-il pouvoir mesurer si elle produit réellement un effet.
-</blockquote> <p class="body-text">Nous avons élaboré un questionnaire soumis aux participants <strong>avant et après</strong> l'expérience, portant sur leurs perceptions, leurs connaissances et leurs attitudes vis-à-vis des troubles auditifs. Les réponses, recueillies sur une échelle de Likert allant de 1 à 5, ont été collectées auprès de <strong>26 participants</strong>. Les outils mobilisés : analyses descriptives, tests d'hypothèses et Analyse en Composantes Principales (ACP), le tout mis en œuvre avec le logiciel R.</p> </div> <hr class="page-divider"> <!-- SECTION I — DONNÉES --> <div id="donnees" class="content-section reveal" style="scroll-margin-top: 5rem;"> <span class="section-num">I — Jeu de données</span> <h2 class="section-heading">Présentation du jeu de données</h2> <p class="body-text">Le jeu de données regroupe les réponses des 26 étudiants de deuxième année de l'ENSC ayant participé à l'expérience. Chaque participant s'est vu attribuer un identifiant numérique unique pour garantir son anonymat.</p> <h3 class="subsection-heading">Structure du questionnaire</h3> <p class="body-text">Le jeu de données s'organise en deux grandes parties : une section de <em>profil</em> (francophonie, troubles préexistants, remarques reçues sur l'audition) et six <em>catégories thématiques</em> de questions, chacune évaluée avant (suffixe <code>_AV</code>) et après (suffixe <code>_AP</code>) l'expérience.</p> <div class="cat-grid"> <div class="cat-row"> <span class="cat-name">Vulnérabilité perçue</span> <span class="cat-code">VULNE</span> </div> <div class="cat-row"> <span class="cat-name">Impacts perçus</span> <span class="cat-code">IMPACT</span> </div> <div class="cat-row"> <span class="cat-name">Bénéfices perçus</span> <span class="cat-code">BENEF</span> </div> <div class="cat-row"> <span class="cat-name">Obstacles perçus</span> <span class="cat-code">OBST</span> </div> <div class="cat-row"> <span class="cat-name">Auto-efficacité perçue</span> <span class="cat-code">AUTO</span> </div> <div class="cat-row"> <span class="cat-name">Action</span> <span class="cat-code">ACTION</span> </div> </div> <p class="body-text">Les réponses sont exprimées sur une échelle de Likert de 1 (<em>Pas du tout d'accord</em>) à 5 (<em>Tout à fait d'accord</em>). Le jeu de données contient donc deux colonnes par question — par exemple, <strong><code>HAB_AV</code></strong> et <strong><code>HAB_AP</code></strong> pour la question sur l'habitude au bruit fort.</p> </div> <hr class="page-divider"> <!-- SECTION II — DESCRIPTIVE --> <div id="descriptive" class="content-section reveal" style="scroll-margin-top: 5rem;"> <span class="section-num">II — Analyse descriptive</span> <h2 class="section-heading">Analyse descriptive</h2> <h3 class="subsection-heading">II.1 — Profil de l'échantillon</h3> <!-- FIGURE 1 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/01.png" alt="Profil auditif et formation des participants — diagrammes illustrant les proportions de troubles auditifs déclarés, de participants formés et de ceux ayant reçu des remarques sur leur audition."> </div> <p class="fig-caption"><strong>Figure 1.</strong> Profil auditif et formation des participants.</p> </div> <p class="body-text">Seulement <strong>4 %</strong> des participants considèrent avoir des troubles auditifs : l'échantillon est propice à une action de sensibilisation, le public n'étant ni expert du sujet, ni directement confronté au handicap au quotidien. De plus, seulement <strong>15 %</strong> déclarent être formés aux troubles auditifs, ce qui laisse supposer un effet de découverte maximal lors de la simulation. Cependant, <strong>30 %</strong> déclarent avoir déjà reçu des remarques sur leur capacité auditive — décalage entre perception de soi et réalité perçue par l'entourage, renforçant l'idée même du handicap invisible.</p> <div class="profile-stats" aria-hidden="true"> <div class="profile-stat"> <div class="profile-stat-num">4 %</div> <p class="profile-stat-label">déclarent des troubles auditifs</p> </div> <div class="profile-stat"> <div class="profile-stat-num">15 %</div> <p class="profile-stat-label">formés aux troubles auditifs</p> </div> <div class="profile-stat"> <div class="profile-stat-num">30 %</div> <p class="profile-stat-label">ont reçu des remarques sur leur audition</p> </div> </div> <h3 class="subsection-heading">II.2 — Comparaison avant / après par question</h3> <!-- FIGURE 2 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/02.png" alt="Boxplots comparant les réponses avant et après l'expérience pour les questions Effort mental, Santé, Intention de test et Communication."> </div> <p class="fig-caption"><strong>Figure 2.</strong> Analyse descriptive bivariée — boxplots des questions ayant montré une évolution marquée entre avant et après l'expérience.</p> </div> <p class="body-text">Pour l'<em>Effort mental</em>, la médiane passe de 4,5 à 5 et la dispersion se réduit drastiquement : l'expérience a permis aux participants de confirmer et de renforcer leur avis sur la charge cognitive liée à l'hypoacousie. La montée de la médiane pour la <em>Santé</em> illustre l'importance accrue accordée à l'audition après avoir « vécu » le trouble.</p> <p class="body-text">Pour l'<em>Intention de test</em>, la dispersion s'étend jusqu'à 5 même si la médiane reste basse : l'expérience a convaincu une partie du groupe de l'utilité d'un dépistage, sans en faire encore une majorité. Concernant la <em>Communication</em>, la médiane augmente et la dispersion diminue après l'expérience — les participants ont réalisé que l'hypoacousie n'est pas seulement un problème de santé, mais aussi de lien social.</p> <h3 class="subsection-heading">II.3 — Évolution par catégorie</h3> <!-- FIGURE 3 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/03.png" alt="Diagrammes en barres comparant les scores moyens avant et après l'expérience pour chacune des six catégories thématiques."> </div> <p class="fig-caption"><strong>Figure 3.</strong> Scores moyens avant (AV) et après (AP) l'expérience par catégorie.</p> </div> <!-- FIGURE 4 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/04.png" alt="Histogrammes de la différence AP moins AV par catégorie. Une distribution à droite de zéro indique une hausse après l'expérience."> </div> <p class="fig-caption"><strong>Figure 4.</strong> Histogrammes de différences (AP − AV) par catégorie.</p> </div> <p class="body-text">Trois profils se dégagent. <strong>Vulnérabilité, Impacts et Action</strong> enregistrent les hausses les plus marquées : la simulation a transformé un risque théorique en risque ressenti personnellement, généralisé la conscience des conséquences et renforcé l'intention comportementale. Les <strong>Bénéfices</strong> affichent une légère hausse mais un histogramme resserré — les participants étaient déjà largement convaincus de l'utilité des protections. Enfin, <strong>Obstacles et Auto-efficacité</strong> restent stables, illustrant une limite fondamentale de la sensibilisation par simulation : si elle modifie la perception du handicap, elle ne suffit pas à lever les barrières psychologiques et sociales.</p> <!-- FIGURE 5 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/05.png" alt="Nuages de points comparant les scores avant en abscisse et après en ordonnée pour chaque catégorie. Les points au-dessus de la bissectrice indiquent une hausse."> </div> <p class="fig-caption"><strong>Figure 5.</strong> Nuages de points AV (abscisses) vs AP (ordonnées) par catégorie — les points au-dessus de la bissectrice signalent une hausse après l'expérience.</p> </div> <p class="body-text">Pour les <em>Impacts</em>, le nuage est quasi intégralement au-dessus de la bissectrice — effet positif et systématique pour l'ensemble des participants. La <em>Vulnérabilité</em> et l'<em>Action</em> montrent une majorité de points au-dessus, avec une dispersion reflétant une sensibilisation variable selon le profil initial. Les points de la catégorie <em>Obstacles</em> gravitent au voisinage de la bissectrice, confirmant que les freins perçus sont des croyances ancrées que la seule simulation ne suffit pas à déconstruire.</p> <blockquote class="pull-quote">
-Le dispositif est efficace pour modifier la perception de la pénibilité et des impacts. Il semble moins impacter les leviers de l'auto-efficacité : la perception a changé, mais ce changement est plus fort sur la compréhension du handicap que sur la confiance du participant en sa propre capacité à se protéger.
-</blockquote> </div> <hr class="page-divider"> <!-- SECTION III — INFÉRENTIELLE --> <div id="inferentielle" class="content-section reveal" style="scroll-margin-top: 5rem;"> <span class="section-num">III — Analyse inférentielle</span> <h2 class="section-heading">Analyse inférentielle</h2> <h3 class="subsection-heading">III.1 — Test de Wilcoxon apparié</h3> <p class="body-text">Avec un échantillon de 26 participants, une variation observée pourrait être due au hasard plutôt qu'à un réel effet du dispositif. Pour répondre à cette question, nous avons eu recours au <strong>test de Wilcoxon apparié</strong>.</p> <p class="body-text">Ce test a été retenu pour deux raisons : il est non paramétrique (aucune hypothèse de normalité) et particulièrement adapté aux petits échantillons appariés — les mêmes individus mesurés deux fois dans deux conditions différentes. Pour chaque catégorie, la p-valeur représente la probabilité que la différence observée soit due au hasard. Un résultat est statistiquement significatif si la p-valeur est inférieure au seuil de 5 % (0,05).</p> <!-- FIGURE 6 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/06.png" alt="Diagramme en barres des p-valeurs du test de Wilcoxon par catégorie, avec une droite en pointillés rouges matérialisant le seuil de 5 %."> </div> <p class="fig-caption"><strong>Figure 6.</strong> P-valeurs du test de Wilcoxon par catégorie — la droite en pointillés indique le seuil de significativité à 5 %.</p> </div> <table class="results-table"> <thead> <tr> <th>Catégorie</th> <th>Résultat</th> <th>Interprétation</th> </tr> </thead> <tbody> <tr> <td>Vulnérabilité</td> <td><span class="result-badge sig">Significatif</span></td> <td>Effet réel et mesurable</td> </tr> <tr> <td>Impacts</td> <td><span class="result-badge sig">Significatif</span></td> <td>Effet réel et mesurable</td> </tr> <tr> <td>Bénéfices</td> <td><span class="result-badge sig">Significatif</span></td> <td>Renforcement d'une conviction préexistante</td> </tr> <tr> <td>Action</td> <td><span class="result-badge sig">Significatif</span></td> <td>Effet réel et mesurable</td> </tr> <tr> <td>Obstacles</td> <td><span class="result-badge non-sig">Non significatif</span></td> <td>Freins profondément ancrés</td> </tr> <tr> <td>Auto-efficacité</td> <td><span class="result-badge non-sig">Non significatif</span></td> <td>Nécessite un programme plus long</td> </tr> </tbody> </table> <h3 class="subsection-heading">III.2 — Intervalles de confiance à 95 %</h3> <p class="body-text">Nous avons calculé les intervalles de confiance à 95 % sur la différence moyenne (Après − Avant) pour chaque catégorie, à l'aide d'un test t sur les différences appariées. Bien que les données soient issues d'une échelle de Likert, ce test est justifié ici par approximation de la loi normale. Le point central représente la différence moyenne estimée ; les barres délimitent l'intervalle dans lequel la vraie différence se situe avec 95 % de confiance.</p> <!-- FIGURE 7 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/07.png" alt="Forest plot des intervalles de confiance à 95 % sur la différence moyenne AP moins AV par catégorie."> </div> <p class="fig-caption"><strong>Figure 7.</strong> Intervalles de confiance à 95 % par catégorie — les intervalles entièrement positifs (ne contenant pas 0) confirment un effet significatif.</p> </div> <p class="body-text"><strong>Vulnérabilité, Impacts, Bénéfices et Action</strong> présentent des intervalles entièrement positifs, ne contenant pas la valeur 0 : l'expérience y a produit une hausse réelle et statistiquement significative. L'<em>Action</em> présente la différence estimée la plus élevée (≈ 0,36), suivie des <em>Impacts</em> et de la <em>Vulnérabilité</em> (≈ 0,30), confirmant que la simulation agit en priorité sur la prise de conscience du risque et l'intention comportementale. En revanche, <strong>Obstacles et Auto-efficacité</strong> ont des intervalles chevauchant 0 avec des estimations proches de zéro — les freins comportementaux et la confiance en soi sont des variables psychologiques plus résistantes, nécessitant des interventions plus longues et répétées.</p> </div> <hr class="page-divider"> <!-- SECTION IV — ACP --> <div id="acp" class="content-section reveal" style="scroll-margin-top: 5rem;"> <span class="section-num">IV — ACP</span> <h2 class="section-heading">Analyse en Composantes Principales (ACP)</h2> <p class="body-text">L'ACP s'est portée sur la liaison entre les six catégories de réponses et la temporalité (avant/après). Elle permet de vérifier si les catégories se regroupent différemment après l'expérience — signe d'une restructuration de la pensée des participants face au handicap — et de faire ressortir des profils types.</p> <h3 class="subsection-heading">Paramètres de l'ACP</h3> <p class="body-text">L'ACP est centrée réduite avec un poids égal (1/n) pour tous les individus, adaptée à ce jeu de données car les variables présentent des variances différentes. L'espace des individus est <strong>R¹²</strong> (p = 12 variables quantitatives). La métrique associée est M = D<sub>1/s²</sub>. L'espace des variables est <strong>R²⁶</strong> (n = 26 individus), avec la métrique D = (1/26) × I<sub>26</sub>.</p> <p class="body-text">Nous avons retenu les axes factoriels 1, 2, 3 et 4 selon le critère de Kaiser (l'axe 5, bien que satisfaisant ce critère, est écarté en raison de son faible apport de 8 %). Les plans 1-2 et 3-4 apportent respectivement <strong>45 %</strong> et <strong>24 %</strong> d'informations.</p> <!-- FIGURE 8 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/08.png" alt="Scree plot des valeurs propres et pourcentages d'inertie des 12 dimensions de l'ACP, avec le seuil du critère de Kaiser."> </div> <p class="fig-caption"><strong>Figure 8.</strong> Valeurs propres et inerties des 12 dimensions — la droite en pointillés indique le seuil du critère de Kaiser (valeur propre = 1).</p> </div> <h3 class="subsection-heading">Cercles de corrélation</h3> <!-- FIGURE 9 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/09.png" alt="Cercles de corrélation des dimensions 1-2 et 3-4 avec des flèches colorées selon le cos² de chaque variable."> </div> <p class="fig-caption"><strong>Figure 9.</strong> Cercles de corrélation — plans 1-2 (gauche) et 3-4 (droite). La couleur des flèches varie selon le cos² : plus elle est foncée, plus la variable est bien représentée sur le plan.</p> </div> <p class="body-text">Sur le plan 1-2, l'axe vertical oppose la Vulnérabilité et l'Auto-efficacité perçue (corrélées négativement), tandis que l'axe horizontal est structuré par les Bénéfices perçus, l'Action et les Obstacles. Sur le plan 3-4, la Vulnérabilité_AV caractérise l'axe vertical, corrélée négativement à l'Action et aux Impacts_AP.</p> <p class="body-text">On note que <em>Impact_AV</em> et <em>Impact_AP</em> apparaissent indépendantes, suggérant que l'expérience a modifié la façon dont les participants perçoivent les conséquences d'une perte auditive. La corrélation négative entre <em>Impact_AP</em> et <em>Obstacles_AP</em> indique que plus les freins perçus sont élevés, moins l'impact ressenti est fort.</p> <h3 class="subsection-heading">Plan factoriel 1-2</h3> <!-- FIGURE 10 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/10.png" alt="Plan factoriel 1-2 avec les individus projetés en rouge pour les réponses avant l'expérience et en bleu pour les réponses après."> </div> <p class="fig-caption"><strong>Figure 10.</strong> Plan factoriel 1-2 — points rouges : avant l'expérience · points bleus : après l'expérience.</p> </div> <p class="body-text">Les points rouges (Avant) sont majoritairement concentrés sur la partie gauche du graphique ; les points bleus (Après) s'étendent vers la droite. Le quadrant Haut-Gauche est presque exclusivement occupé par des points rouges — des individus qui se sentent vulnérables mais sans leviers d'action. Le quadrant Bas-Droit est dominé par les points bleus : on observe une <em>migration diagonale</em>. Après l'expérience, les participants se sentent plus aptes à protéger leur audition tout en ayant une conscience forte des bénéfices et des actions possibles.</p> <h3 class="subsection-heading">Plan factoriel 3-4</h3> <!-- FIGURE 11 --> <div class="fig-block"> <div class="fig-img"> <img src="/img/figures/11.png" alt="Plan factoriel 3-4 avec les individus projetés en rouge pour les réponses avant et en bleu pour les réponses après l'expérience."> </div> <p class="fig-caption"><strong>Figure 11.</strong> Plan factoriel 3-4 — points rouges : avant l'expérience · points bleus : après l'expérience.</p> </div> <p class="body-text">On observe un mélange entre les points bleus et rouges, montrant que l'expérience n'a pas transformé le profil global. Néanmoins, de nombreux points bleus (Après) se situent en dessous de l'axe vertical : l'expérience a fait passer les participants d'un état de vulnérabilité (Haut) à un état d'action et d'impact concret (Bas).</p> <blockquote class="pull-quote">
-L'expérience transforme la perception des participants en opérant une bascule du profil <strong>« Vulnérable Passif »</strong> — avant l'expérience, centré sur le ressenti de la perte et bloqué par la peur des obstacles — vers un profil <strong>« Acteur Conscient »</strong> — après l'expérience, engagé dans l'action avec une vision lucide des bénéfices des protections auditives.
-</blockquote> </div> <hr class="page-divider"> <!-- CONCLUSION --> <div id="conclusion" class="content-section reveal" style="scroll-margin-top: 5rem;"> <span class="section-num">Conclusion</span> <h2 class="section-heading">Conclusion et limites</h2> <p class="body-text">L'analyse croisée démontre que notre expérience de sensibilisation réalisée lors de l'atelier HandiSim modifie <strong>significativement et positivement</strong> la perception des troubles auditifs. Les participants évoluent d'un profil « Vulnérable Passif » (conscience du risque mais blocage par les obstacles) vers un profil « Acteur Conscient ». L'expérience réduit le sentiment d'impuissance au profit d'une maîtrise concrète.</p> <h3 class="subsection-heading">Limites méthodologiques</h3> <p class="body-text">Avec un échantillon de <strong>26 personnes</strong>, les résultats restent indicatifs et ne peuvent être généralisés. Plusieurs biais peuvent avoir influencé les données :</p> <ul class="arrow-list"> <li><strong>Biais de réactivité</strong> — sachant qu'ils sont testés après une sensibilisation, les participants peuvent avoir répondu de manière plus « responsable ».</li> <li><strong>Biais de désirabilité sociale</strong> — lors du pré-test, certains étudiants ont pu chercher inconsciemment à se présenter sous un jour favorable ; les réponses post-test seraient davantage ancrées dans la réalité vécue.</li> <li><strong>Biais de sélection</strong> — les étudiants ayant accepté de participer à HandiSim sont peut-être déjà plus sensibles aux questions de handicap que la moyenne.</li> </ul> <h3 class="subsection-heading">Note sur l'échelle de Likert</h3> <p class="body-text">Il convient de noter une ambiguïté propre aux sciences humaines : les répondants ne saisissent que des entiers (1 à 5), tandis que l'interprétation des moyennes « à virgule » (ex. 3,4) conserve une grande valeur heuristique. Elle traduit une <em>tendance collective</em> — ce groupe se situe dans une zone de neutralité avec une inclinaison marquée vers l'adhésion — et non qu'un individu a répondu entre deux échelons. Cette finesse d'analyse est nécessaire à la compréhension de nuances psychologiques subtiles.</p> </div> </div>   <!-- ════════════════════ FOOTER ════════════════════ --> <footer role="contentinfo"> <div class="footer-top"> <div class="footer-brand"> <a href="/" class="footer-brand-logo" aria-label="Audiosensible — Accueil"> <img src="/img/logo_audiosensible_white.png" style="width: 1em;" alt=""> <span class="footer-brand-name">Audiosensible</span> </a> <p class="footer-brand-tagline">ENSC · 2025 - 2026</p> <p class="footer-brand-body">
-Un projet de sensibilisation aux handicaps auditifs invisibles.
+</style>
+<style>.rn-nav[data-astro-cid-zlvxpvln]{position:sticky;top:65px;z-index:90;width:100%;background:#fafaf8f5;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:.5px solid var(--gris-clair);text-align:center}.rn-toggle[data-astro-cid-zlvxpvln]{display:none}.rn-list[data-astro-cid-zlvxpvln]{display:inline-flex;list-style:none;padding:0;margin:0;white-space:nowrap}.rn-link[data-astro-cid-zlvxpvln]{display:flex;align-items:baseline;gap:.5rem;padding:.9rem 1.25rem;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;text-decoration:none;color:var(--gris);border-bottom:2px solid transparent;transition:color .2s,border-color .2s;position:relative;bottom:-.5px}.rn-link[data-astro-cid-zlvxpvln]:hover{color:var(--encre);border-bottom-color:var(--gris-clair)}.rn-link--active[data-astro-cid-zlvxpvln]{color:var(--rouge);border-bottom-color:var(--rouge)}.rn-num[data-astro-cid-zlvxpvln]{opacity:.45;font-size:.6rem;letter-spacing:.15em}.rn-link--active[data-astro-cid-zlvxpvln] .rn-num[data-astro-cid-zlvxpvln]{opacity:.7}@media(max-width:1300px){.rn-nav[data-astro-cid-zlvxpvln]{top:58px}.rn-list[data-astro-cid-zlvxpvln]{display:flex;flex-wrap:wrap;justify-content:center;width:100%}}@media(max-width:768px){.rn-nav[data-astro-cid-zlvxpvln]{top:52px;display:flex;flex-direction:column}.rn-toggle[data-astro-cid-zlvxpvln]{display:flex;align-items:center;justify-content:space-between;width:100%;padding:.85rem 1.25rem;background:none;border:none;cursor:pointer}.rn-toggle-label[data-astro-cid-zlvxpvln]{display:flex;flex-direction:column;align-items:flex-start;gap:.1rem}.rn-toggle-current[data-astro-cid-zlvxpvln]{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;color:var(--encre)}.rn-chevron[data-astro-cid-zlvxpvln]{width:1rem;height:1rem;color:var(--rouge);flex-shrink:0;transition:transform .25s ease}.rn-list[data-astro-cid-zlvxpvln]{display:none;flex-direction:column;width:100%;border-top:.5px solid var(--gris-clair);padding:.5rem 0;white-space:normal}.rn-link[data-astro-cid-zlvxpvln]{padding:.7rem 1.25rem;font-size:.68rem;border-bottom:none;border-left:2px solid transparent;bottom:0;width:100%}.rn-link[data-astro-cid-zlvxpvln]:hover{border-bottom-color:transparent;border-left-color:var(--gris-clair)}.rn-link--active[data-astro-cid-zlvxpvln]{border-bottom-color:transparent;border-left-color:var(--rouge)}.rn-num[data-astro-cid-zlvxpvln]{display:none}}
+</style></head>
+<body>
+
+<!-- ── SCROLL TO TOP ── -->
+<button id="scroll-top" aria-label="Retour en haut de page">
+  <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+    <path d="M8 12V4M4 8l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+  </svg>
+</button>
+
+<!-- ════════════════════ NAVIGATION ════════════════════ -->
+<nav id="mainNav" role="navigation" aria-label="Navigation principale">
+
+  <a href="/" class="nav-logo" aria-label="Audiosensible — Accueil">
+    <img src="/img/logo_audiosensible.png" style="width: 2em;" alt="">
+    Audiosensible
+  </a>
+
+  <!-- Liens desktop -->
+  <ul class="nav-links" role="list">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/les-troubles">Les troubles</a></li>
+    <li><a href="/le-projet">Le projet</a></li>
+    <li><a href="/a-propos">À propos de nous</a></li>
+
+    <!-- Dropdown "Ressources" -->
+    <li class="nav-item-dropdown">
+      <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-ressources" id="btn-ressources">
+        Ressources
+        <svg class="nav-chevron" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+          <path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+      <ul class="nav-dropdown" id="dropdown-ressources" role="menu" aria-labelledby="btn-ressources">
+        <li role="none">
+            <a href="/etat-de-lart" role="menuitem">
+              État de l&#39;art
+              
+            </a>
+          </li><li role="none">
+            <a href="/cahier-des-charges" role="menuitem">
+              Cahier des charges
+              
+            </a>
+          </li><li role="none">
+            <a href="/code-et-fonctionnement" role="menuitem">
+              Code et fonctionnement
+              
+            </a>
+          </li><li role="none">
+            <a href="/protocole-experimental" role="menuitem">
+              Protocole expérimental
+              
+            </a>
+          </li><li role="none">
+            <a href="/analyse-resultats" role="menuitem">
+              Analyse des résultats
+              
+            </a>
+          </li><li role="none">
+            <a href="/scenario-usage" role="menuitem">
+              Scénario d&#39;usage
+              
+            </a>
+          </li>
+      </ul>
+    </li>
+
+    <li><a href="/soutenance">Soutenance</a></li>
+  </ul>
+
+  <!-- Burger (mobile) -->
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileNav">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ════════════════════ MENU MOBILE ════════════════════ -->
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile" aria-hidden="true">
+  <a href="/" class="mobile-link">Accueil</a><a href="/les-troubles" class="mobile-link">Les troubles</a><a href="/le-projet" class="mobile-link">Le projet</a><a href="/a-propos" class="mobile-link">À propos de nous</a><a href="/ressources" class="mobile-link">Ressources</a><a href="/soutenance" class="mobile-link">Soutenance</a>
+</nav>
+
+<!-- ═══════════════════ CONTENU DE LA PAGE ═══════════════════ -->
+
+  
+
+<nav class="rn-nav" aria-label="Navigation entre les ressources" data-astro-cid-zlvxpvln>
+
+  <button class="rn-toggle" aria-expanded="false" aria-controls="rn-list" data-astro-cid-zlvxpvln>
+    <span class="rn-toggle-label" data-astro-cid-zlvxpvln>
+      <span class="rn-toggle-current" data-astro-cid-zlvxpvln>Analyse des résultats</span>
+    </span>
+    <svg class="rn-chevron" viewBox="0 0 10 10" fill="none" aria-hidden="true" data-astro-cid-zlvxpvln>
+      <path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-zlvxpvln></path>
+    </svg>
+  </button>
+
+  <ul class="rn-list" id="rn-list" role="list" data-astro-cid-zlvxpvln>
+    <li data-astro-cid-zlvxpvln>
+        <a href="/etat-de-lart" class="rn-link" data-astro-cid-zlvxpvln>
+          <span class="rn-num" data-astro-cid-zlvxpvln>01</span>
+          <span data-astro-cid-zlvxpvln>État de l&#39;art</span>
+        </a>
+      </li><li data-astro-cid-zlvxpvln>
+        <a href="/cahier-des-charges" class="rn-link" data-astro-cid-zlvxpvln>
+          <span class="rn-num" data-astro-cid-zlvxpvln>02</span>
+          <span data-astro-cid-zlvxpvln>Cahier des charges</span>
+        </a>
+      </li><li data-astro-cid-zlvxpvln>
+        <a href="/code-et-fonctionnement" class="rn-link" data-astro-cid-zlvxpvln>
+          <span class="rn-num" data-astro-cid-zlvxpvln>03</span>
+          <span data-astro-cid-zlvxpvln>Code et fonctionnement</span>
+        </a>
+      </li><li data-astro-cid-zlvxpvln>
+        <a href="/protocole-experimental" class="rn-link" data-astro-cid-zlvxpvln>
+          <span class="rn-num" data-astro-cid-zlvxpvln>04</span>
+          <span data-astro-cid-zlvxpvln>Protocole expérimental</span>
+        </a>
+      </li><li data-astro-cid-zlvxpvln>
+        <a href="/analyse-resultats" class="rn-link rn-link--active" aria-current="page" data-astro-cid-zlvxpvln>
+          <span class="rn-num" data-astro-cid-zlvxpvln>05</span>
+          <span data-astro-cid-zlvxpvln>Analyse des résultats</span>
+        </a>
+      </li><li data-astro-cid-zlvxpvln>
+        <a href="/scenario-usage" class="rn-link" data-astro-cid-zlvxpvln>
+          <span class="rn-num" data-astro-cid-zlvxpvln>06</span>
+          <span data-astro-cid-zlvxpvln>Scénario d&#39;usage</span>
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+<script type="module">function i(){const n=document.querySelector(".rn-toggle"),t=document.getElementById("rn-list"),r=document.querySelector(".rn-chevron"),o=document.querySelector(".rn-nav"),s=()=>{o&&document.documentElement.style.setProperty("--rn-nav-h",o.offsetHeight*1.25+"px")};if(s(),window.addEventListener("resize",s,{passive:!0}),!n||!t)return;let e=!1;n.addEventListener("click",()=>{e=!e,t.style.display=e?"flex":"none",t.style.flexDirection=e?"column":"",n.setAttribute("aria-expanded",String(e)),r&&(r.style.transform=e?"rotate(180deg)":""),s()}),t.querySelectorAll(".rn-link").forEach(l=>{l.addEventListener("click",()=>{e=!1,t.style.display="none",t.style.flexDirection="",n.setAttribute("aria-expanded","false"),r&&(r.style.transform=""),s()})})}i();</script>
+
+<div class="page-hero reveal">
+<h1 class="page-title">Analyse des résultats</h1>
+  <p class="page-intro">Cette expérience de sensibilisation à l'hypoacousie a-t-elle réellement modifié les perceptions et connaissances des participants ? Analyse descriptive, tests d'hypothèses et ACP réalisés sous R sur un échantillon de 26 étudiants de l'ENSC.</p>
+</div>
+
+<div class="page-wrap" style="padding-bottom: 6rem;">
+
+  <hr class="page-divider">
+
+  <!-- SOMMAIRE -->
+  <div class="content-section reveal">
+    <h2 class="section-heading">Sommaire</h2>
+    <div class="page-toc" role="navigation" aria-label="Sommaire du document">
+      <a href="#intro"><span class="page-toc-num">1.</span>Introduction</a>
+      <a href="#donnees"><span class="page-toc-num">2.</span>Présentation du jeu de données</a>
+      <a href="#descriptive"><span class="page-toc-num">3.</span>Analyse descriptive</a>
+      <a href="#inferentielle"><span class="page-toc-num">4.</span>Analyse inférentielle</a>
+      <a href="#acp"><span class="page-toc-num">5.</span>Analyse en Composantes Principales</a>
+      <a href="#conclusion"><span class="page-toc-num">6.</span>Conclusion</a>
+    </div>
+  </div>
+
+  <hr class="page-divider">
+
+  <!-- INTRODUCTION -->
+  <div id="intro" class="content-section reveal">
+    <h2 class="section-heading">1. Contexte et objectifs</h2>
+
+    <p class="body-text">Les handicaps invisibles sont souvent les grands oubliés des démarches de sensibilisation. Pourtant, ils touchent une part considérable de la population et méritent une attention particulière. C'est dans cette optique que s'inscrit notre projet transdisciplinaire, réalisé dans le cadre de la semaine SASU à l'ENSC.</p>
+
+    <p class="body-text">Chaque année, les étudiants de deuxième année participent à l'atelier HandiSim, qui leur permet de découvrir différentes formes de handicap. Constatant que les handicaps invisibles y sont peu représentés, nous avons choisi de nous concentrer sur les troubles auditifs — et plus précisément sur <strong>l'hypoacousie</strong>, perte partielle de l'acuité auditive. Pour donner à ces phénomènes une dimension concrète et vécue, nous avons conçu un dispositif de simulation d'hypoacousie que des étudiants de deuxième année ont pu expérimenter lors de la semaine SASU.</p>
+
+    <blockquote class="pull-quote">
+      Concevoir une expérience de sensibilisation ne suffit pas : encore faut-il pouvoir mesurer si elle produit réellement un effet.
+    </blockquote>
+
+    <p class="body-text">Nous avons élaboré un questionnaire soumis aux participants <strong>avant et après</strong> l'expérience, portant sur leurs perceptions, leurs connaissances et leurs attitudes vis-à-vis des troubles auditifs. Les réponses, recueillies sur une échelle de Likert allant de 1 à 5, ont été collectées auprès de <strong>26 participants</strong>. Les outils mobilisés : analyses descriptives, tests d'hypothèses et Analyse en Composantes Principales (ACP), le tout mis en œuvre avec le logiciel R.</p>
+  </div>
+
+  <hr class="page-divider">
+
+  <!-- SECTION I — DONNÉES -->
+  <div id="donnees" class="content-section reveal">
+    <h2 class="section-heading">2. Présentation du jeu de données</h2>
+
+    <p class="body-text">Le jeu de données regroupe les réponses des 26 étudiants de deuxième année de l'ENSC ayant participé à l'expérience. Chaque participant s'est vu attribuer un identifiant numérique unique pour garantir son anonymat.</p>
+
+    <h3 class="subsection-heading">Structure du questionnaire</h3>
+
+    <p class="body-text">Le jeu de données s'organise en deux grandes parties : une section de <em>profil</em> (francophonie, troubles préexistants, remarques reçues sur l'audition) et six <em>catégories thématiques</em> de questions, chacune évaluée avant (suffixe <code>_AV</code>) et après (suffixe <code>_AP</code>) l'expérience.</p>
+
+    <div class="cat-grid">
+      <div class="cat-row">
+        <span class="cat-name">Vulnérabilité perçue</span>
+        <span class="cat-code">VULNE</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Impacts perçus</span>
+        <span class="cat-code">IMPACT</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Bénéfices perçus</span>
+        <span class="cat-code">BENEF</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Obstacles perçus</span>
+        <span class="cat-code">OBST</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Auto-efficacité perçue</span>
+        <span class="cat-code">AUTO</span>
+      </div>
+      <div class="cat-row">
+        <span class="cat-name">Action</span>
+        <span class="cat-code">ACTION</span>
+      </div>
+    </div>
+
+    <p class="body-text">Les réponses sont exprimées sur une échelle de Likert de 1 (<em>Pas du tout d'accord</em>) à 5 (<em>Tout à fait d'accord</em>). Le jeu de données contient donc deux colonnes par question — par exemple, <strong><code>HAB_AV</code></strong> et <strong><code>HAB_AP</code></strong> pour la question sur l'habitude au bruit fort.</p>
+  </div>
+
+  <hr class="page-divider">
+
+  <!-- SECTION II — DESCRIPTIVE -->
+  <div id="descriptive" class="content-section reveal">
+    <h2 class="section-heading">3. Analyse descriptive</h2>
+
+    <h3 class="subsection-heading">3.1 — Profil de l'échantillon</h3>
+
+    <!-- FIGURE 1 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/01.png" alt="Profil auditif et formation des participants — diagrammes illustrant les proportions de troubles auditifs déclarés, de participants formés et de ceux ayant reçu des remarques sur leur audition.">
+      </div>
+      <p class="fig-caption"><strong>Figure 1.</strong> Profil auditif et formation des participants.</p>
+    </div>
+
+    <p class="body-text">Seulement <strong>4 %</strong> des participants considèrent avoir des troubles auditifs : l'échantillon est propice à une action de sensibilisation, le public n'étant ni expert du sujet, ni directement confronté au handicap au quotidien. De plus, seulement <strong>15 %</strong> déclarent être formés aux troubles auditifs, ce qui laisse supposer un effet de découverte maximal lors de la simulation. Cependant, <strong>30 %</strong> déclarent avoir déjà reçu des remarques sur leur capacité auditive — décalage entre perception de soi et réalité perçue par l'entourage, renforçant l'idée même du handicap invisible.</p>
+
+    <div class="profile-stats" aria-hidden="true">
+      <div class="profile-stat">
+        <div class="profile-stat-num">4 %</div>
+        <p class="profile-stat-label">déclarent des troubles auditifs</p>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-num">15 %</div>
+        <p class="profile-stat-label">formés aux troubles auditifs</p>
+      </div>
+      <div class="profile-stat">
+        <div class="profile-stat-num">30 %</div>
+        <p class="profile-stat-label">ont reçu des remarques sur leur audition</p>
+      </div>
+    </div>
+
+    <h3 class="subsection-heading">3.2 — Comparaison avant / après par question</h3>
+
+    <!-- FIGURE 2 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/02.png" alt="Boxplots comparant les réponses avant et après l'expérience pour les questions Effort mental, Santé, Intention de test et Communication.">
+      </div>
+      <p class="fig-caption"><strong>Figure 2.</strong> Analyse descriptive bivariée — boxplots des questions ayant montré une évolution marquée entre avant et après l'expérience.</p>
+    </div>
+
+    <p class="body-text">Pour l'<em>Effort mental</em>, la médiane passe de 4,5 à 5 et la dispersion se réduit drastiquement : l'expérience a permis aux participants de confirmer et de renforcer leur avis sur la charge cognitive liée à l'hypoacousie. La montée de la médiane pour la <em>Santé</em> illustre l'importance accrue accordée à l'audition après avoir « vécu » le trouble.</p>
+
+    <p class="body-text">Pour l'<em>Intention de test</em>, la dispersion s'étend jusqu'à 5 même si la médiane reste basse : l'expérience a convaincu une partie du groupe de l'utilité d'un dépistage, sans en faire encore une majorité. Concernant la <em>Communication</em>, la médiane augmente et la dispersion diminue après l'expérience — les participants ont réalisé que l'hypoacousie n'est pas seulement un problème de santé, mais aussi de lien social.</p>
+
+    <h3 class="subsection-heading">3.3 — Évolution par catégorie</h3>
+
+    <!-- FIGURE 3 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/03.png" alt="Diagrammes en barres comparant les scores moyens avant et après l'expérience pour chacune des six catégories thématiques.">
+      </div>
+      <p class="fig-caption"><strong>Figure 3.</strong> Scores moyens avant (AV) et après (AP) l'expérience par catégorie.</p>
+    </div>
+
+    <!-- FIGURE 4 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/04.png" alt="Histogrammes de la différence AP moins AV par catégorie. Une distribution à droite de zéro indique une hausse après l'expérience.">
+      </div>
+      <p class="fig-caption"><strong>Figure 4.</strong> Histogrammes de différences (AP − AV) par catégorie.</p>
+    </div>
+
+    <p class="body-text">Trois profils se dégagent. <strong>Vulnérabilité, Impacts et Action</strong> enregistrent les hausses les plus marquées : la simulation a transformé un risque théorique en risque ressenti personnellement, généralisé la conscience des conséquences et renforcé l'intention comportementale. Les <strong>Bénéfices</strong> affichent une légère hausse mais un histogramme resserré — les participants étaient déjà largement convaincus de l'utilité des protections. Enfin, <strong>Obstacles et Auto-efficacité</strong> restent stables, illustrant une limite fondamentale de la sensibilisation par simulation : si elle modifie la perception du handicap, elle ne suffit pas à lever les barrières psychologiques et sociales.</p>
+
+    <!-- FIGURE 5 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/05.png" alt="Nuages de points comparant les scores avant en abscisse et après en ordonnée pour chaque catégorie. Les points au-dessus de la bissectrice indiquent une hausse.">
+      </div>
+      <p class="fig-caption"><strong>Figure 5.</strong> Nuages de points AV (abscisses) vs AP (ordonnées) par catégorie — les points au-dessus de la bissectrice signalent une hausse après l'expérience.</p>
+    </div>
+
+    <p class="body-text">Pour les <em>Impacts</em>, le nuage est quasi intégralement au-dessus de la bissectrice — effet positif et systématique pour l'ensemble des participants. La <em>Vulnérabilité</em> et l'<em>Action</em> montrent une majorité de points au-dessus, avec une dispersion reflétant une sensibilisation variable selon le profil initial. Les points de la catégorie <em>Obstacles</em> gravitent au voisinage de la bissectrice, confirmant que les freins perçus sont des croyances ancrées que la seule simulation ne suffit pas à déconstruire.</p>
+
+    <blockquote class="pull-quote">
+      Le dispositif est efficace pour modifier la perception de la pénibilité et des impacts. Il semble moins impacter les leviers de l'auto-efficacité : la perception a changé, mais ce changement est plus fort sur la compréhension du handicap que sur la confiance du participant en sa propre capacité à se protéger.
+    </blockquote>
+  </div>
+
+  <hr class="page-divider">
+
+  <!-- SECTION III — INFÉRENTIELLE -->
+  <div id="inferentielle" class="content-section reveal">
+    <h2 class="section-heading">4. Analyse inférentielle</h2>
+
+    <h3 class="subsection-heading">4.1 — Test de Wilcoxon apparié</h3>
+
+    <p class="body-text">Avec un échantillon de 26 participants, une variation observée pourrait être due au hasard plutôt qu'à un réel effet du dispositif. Pour répondre à cette question, nous avons eu recours au <strong>test de Wilcoxon apparié</strong>.</p>
+
+    <p class="body-text">Ce test a été retenu pour deux raisons : il est non paramétrique (aucune hypothèse de normalité) et particulièrement adapté aux petits échantillons appariés — les mêmes individus mesurés deux fois dans deux conditions différentes. Pour chaque catégorie, la p-valeur représente la probabilité que la différence observée soit due au hasard. Un résultat est statistiquement significatif si la p-valeur est inférieure au seuil de 5 % (0,05).</p>
+
+    <!-- FIGURE 6 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/06.png" alt="Diagramme en barres des p-valeurs du test de Wilcoxon par catégorie, avec une droite en pointillés rouges matérialisant le seuil de 5 %.">
+      </div>
+      <p class="fig-caption"><strong>Figure 6.</strong> P-valeurs du test de Wilcoxon par catégorie — la droite en pointillés indique le seuil de significativité à 5 %.</p>
+    </div>
+
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>Catégorie</th>
+          <th>Résultat</th>
+          <th>Interprétation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Vulnérabilité</td>
+          <td><span class="result-badge sig">Significatif</span></td>
+          <td>Effet réel et mesurable</td>
+        </tr>
+        <tr>
+          <td>Impacts</td>
+          <td><span class="result-badge sig">Significatif</span></td>
+          <td>Effet réel et mesurable</td>
+        </tr>
+        <tr>
+          <td>Bénéfices</td>
+          <td><span class="result-badge sig">Significatif</span></td>
+          <td>Renforcement d'une conviction préexistante</td>
+        </tr>
+        <tr>
+          <td>Action</td>
+          <td><span class="result-badge sig">Significatif</span></td>
+          <td>Effet réel et mesurable</td>
+        </tr>
+        <tr>
+          <td>Obstacles</td>
+          <td><span class="result-badge non-sig">Non significatif</span></td>
+          <td>Freins profondément ancrés</td>
+        </tr>
+        <tr>
+          <td>Auto-efficacité</td>
+          <td><span class="result-badge non-sig">Non significatif</span></td>
+          <td>Nécessite un programme plus long</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 class="subsection-heading">4.2 — Intervalles de confiance à 95 %</h3>
+
+    <p class="body-text">Nous avons calculé les intervalles de confiance à 95 % sur la différence moyenne (Après − Avant) pour chaque catégorie, à l'aide d'un test t sur les différences appariées. Bien que les données soient issues d'une échelle de Likert, ce test est justifié ici par approximation de la loi normale. Le point central représente la différence moyenne estimée ; les barres délimitent l'intervalle dans lequel la vraie différence se situe avec 95 % de confiance.</p>
+
+    <!-- FIGURE 7 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/07.png" alt="Forest plot des intervalles de confiance à 95 % sur la différence moyenne AP moins AV par catégorie.">
+      </div>
+      <p class="fig-caption"><strong>Figure 7.</strong> Intervalles de confiance à 95 % par catégorie — les intervalles entièrement positifs (ne contenant pas 0) confirment un effet significatif.</p>
+    </div>
+
+    <p class="body-text"><strong>Vulnérabilité, Impacts, Bénéfices et Action</strong> présentent des intervalles entièrement positifs, ne contenant pas la valeur 0 : l'expérience y a produit une hausse réelle et statistiquement significative. L'<em>Action</em> présente la différence estimée la plus élevée (≈ 0,36), suivie des <em>Impacts</em> et de la <em>Vulnérabilité</em> (≈ 0,30), confirmant que la simulation agit en priorité sur la prise de conscience du risque et l'intention comportementale. En revanche, <strong>Obstacles et Auto-efficacité</strong> ont des intervalles chevauchant 0 avec des estimations proches de zéro — les freins comportementaux et la confiance en soi sont des variables psychologiques plus résistantes, nécessitant des interventions plus longues et répétées.</p>
+  </div>
+
+  <hr class="page-divider">
+
+  <!-- SECTION IV — ACP -->
+  <div id="acp" class="content-section reveal">
+    <h2 class="section-heading">5. Analyse en Composantes Principales (ACP)</h2>
+
+    <p class="body-text">L'ACP s'est portée sur la liaison entre les six catégories de réponses et la temporalité (avant/après). Elle permet de vérifier si les catégories se regroupent différemment après l'expérience — signe d'une restructuration de la pensée des participants face au handicap — et de faire ressortir des profils types.</p>
+
+    <h3 class="subsection-heading">Paramètres de l'ACP</h3>
+
+    <p class="body-text">L'ACP est centrée réduite avec un poids égal (1/n) pour tous les individus, adaptée à ce jeu de données car les variables présentent des variances différentes. L'espace des individus est <strong>R¹²</strong> (p = 12 variables quantitatives). La métrique associée est M = D<sub>1/s²</sub>. L'espace des variables est <strong>R²⁶</strong> (n = 26 individus), avec la métrique D = (1/26) × I<sub>26</sub>.</p>
+
+    <p class="body-text">Nous avons retenu les axes factoriels 1, 2, 3 et 4 selon le critère de Kaiser (l'axe 5, bien que satisfaisant ce critère, est écarté en raison de son faible apport de 8 %). Les plans 1-2 et 3-4 apportent respectivement <strong>45 %</strong> et <strong>24 %</strong> d'informations.</p>
+
+    <!-- FIGURE 8 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/08.png" alt="Scree plot des valeurs propres et pourcentages d'inertie des 12 dimensions de l'ACP, avec le seuil du critère de Kaiser.">
+      </div>
+      <p class="fig-caption"><strong>Figure 8.</strong> Valeurs propres et inerties des 12 dimensions — la droite en pointillés indique le seuil du critère de Kaiser (valeur propre = 1).</p>
+    </div>
+
+    <h3 class="subsection-heading">Cercles de corrélation</h3>
+
+    <!-- FIGURE 9 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/09.png" alt="Cercles de corrélation des dimensions 1-2 et 3-4 avec des flèches colorées selon le cos² de chaque variable.">
+      </div>
+      <p class="fig-caption"><strong>Figure 9.</strong> Cercles de corrélation — plans 1-2 (gauche) et 3-4 (droite). La couleur des flèches varie selon le cos² : plus elle est foncée, plus la variable est bien représentée sur le plan.</p>
+    </div>
+
+    <p class="body-text">Sur le plan 1-2, l'axe vertical oppose la Vulnérabilité et l'Auto-efficacité perçue (corrélées négativement), tandis que l'axe horizontal est structuré par les Bénéfices perçus, l'Action et les Obstacles. Sur le plan 3-4, la Vulnérabilité_AV caractérise l'axe vertical, corrélée négativement à l'Action et aux Impacts_AP.</p>
+
+    <p class="body-text">On note que <em>Impact_AV</em> et <em>Impact_AP</em> apparaissent indépendantes, suggérant que l'expérience a modifié la façon dont les participants perçoivent les conséquences d'une perte auditive. La corrélation négative entre <em>Impact_AP</em> et <em>Obstacles_AP</em> indique que plus les freins perçus sont élevés, moins l'impact ressenti est fort.</p>
+
+    <h3 class="subsection-heading">Plan factoriel 1-2</h3>
+
+    <!-- FIGURE 10 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/10.png" alt="Plan factoriel 1-2 avec les individus projetés en rouge pour les réponses avant l'expérience et en bleu pour les réponses après.">
+      </div>
+      <p class="fig-caption"><strong>Figure 10.</strong> Plan factoriel 1-2 — points rouges : avant l'expérience · points bleus : après l'expérience.</p>
+    </div>
+
+    <p class="body-text">Les points rouges (Avant) sont majoritairement concentrés sur la partie gauche du graphique ; les points bleus (Après) s'étendent vers la droite. Le quadrant Haut-Gauche est presque exclusivement occupé par des points rouges — des individus qui se sentent vulnérables mais sans leviers d'action. Le quadrant Bas-Droit est dominé par les points bleus : on observe une <em>migration diagonale</em>. Après l'expérience, les participants se sentent plus aptes à protéger leur audition tout en ayant une conscience forte des bénéfices et des actions possibles.</p>
+
+    <h3 class="subsection-heading">Plan factoriel 3-4</h3>
+
+    <!-- FIGURE 11 -->
+    <div class="fig-block">
+      <div class="fig-img">
+        <img src="/img/figures/11.png" alt="Plan factoriel 3-4 avec les individus projetés en rouge pour les réponses avant et en bleu pour les réponses après l'expérience.">
+      </div>
+      <p class="fig-caption"><strong>Figure 11.</strong> Plan factoriel 3-4 — points rouges : avant l'expérience · points bleus : après l'expérience.</p>
+    </div>
+
+    <p class="body-text">On observe un mélange entre les points bleus et rouges, montrant que l'expérience n'a pas transformé le profil global. Néanmoins, de nombreux points bleus (Après) se situent en dessous de l'axe vertical : l'expérience a fait passer les participants d'un état de vulnérabilité (Haut) à un état d'action et d'impact concret (Bas).</p>
+
+    <blockquote class="pull-quote">
+      L'expérience transforme la perception des participants en opérant une bascule du profil <strong>« Vulnérable Passif »</strong> — avant l'expérience, centré sur le ressenti de la perte et bloqué par la peur des obstacles — vers un profil <strong>« Acteur Conscient »</strong> — après l'expérience, engagé dans l'action avec une vision lucide des bénéfices des protections auditives.
+    </blockquote>
+  </div>
+
+  <hr class="page-divider">
+
+  <!-- CONCLUSION -->
+  <div id="conclusion" class="content-section reveal">
+    <h2 class="section-heading">6. Conclusion et limites</h2>
+
+    <p class="body-text">L'analyse croisée démontre que notre expérience de sensibilisation réalisée lors de l'atelier HandiSim modifie <strong>significativement et positivement</strong> la perception des troubles auditifs. Les participants évoluent d'un profil « Vulnérable Passif » (conscience du risque mais blocage par les obstacles) vers un profil « Acteur Conscient ». L'expérience réduit le sentiment d'impuissance au profit d'une maîtrise concrète.</p>
+
+    <h3 class="subsection-heading">Limites méthodologiques</h3>
+
+    <p class="body-text">Avec un échantillon de <strong>26 personnes</strong>, les résultats restent indicatifs et ne peuvent être généralisés. Plusieurs biais peuvent avoir influencé les données :</p>
+
+    <ul class="arrow-list">
+      <li><strong>Biais de réactivité</strong> — sachant qu'ils sont testés après une sensibilisation, les participants peuvent avoir répondu de manière plus « responsable ».</li>
+      <li><strong>Biais de désirabilité sociale</strong> — lors du pré-test, certains étudiants ont pu chercher inconsciemment à se présenter sous un jour favorable ; les réponses post-test seraient davantage ancrées dans la réalité vécue.</li>
+      <li><strong>Biais de sélection</strong> — les étudiants ayant accepté de participer à HandiSim sont peut-être déjà plus sensibles aux questions de handicap que la moyenne.</li>
+    </ul>
+
+    <h3 class="subsection-heading">Note sur l'échelle de Likert</h3>
+
+    <p class="body-text">Il convient de noter une ambiguïté propre aux sciences humaines : les répondants ne saisissent que des entiers (1 à 5), tandis que l'interprétation des moyennes « à virgule » (ex. 3,4) conserve une grande valeur heuristique. Elle traduit une <em>tendance collective</em> — ce groupe se situe dans une zone de neutralité avec une inclinaison marquée vers l'adhésion — et non qu'un individu a répondu entre deux échelons. Cette finesse d'analyse est nécessaire à la compréhension de nuances psychologiques subtiles.</p>
+  </div>
+
+</div>
+
+
+
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<footer role="contentinfo">
+  <div class="footer-top">
+
+    <div class="footer-brand">
+      <a href="/" class="footer-brand-logo" aria-label="Audiosensible — Accueil">
+        <img src="/img/logo_audiosensible_white.png" style="width: 1em;" alt="">
+        <span class="footer-brand-name">Audiosensible</span>
+      </a>
+      <p class="footer-brand-tagline">ENSC · 2025 - 2026</p>
+      <p class="footer-brand-body">
+        Un projet de sensibilisation aux handicaps auditifs invisibles.
         Pour celles et ceux qui entendent le monde différemment.
-</p> <p><a href="mailto:cadauriac@ensc.fr" style="color: whitesmoke;">cadauriac@ensc.fr</a></p> </div> <!-- Colonne 1 : Projet & équipe --> <div class="footer-col"> <div class="footer-col-title">Projet &amp; équipe</div> <ul> <li><a href="/le-projet">Le projet</a></li> <li><a href="/a-propos">À propos de nous</a></li> </ul> </div> <!-- Colonne 2 : Les troubles --> <div class="footer-col"> <div class="footer-col-title">Les troubles</div> <ul> <li><a href="/troubles/hyperacousie">Hyperacousie</a></li><li><a href="/troubles/hypoacousie">Hypoacousie</a></li><li><a href="/troubles/acouphenes">Acouphènes</a></li><li><a href="/troubles/vertiges">Vertiges</a></li> </ul> </div> <!-- Colonne 3 : Ressources --> <div class="footer-col"> <div class="footer-col-title">Ressources</div> <ul> <li><a href="/etat-de-lart">État de l'art</a></li> <li><a href="/cahier-des-charges">Cahier des charges</a></li> <li><a href="/code-et-fonctionnement">Code et fonctionnement</a></li> <li><a href="/protocole-experimental">Protocole expérimental</a></li> <li><a href="/analyse-resultats">Analyse des résultats</a></li> <li><a href="/scenario-usage">Scénario d'usage</a></li> </ul> </div> </div> <div class="footer-bottom"> <span class="footer-copy">© 2025 - 2026 Audiosensible — Calista Dauriac, Emma Kerguillec, Louis Latu-Villières, Mathilde Willey</span> </div> </footer> <script type="module">const o=document.getElementById("scroll-top");o&&(window.addEventListener("scroll",()=>{o.classList.toggle("visible",window.scrollY>300)},{passive:!0}),o.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}));const d=document.getElementById("mainNav");d&&window.addEventListener("scroll",()=>{d.classList.toggle("scrolled",window.scrollY>60)},{passive:!0});const s=document.getElementById("btn-ressources"),l=document.getElementById("dropdown-ressources");s&&l&&(s.addEventListener("keydown",t=>{if(t.key==="Enter"||t.key===" "){t.preventDefault();const e=s.getAttribute("aria-expanded")==="true";s.setAttribute("aria-expanded",String(!e))}t.key==="Escape"&&(s.setAttribute("aria-expanded","false"),s.focus())}),l.addEventListener("keydown",t=>{t.key==="Escape"&&(s.setAttribute("aria-expanded","false"),s.focus())}),document.addEventListener("click",t=>{s.closest("li").contains(t.target)||s.setAttribute("aria-expanded","false")}));const n=document.getElementById("burger"),r=document.getElementById("mobileNav");if(n&&r){let t=function(){const e=r.classList.toggle("open");r.style.display=e?"flex":"none",r.setAttribute("aria-hidden",String(!e)),n.classList.toggle("open",e),n.setAttribute("aria-expanded",String(e)),n.setAttribute("aria-label",e?"Fermer le menu":"Ouvrir le menu"),document.body.style.overflow=e?"hidden":""};n.addEventListener("click",t),n.addEventListener("keydown",e=>{(e.key===" "||e.key==="Enter")&&(e.preventDefault(),t())}),document.querySelectorAll(".mobile-link").forEach(e=>{e.addEventListener("click",()=>{r.classList.remove("open"),r.style.display="none",r.setAttribute("aria-hidden","true"),n.classList.remove("open"),n.setAttribute("aria-expanded","false"),n.setAttribute("aria-label","Ouvrir le menu"),document.body.style.overflow=""})}),window.addEventListener("resize",()=>{window.innerWidth>=1024&&(r.classList.remove("open"),r.style.display="none",r.setAttribute("aria-hidden","true"),n.classList.remove("open"),n.setAttribute("aria-expanded","false"),document.body.style.overflow="")})}const a=document.querySelectorAll(".reveal");if(a.length){const t=new IntersectionObserver(e=>{e.forEach(i=>{i.isIntersecting&&(i.target.classList.add("visible"),t.unobserve(i.target))})},{threshold:.1,rootMargin:"0px 0px -40px 0px"});a.forEach(e=>t.observe(e))}</script> </body> </html>
+      </p>
+      <p><a href="mailto:cadauriac@ensc.fr" style="color: whitesmoke;">cadauriac@ensc.fr</a></p>
+    </div>
+
+    <!-- Colonne 1 : Projet & équipe -->
+    <div class="footer-col">
+      <div class="footer-col-title">Projet &amp; équipe</div>
+      <ul>
+        <li><a href="/le-projet">Le projet</a></li>
+        <li><a href="/a-propos">À propos de nous</a></li>
+      </ul>
+    </div>
+
+    <!-- Colonne 2 : Les troubles -->
+    <div class="footer-col">
+      <div class="footer-col-title">Les troubles</div>
+      <ul>
+        <li><a href="/troubles/hyperacousie">Hyperacousie</a></li><li><a href="/troubles/hypoacousie">Hypoacousie</a></li><li><a href="/troubles/acouphenes">Acouphènes</a></li><li><a href="/troubles/vertiges">Vertiges</a></li>
+      </ul>
+    </div>
+
+    <!-- Colonne 3 : Ressources -->
+    <div class="footer-col">
+      <div class="footer-col-title">Ressources</div>
+      <ul>
+        <li><a href="/etat-de-lart">État de l'art</a></li>
+        <li><a href="/cahier-des-charges">Cahier des charges</a></li>
+        <li><a href="/code-et-fonctionnement">Code et fonctionnement</a></li>
+        <li><a href="/protocole-experimental">Protocole expérimental</a></li>
+        <li><a href="/analyse-resultats">Analyse des résultats</a></li>
+        <li><a href="/scenario-usage">Scénario d'usage</a></li>
+      </ul>
+    </div>
+
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 - 2026 Audiosensible — Calista Dauriac, Emma Kerguillec, Louis Latu-Villières, Mathilde Willey</span>
+  </div>
+</footer>
+
+<script type="module">const o=document.getElementById("scroll-top");o&&(window.addEventListener("scroll",()=>{o.classList.toggle("visible",window.scrollY>300)},{passive:!0}),o.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}));const d=document.getElementById("mainNav");if(d){const t=()=>{document.documentElement.style.setProperty("--nav-h",d.offsetHeight+"px")};window.addEventListener("scroll",()=>{d.classList.toggle("scrolled",window.scrollY>60),t()},{passive:!0}),t()}const s=document.getElementById("btn-ressources"),l=document.getElementById("dropdown-ressources");s&&l&&(s.addEventListener("keydown",t=>{if(t.key==="Enter"||t.key===" "){t.preventDefault();const e=s.getAttribute("aria-expanded")==="true";s.setAttribute("aria-expanded",String(!e))}t.key==="Escape"&&(s.setAttribute("aria-expanded","false"),s.focus())}),l.addEventListener("keydown",t=>{t.key==="Escape"&&(s.setAttribute("aria-expanded","false"),s.focus())}),document.addEventListener("click",t=>{s.closest("li").contains(t.target)||s.setAttribute("aria-expanded","false")}));const n=document.getElementById("burger"),r=document.getElementById("mobileNav");if(n&&r){let t=function(){const e=r.classList.toggle("open");r.style.display=e?"flex":"none",r.setAttribute("aria-hidden",String(!e)),n.classList.toggle("open",e),n.setAttribute("aria-expanded",String(e)),n.setAttribute("aria-label",e?"Fermer le menu":"Ouvrir le menu"),document.body.style.overflow=e?"hidden":""};n.addEventListener("click",t),n.addEventListener("keydown",e=>{(e.key===" "||e.key==="Enter")&&(e.preventDefault(),t())}),document.querySelectorAll(".mobile-link").forEach(e=>{e.addEventListener("click",()=>{r.classList.remove("open"),r.style.display="none",r.setAttribute("aria-hidden","true"),n.classList.remove("open"),n.setAttribute("aria-expanded","false"),n.setAttribute("aria-label","Ouvrir le menu"),document.body.style.overflow=""})}),window.addEventListener("resize",()=>{window.innerWidth>=1024&&(r.classList.remove("open"),r.style.display="none",r.setAttribute("aria-hidden","true"),n.classList.remove("open"),n.setAttribute("aria-expanded","false"),document.body.style.overflow="")})}const a=document.querySelectorAll(".reveal");if(a.length){const t=new IntersectionObserver(e=>{e.forEach(i=>{i.isIntersecting&&(i.target.classList.add("visible"),t.unobserve(i.target))})},{threshold:.1,rootMargin:"0px 0px -40px 0px"});a.forEach(e=>t.observe(e))}</script>
+
+</body>
+</html>
