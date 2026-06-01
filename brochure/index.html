@@ -21,26 +21,76 @@
   <link rel="stylesheet" href="/style/style.css">
 
   <style>
+  /* ── Secondary nav ── */
+  .rn-nav {
+    position: sticky;
+    top: 65px;
+    z-index: 90;
+    width: 100%;
+    background: #fafaf8f5;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--gris-clair);
+    text-align: center;
+  }
+  .rn-toggle { display: none; }
+  .rn-list {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    white-space: nowrap;
+  }
+  .rn-link {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.9rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    color: var(--gris);
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    position: relative;
+    bottom: -0.5px;
+  }
+  .rn-link:hover { color: var(--encre); border-bottom-color: var(--gris-clair); }
+  .rn-link--active { color: var(--rouge); border-bottom-color: var(--rouge); }
+  .rn-num { opacity: 0.45; font-size: 0.6rem; letter-spacing: 0.15em; }
+  .rn-link--active .rn-num { opacity: 0.7; }
+
+  /* ── Brochure page ── */
   #brochure {
-    padding: 10rem 4rem 8rem;
+    padding: 12rem 4rem 8rem;
     background: var(--blanc);
     min-height: 100vh;
   }
   .brochure-header {
     max-width: 860px;
-    margin: 0 auto 4rem;
+    margin: 0 auto 5rem;
+  }
+  .brochure-desc {
+    font-family: var(--font-corps);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--gris-fonce);
+    margin-top: 1.75rem;
+    max-width: 560px;
   }
   .brochure-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    max-width: 1100px;
+    gap: 2.5rem;
+    max-width: 1200px;
     margin: 0 auto;
   }
   .brochure-page {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
   }
   .brochure-page-label {
     font-family: var(--font-mono);
@@ -54,15 +104,34 @@
     height: auto;
     border: 0.5px solid var(--gris-clair);
     border-radius: 4px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    transition: box-shadow 0.3s var(--transition);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    transition: box-shadow 0.3s var(--transition), transform 0.3s var(--transition);
   }
   .brochure-page img:hover {
-    box-shadow: 0 8px 40px rgba(0,0,0,0.14);
+    box-shadow: 0 12px 48px rgba(0,0,0,0.13);
+    transform: translateY(-2px);
   }
+  .brochure-page-caption {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--gris);
+  }
+
+  @media (max-width: 1300px) { .rn-nav { top: 58px; } .rn-list { display: flex; flex-wrap: wrap; justify-content: center; width: 100%; } }
   @media (max-width: 768px) {
+    .rn-nav { top: 52px; display: flex; flex-direction: column; }
+    .rn-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 0.85rem 1.25rem; background: none; border: none; cursor: pointer; }
+    .rn-toggle-label { display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem; }
+    .rn-toggle-current { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--encre); }
+    .rn-chevron { width: 1rem; height: 1rem; color: var(--rouge); flex-shrink: 0; transition: transform 0.25s ease; }
+    .rn-list { display: none; flex-direction: column; width: 100%; border-top: 0.5px solid var(--gris-clair); padding: 0.5rem 0; white-space: normal; }
+    .rn-link { padding: 0.7rem 1.25rem; font-size: 0.68rem; border-bottom: none; border-left: 2px solid transparent; bottom: 0; width: 100%; }
+    .rn-link:hover { border-bottom-color: transparent; border-left-color: var(--gris-clair); }
+    .rn-link--active { border-bottom-color: transparent; border-left-color: var(--rouge); }
+    .rn-num { display: none; }
     #brochure { padding: 8rem 1.5rem 5rem; }
-    .brochure-grid { grid-template-columns: 1fr; }
+    .brochure-grid { grid-template-columns: 1fr; gap: 3rem; }
   }
   </style>
 </head>
@@ -145,6 +214,29 @@
   <a href="/" class="mobile-link">Accueil</a><a href="/les-troubles" class="mobile-link">Les troubles</a><a href="/le-projet" class="mobile-link">Le projet</a><a href="/a-propos" class="mobile-link">À propos de nous</a><a href="/ressources" class="mobile-link">Ressources</a><a href="/soutenance" class="mobile-link">Soutenance</a>
 </nav>
 
+<!-- ════════════════════ NAVBAR RESSOURCES ════════════════════ -->
+<nav class="rn-nav" aria-label="Navigation entre les ressources">
+
+  <button class="rn-toggle" aria-expanded="false" aria-controls="rn-list">
+    <span class="rn-toggle-label">
+      <span class="rn-toggle-current">Brochure</span>
+    </span>
+    <svg class="rn-chevron" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+      <path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+  </button>
+
+  <ul class="rn-list" id="rn-list" role="list">
+    <li><a href="/etat-de-lart" class="rn-link"><span class="rn-num">01</span><span>État de l'art</span></a></li>
+    <li><a href="/cahier-des-charges" class="rn-link"><span class="rn-num">02</span><span>Cahier des charges</span></a></li>
+    <li><a href="/code-et-fonctionnement" class="rn-link"><span class="rn-num">03</span><span>Code et fonctionnement</span></a></li>
+    <li><a href="/protocole-experimental" class="rn-link"><span class="rn-num">04</span><span>Protocole expérimental</span></a></li>
+    <li><a href="/analyse-resultats" class="rn-link"><span class="rn-num">05</span><span>Analyse des résultats</span></a></li>
+    <li><a href="/scenario-usage" class="rn-link"><span class="rn-num">06</span><span>Scénario d'usage</span></a></li>
+    <li><a href="/brochure" class="rn-link rn-link--active" aria-current="page"><span class="rn-num">07</span><span>Brochure</span></a></li>
+  </ul>
+</nav>
+
 <!-- ═══════════════════ CONTENU DE LA PAGE ═══════════════════ -->
 
 <section id="brochure" aria-labelledby="brochure-title">
@@ -153,16 +245,23 @@
     <h1 class="section-title-lg reveal reveal-delay-1" id="brochure-title">
       Brochure<br><em>de sensibilisation</em>
     </h1>
+    <p class="brochure-desc reveal reveal-delay-2">
+      Un document de poche conçu pour accompagner les sessions de sensibilisation.
+      Recto et verso résument les quatre troubles auditifs invisibles étudiés —
+      hyperacousie, hypoacousie, acouphènes et vertiges — ainsi que les ressources du projet.
+    </p>
   </div>
 
   <div class="brochure-grid">
     <div class="brochure-page reveal">
       <span class="brochure-page-label">Recto</span>
       <img src="/brochure/1erepage.png" alt="Recto de la brochure Audiosensible">
+      <span class="brochure-page-caption">Face avant · Présentation des troubles</span>
     </div>
     <div class="brochure-page reveal reveal-delay-1">
       <span class="brochure-page-label">Verso</span>
       <img src="/brochure/2emepage.png" alt="Verso de la brochure Audiosensible">
+      <span class="brochure-page-caption">Face arrière · Ressources &amp; équipe</span>
     </div>
   </div>
 </section>
@@ -224,6 +323,8 @@
 </footer>
 
 <script type="module">const o=document.getElementById("scroll-top");o&&(window.addEventListener("scroll",()=>{o.classList.toggle("visible",window.scrollY>300)},{passive:!0}),o.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}));const d=document.getElementById("mainNav");if(d){const t=()=>{document.documentElement.style.setProperty("--nav-h",d.offsetHeight+"px")};window.addEventListener("scroll",()=>{d.classList.toggle("scrolled",window.scrollY>60),t()},{passive:!0}),t()}const s=document.getElementById("btn-ressources"),l=document.getElementById("dropdown-ressources");s&&l&&(s.addEventListener("keydown",t=>{if(t.key==="Enter"||t.key===" "){t.preventDefault();const e=s.getAttribute("aria-expanded")==="true";s.setAttribute("aria-expanded",String(!e))}t.key==="Escape"&&(s.setAttribute("aria-expanded","false"),s.focus())}),l.addEventListener("keydown",t=>{t.key==="Escape"&&(s.setAttribute("aria-expanded","false"),s.focus())}),document.addEventListener("click",t=>{s.closest("li").contains(t.target)||s.setAttribute("aria-expanded","false")}));const n=document.getElementById("burger"),r=document.getElementById("mobileNav");if(n&&r){let t=function(){const e=r.classList.toggle("open");r.style.display=e?"flex":"none",r.setAttribute("aria-hidden",String(!e)),n.classList.toggle("open",e),n.setAttribute("aria-expanded",String(e)),n.setAttribute("aria-label",e?"Fermer le menu":"Ouvrir le menu"),document.body.style.overflow=e?"hidden":""};n.addEventListener("click",t),n.addEventListener("keydown",e=>{(e.key===" "||e.key==="Enter")&&(e.preventDefault(),t())}),document.querySelectorAll(".mobile-link").forEach(e=>{e.addEventListener("click",()=>{r.classList.remove("open"),r.style.display="none",r.setAttribute("aria-hidden","true"),n.classList.remove("open"),n.setAttribute("aria-expanded","false"),n.setAttribute("aria-label","Ouvrir le menu"),document.body.style.overflow=""})}),window.addEventListener("resize",()=>{window.innerWidth>=1024&&(r.classList.remove("open"),r.style.display="none",r.setAttribute("aria-hidden","true"),n.classList.remove("open"),n.setAttribute("aria-expanded","false"),document.body.style.overflow="")})}const a=document.querySelectorAll(".reveal");if(a.length){const t=new IntersectionObserver(e=>{e.forEach(i=>{i.isIntersecting&&(i.target.classList.add("visible"),t.unobserve(i.target))})},{threshold:.1,rootMargin:"0px 0px -40px 0px"});a.forEach(e=>t.observe(e))}</script>
+
+<script type="module">function i(){const n=document.querySelector(".rn-toggle"),t=document.getElementById("rn-list"),r=document.querySelector(".rn-chevron"),o=document.querySelector(".rn-nav"),s=()=>{o&&document.documentElement.style.setProperty("--rn-nav-h",o.offsetHeight*1.25+"px")};if(s(),window.addEventListener("resize",s,{passive:!0}),!n||!t)return;let e=!1;n.addEventListener("click",()=>{e=!e,t.style.display=e?"flex":"none",t.style.flexDirection=e?"column":"",n.setAttribute("aria-expanded",String(e)),r&&(r.style.transform=e?"rotate(180deg)":""),s()}),t.querySelectorAll(".rn-link").forEach(l=>{l.addEventListener("click",()=>{e=!1,t.style.display="none",t.style.flexDirection="",n.setAttribute("aria-expanded","false"),r&&(r.style.transform=""),s()})})}i();</script>
 
 </body>
 </html>
