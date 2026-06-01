@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Les troubles — Audiosensible</title>
-  <meta name="description" content="Découvrez les quatre troubles auditifs invisibles documentés par Audiosensible : hyperacousie, hypoacousie, acouphènes et troubles vestibulaires.">
+  <title>Brochure — Audiosensible</title>
+  <meta name="description" content="Brochure de sensibilisation du projet Audiosensible : recto et verso présentant les troubles auditifs invisibles.">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -21,37 +21,50 @@
   <link rel="stylesheet" href="/style/style.css">
 
   <style>
-  .troubles-page-hero {
-    padding: 10rem 4rem 5rem;
+  #brochure {
+    padding: 10rem 4rem 8rem;
     background: var(--blanc);
-    max-width: 1200px;
+    min-height: 100vh;
+  }
+  .brochure-header {
+    max-width: 860px;
+    margin: 0 auto 4rem;
+  }
+  .brochure-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 1100px;
     margin: 0 auto;
   }
-.troubles-page-hero .page-title {
-    font-family: var(--font-titre);
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: var(--encre);
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
+  .brochure-page {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
-  .troubles-page-hero .page-intro {
-    font-size: 1.15rem;
-    line-height: 1.8;
-    color: var(--gris-fonce);
-    max-width: 640px;
+  .brochure-page-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rouge);
   }
-  #troubles-page { padding: 0 4rem 8rem; background: var(--blanc); }
-  @media (max-width: 900px) {
-    .troubles-page-hero { padding: 8rem 2.5rem 4rem; }
-    #troubles-page { padding: 0 2.5rem 6rem; }
+  .brochure-page img {
+    width: 100%;
+    height: auto;
+    border: 0.5px solid var(--gris-clair);
+    border-radius: 4px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    transition: box-shadow 0.3s var(--transition);
   }
-  @media (max-width: 640px) {
-    .troubles-page-hero { padding: 8rem 1.5rem 3rem; }
-    #troubles-page { padding: 0 1.5rem 5rem; }
+  .brochure-page img:hover {
+    box-shadow: 0 8px 40px rgba(0,0,0,0.14);
   }
-</style>
+  @media (max-width: 768px) {
+    #brochure { padding: 8rem 1.5rem 5rem; }
+    .brochure-grid { grid-template-columns: 1fr; }
+  }
+  </style>
 </head>
 <body>
 
@@ -89,37 +102,30 @@
         <li role="none">
             <a href="/etat-de-lart" role="menuitem">
               État de l&#39;art
-              
             </a>
           </li><li role="none">
             <a href="/cahier-des-charges" role="menuitem">
               Cahier des charges
-              
             </a>
           </li><li role="none">
             <a href="/code-et-fonctionnement" role="menuitem">
               Code et fonctionnement
-              
             </a>
           </li><li role="none">
             <a href="/protocole-experimental" role="menuitem">
               Protocole expérimental
-              
             </a>
           </li><li role="none">
             <a href="/analyse-resultats" role="menuitem">
               Analyse des résultats
-              
             </a>
           </li><li role="none">
             <a href="/scenario-usage" role="menuitem">
               Scénario d&#39;usage
-              
             </a>
           </li><li role="none">
             <a href="/brochure" role="menuitem">
               Brochure
-              
             </a>
           </li>
       </ul>
@@ -141,68 +147,23 @@
 
 <!-- ═══════════════════ CONTENU DE LA PAGE ═══════════════════ -->
 
+<section id="brochure" aria-labelledby="brochure-title">
+  <div class="brochure-header">
+    <p class="section-label reveal" aria-hidden="true">Ressources du projet</p>
+    <h1 class="section-title-lg reveal reveal-delay-1" id="brochure-title">
+      Brochure<br><em>de sensibilisation</em>
+    </h1>
+  </div>
 
-<div class="troubles-page-hero reveal">
-  <h1 class="page-title">Quatre réalités<br><em>invisibles</em></h1>
-  <p class="page-intro">
-    Hypoacousie, hyperacousie, acouphènes, troubles vestibulaires — des handicaps
-    auditifs que l'on ne voit pas, souvent mal reconnus, qui bouleversent pourtant
-    profondément le quotidien de millions de personnes.
-    Explorez chaque trouble pour mieux comprendre.
-  </p>
-</div>
-
-<section id="troubles-page" aria-label="Les quatre troubles auditifs">
-  <div class="troubles-grid">
-    <a href="/troubles/hyperacousie" class="trouble-card reveal ">
-        <div class="trouble-num" aria-hidden="true">01 / 04</div>
-        <svg class="trouble-wave" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,20 C20,20 25,5 40,5 C55,5 60,35 75,35 C90,35 95,5 110,5 C125,5 130,35 145,35 C160,35 165,5 180,5 C195,5 200,35 215,35 C230,35 235,5 250,5 C265,5 270,35 285,35 C295,35 298,22 300,20"></path>
-        </svg>
-        <p class="trouble-tag">Hyperacousie</p>
-        <h2 class="trouble-title">Tout trop fort</h2>
-        <p class="trouble-desc">La souffrance face à des sons ordinaires. Un froissement de papier,
-      le bruit d&#39;un restaurant, les voix dans un couloir — perçus comme
-      douloureux, intolérables, épuisants. Une hyper-sensibilité aux fréquences
-      qui isole progressivement du monde.</p>
-        <div class="trouble-freq">FRÉQUENCE : 1 personne sur 50 · Souvent méconnu</div>
-      </a><a href="/troubles/hypoacousie" class="trouble-card reveal reveal-delay-1">
-        <div class="trouble-num" aria-hidden="true">02 / 04</div>
-        <svg class="trouble-wave" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,20 C30,20 35,18 60,18 C85,18 90,22 120,22 C150,22 155,18 180,18 C205,18 210,22 240,22 C265,22 270,20 300,20"></path>
-        </svg>
-        <p class="trouble-tag">Hypoacousie</p>
-        <h2 class="trouble-title">Le monde en sourdine</h2>
-        <p class="trouble-desc">Une perte auditive partielle, souvent progressive, parfois brutale.
-      Les consonnes s&#39;estompent, les conversations deviennent épuisantes à suivre,
-      la fatigue cognitive s&#39;installe. Invisible, stigmatisée,
-      trop souvent banalisée.</p>
-        <div class="trouble-freq">FRÉQUENCE : 1 Français sur 10 · Sous-diagnostiqué</div>
-      </a><a href="/troubles/acouphenes" class="trouble-card reveal ">
-        <div class="trouble-num" aria-hidden="true">03 / 04</div>
-        <svg class="trouble-wave" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,20 C15,20 18,10 30,10 C42,10 45,30 57,30 C69,30 72,10 84,10 C96,10 99,30 111,30 C123,30 126,10 138,10 C150,10 153,30 165,30 C177,30 180,10 192,10 C204,10 207,30 219,30 C231,30 234,10 246,10 C258,10 261,30 273,30 C285,30 288,20 300,20"></path>
-        </svg>
-        <p class="trouble-tag">Acouphènes</p>
-        <h2 class="trouble-title">Des sons sans source</h2>
-        <p class="trouble-desc">Un sifflement, un bourdonnement, une sonnerie — constants,
-      intérieurs, inaudibles des autres. Les acouphènes peuvent coloniser
-      le silence, perturber le sommeil, générer une anxiété chronique.
-      Un bruit fantôme que rien ne peut éteindre.</p>
-        <div class="trouble-freq">FRÉQUENCE : 15 % des adultes · Chronique pour 2 millions</div>
-      </a><a href="/troubles/vertiges" class="trouble-card reveal reveal-delay-1">
-        <div class="trouble-num" aria-hidden="true">04 / 04</div>
-        <svg class="trouble-wave" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0,20 C10,20 15,8 30,8 C45,8 50,32 65,32 C80,32 85,8 100,8 C115,8 120,32 135,32 C150,32 155,8 170,8 C185,8 190,32 205,32 C220,32 225,8 240,8 C255,8 260,32 275,32 C288,32 295,22 300,20"></path>
-        </svg>
-        <p class="trouble-tag">Troubles vestibulaires</p>
-        <h2 class="trouble-title">L&#39;équilibre fragile</h2>
-        <p class="trouble-desc">Des vertiges soudains, des sensations de rotation, une instabilité
-      permanente. Les troubles vestibulaires affectent l&#39;oreille interne
-      et son rôle d&#39;organe de l&#39;équilibre — avec des conséquences
-      souvent dramatiques sur la vie quotidienne.</p>
-        <div class="trouble-freq">FRÉQUENCE : 35 % des adultes après 40 ans</div>
-      </a>
+  <div class="brochure-grid">
+    <div class="brochure-page reveal">
+      <span class="brochure-page-label">Recto</span>
+      <img src="/brochure/1erepage.png" alt="Recto de la brochure Audiosensible">
+    </div>
+    <div class="brochure-page reveal reveal-delay-1">
+      <span class="brochure-page-label">Verso</span>
+      <img src="/brochure/2emepage.png" alt="Verso de la brochure Audiosensible">
+    </div>
   </div>
 </section>
 
