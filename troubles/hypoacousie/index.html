@@ -28,7 +28,7 @@
   .page-divider { border: none; border-top: 0.5px solid var(--gris-clair); margin: 3rem 0; }
   .content-section { margin-bottom: 3.5rem; }
   .page-toc { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1.5rem; }
-  .page-toc a { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--rouge); text-decoration: none; display: flex; align-items: baseline; gap: 0.75rem; padding: 0.4rem 0; border-bottom: 0.5px solid var(--gris-tres-clair); }
+  .page-toc a { font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.06em; color: var(--rouge); text-decoration: none; display: flex; align-items: baseline; gap: 0.75rem; padding: 0.4rem 0; border-bottom: 0.5px solid var(--gris-tres-clair); }
   .page-toc a:hover { color: var(--encre); }
   .page-toc-num { min-width: 1.5rem; opacity: 0.5; }
   .section-heading { font-family: var(--font-titre); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; color: var(--encre); margin-bottom: 1.25rem; }
@@ -331,7 +331,7 @@
 
   <div class="content-section reveal">
     <h2 class="section-heading">Ressources et soutien</h2>
-    <div class="resource-grid">
+    <div class="resource-grid" style="grid-template-columns: repeat(2, 1fr);">
       <a href="https://www.fondationpourlaudition.org" target="_blank" rel="noopener noreferrer" class="resource-card">
           <p class="rc-title">Fondation pour l&#39;Audition</p>
           <p class="rc-body">Recherche, sensibilisation et soutien aux personnes touchées par tous les troubles de l&#39;audition.</p>
@@ -341,16 +341,23 @@
           <p class="rc-body">Informations officielles de l&#39;Assurance Maladie sur le diagnostic, les causes et les aides disponibles.</p>
           <p class="rc-link">ameli.fr ↗</p>
         </a><a href="https://www.surdi.info" target="_blank" rel="noopener noreferrer" class="resource-card">
-          <p class="rc-title">Surdi Info Service</p>
+          <p class="rc-title">Surdités Info Service</p>
           <p class="rc-body">Ligne d&#39;écoute et d&#39;information pour les personnes malentendantes et leurs proches.</p>
           <p class="rc-link">surdi.info ↗</p>
-        </a><a href="https://www.unapeda.asso.fr" target="_blank" rel="noopener noreferrer" class="resource-card">
+        </a><a href="https://www.unapeda.fr" target="_blank" rel="noopener noreferrer" class="resource-card">
           <p class="rc-title">UNAPEDA</p>
           <p class="rc-body">Association nationale de parents d&#39;enfants déficients auditifs — soutien et accompagnement familial.</p>
-          <p class="rc-link">unapeda.asso.fr ↗</p>
+          <p class="rc-link">unapeda.fr ↗</p>
         </a>
     </div>
   </div>
+
+  <div class="page-cta reveal">
+    <p class="cta-headline">Et si vous testiez votre audition ?</p>
+    <p class="cta-body">Consultez la section <strong>Ressources</strong> pour accéder à des outils permettant de tester votre audition en temps réel.</p>
+    <a href="/" class="btn-primary">← Retour à l'accueil</a>
+  </div>
+
 </div>
 
 
